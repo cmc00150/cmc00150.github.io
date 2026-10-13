@@ -1,0 +1,2544 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Pinout ESP32-WROOM-32</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<style>
+/* Layout: vista 1 = pinout de la placa centrado con filtros arriba; vista 2 (Ctrl+clic) = esquema interno del pad a la izquierda y panel de control a la derecha. */
+:root{
+  --bg: oklch(0.975 0.005 210);
+  --surface: oklch(0.995 0.003 210);
+  --fg: oklch(0.23 0.02 240);
+  --muted: oklch(0.49 0.02 235);
+  --line: oklch(0.88 0.01 225);
+  --hover: oklch(0.925 0.018 210);
+  --accent: oklch(0.50 0.11 195);
+  --tip-bg: oklch(0.995 0.003 210);
+  --code-bg: oklch(0.955 0.008 220);
+  --shadow: 0 14px 36px oklch(0.25 0.03 240 / .18), 0 2px 6px oklch(0.25 0.03 240 / .10);
+
+  --chip-bg-l: .91; --chip-bg-c: .075; --chip-fg-l: .36; --chip-fg-c: .13;
+  --strong-bg-l: .55; --strong-c: .15; --strong-fg: oklch(0.99 0 0);
+  --ring-l: .58;
+
+  --st-safe: oklch(0.56 0.14 150);
+  --st-caution: oklch(0.74 0.15 72);
+  --st-avoid: oklch(0.55 0.19 25);
+  --st-input: oklch(0.54 0.13 252);
+  --st-power: oklch(0.42 0.02 240);
+  --on-st: oklch(0.99 0 0);
+  --on-caution: oklch(0.22 0.03 60);
+
+  /* esquema */
+  --wire: oklch(0.58 0.015 240);
+  --bad: oklch(0.56 0.20 25);
+  --warn: oklch(0.70 0.15 68);
+  --fb-l: .86; --fd-l: .50;
+  --hatch: oklch(0.86 0.01 230);
+
+  /* la placa es un objeto físico: mismos colores en ambos temas */
+  --pcb: oklch(0.21 0.02 255);
+  --pcb-hi: oklch(0.30 0.025 255);
+  --silk: oklch(0.93 0.005 250);
+  --gold: oklch(0.80 0.12 85);
+  --gold-dark: oklch(0.58 0.10 75);
+  --can-1: oklch(0.92 0.004 250);
+  --can-2: oklch(0.76 0.008 250);
+  --can-ink: oklch(0.35 0.01 250);
+  --ic: oklch(0.15 0.01 250);
+  --led: oklch(0.62 0.21 28);
+
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --row: 30px; --top: 72px; --bottom: 60px; --board-w: 250px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg: oklch(0.185 0.012 235); --surface: oklch(0.22 0.014 235); --fg: oklch(0.93 0.008 220);
+    --muted: oklch(0.70 0.02 225); --line: oklch(0.33 0.015 235); --hover: oklch(0.27 0.02 230);
+    --accent: oklch(0.76 0.11 190); --tip-bg: oklch(0.24 0.015 235); --code-bg: oklch(0.165 0.012 235);
+    --shadow: 0 14px 36px oklch(0 0 0 / .45), 0 2px 6px oklch(0 0 0 / .3);
+    --chip-bg-l: .34; --chip-bg-c: .07; --chip-fg-l: .91; --chip-fg-c: .07;
+    --strong-bg-l: .72; --strong-c: .14; --strong-fg: oklch(0.17 0.02 240); --ring-l: .74;
+    --st-safe: oklch(0.73 0.15 150); --st-caution: oklch(0.81 0.14 75); --st-avoid: oklch(0.68 0.18 25);
+    --st-input: oklch(0.73 0.12 252); --st-power: oklch(0.74 0.02 240);
+    --on-st: oklch(0.17 0.02 240); --on-caution: oklch(0.2 0.03 60);
+    --wire: oklch(0.60 0.015 235); --bad: oklch(0.68 0.19 25); --warn: oklch(0.80 0.14 72);
+    --fb-l: .40; --fd-l: .82; --hatch: oklch(0.34 0.012 235);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg: oklch(0.185 0.012 235); --surface: oklch(0.22 0.014 235); --fg: oklch(0.93 0.008 220);
+  --muted: oklch(0.70 0.02 225); --line: oklch(0.33 0.015 235); --hover: oklch(0.27 0.02 230);
+  --accent: oklch(0.76 0.11 190); --tip-bg: oklch(0.24 0.015 235); --code-bg: oklch(0.165 0.012 235);
+  --shadow: 0 14px 36px oklch(0 0 0 / .45), 0 2px 6px oklch(0 0 0 / .3);
+  --chip-bg-l: .34; --chip-bg-c: .07; --chip-fg-l: .91; --chip-fg-c: .07;
+  --strong-bg-l: .72; --strong-c: .14; --strong-fg: oklch(0.17 0.02 240); --ring-l: .74;
+  --st-safe: oklch(0.73 0.15 150); --st-caution: oklch(0.81 0.14 75); --st-avoid: oklch(0.68 0.18 25);
+  --st-input: oklch(0.73 0.12 252); --st-power: oklch(0.74 0.02 240);
+  --on-st: oklch(0.17 0.02 240); --on-caution: oklch(0.2 0.03 60);
+  --wire: oklch(0.60 0.015 235); --bad: oklch(0.68 0.19 25); --warn: oklch(0.80 0.14 72);
+  --fb-l: .40; --fd-l: .82; --hatch: oklch(0.34 0.012 235);
+  color-scheme: dark;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font:400 15px/1.5 var(--font-body)}
+body.locked{overflow:hidden}
+#pv{transform-origin:50% 0}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:20px;padding-block:28px 56px;display:grid;gap:22px}
+
+.eyebrow{font:600 11px/1 var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0}
+h1{font-family:var(--font-display);font-stretch:118%;font-weight:800;font-size:clamp(30px,4.6vw,50px);line-height:1;letter-spacing:-.015em;margin:10px 0 8px;text-wrap:balance}
+h1 .soft{font-weight:300;color:var(--muted)}
+.lede{color:var(--muted);max-width:72ch;margin:0}
+kbd{font:600 11.5px/1 var(--font-mono);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:2px 5px;color:var(--fg);background:var(--surface)}
+
+.filters{display:grid;gap:14px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.fgroup{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:start}
+.fgroup h2{font:600 11px/1.3 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:8px 0 0}
+.badges{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.badge{--h:200;appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 13.5px/1 var(--font-body);padding:7px 11px 7px 9px;border-radius:999px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;transition:background .15s,border-color .15s,color .15s,opacity .15s}
+.badge .dot{width:9px;height:9px;border-radius:50%;background:oklch(var(--ring-l) .15 var(--h));flex:none}
+.badge .cnt{font:600 11px/1 var(--font-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.badge:hover{border-color:oklch(var(--ring-l) .13 var(--h))}
+.badge:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.badge[aria-pressed="true"]{background:oklch(var(--strong-bg-l) var(--strong-c) var(--h));border-color:transparent;color:var(--strong-fg)}
+.badge[aria-pressed="true"] .dot{background:var(--strong-fg)}
+.badge[aria-pressed="true"] .cnt{color:inherit;opacity:.85}
+.badge[aria-disabled="true"]{opacity:.38;cursor:not-allowed;text-decoration:line-through}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;border-top:1px solid var(--line);padding-top:12px}
+.toolbar .lbl{font-size:13px;color:var(--muted)}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{appearance:none;border:0;background:transparent;color:var(--fg);font:500 13px/1 var(--font-body);padding:7px 11px;cursor:pointer}
+.seg button + button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.seg button:disabled{opacity:.4;cursor:not-allowed}
+.seg button:focus-visible,.clear:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.clear{appearance:none;border:1px solid var(--line);background:transparent;color:var(--fg);font:500 13px/1 var(--font-body);padding:7px 11px;border-radius:8px;cursor:pointer}
+.clear:disabled{opacity:.45;cursor:default}
+.count{font:600 12px/1 var(--font-mono);color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+.explain{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:13.5px;color:var(--muted)}
+.explain li{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:baseline}
+.explain b{color:var(--fg);font-weight:600}
+.explain .dot{width:8px;height:8px;border-radius:50%;background:oklch(var(--ring-l) .15 var(--h));transform:translateY(-1px)}
+@media (max-width:680px){.fgroup{grid-template-columns:1fr;gap:6px}.fgroup h2{margin:0}.count{margin-left:0}}
+
+.scroller{overflow-x:auto;padding-block:6px 14px;-webkit-overflow-scrolling:touch}
+.stage{display:grid;width:max-content;margin-inline:auto;grid-template-columns:1fr var(--board-w) 1fr;grid-template-rows:var(--top) repeat(19,var(--row)) var(--bottom)}
+.side-cap{grid-row:1;align-self:end;padding-bottom:12px;font:600 10.5px/1.3 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.side-cap.l{grid-column:1;justify-self:end;text-align:right;padding-right:10px}
+.side-cap.r{grid-column:3;justify-self:start;padding-left:10px}
+
+.row{display:flex;align-items:center;gap:4px;height:var(--row);border-radius:7px;cursor:help;outline:none;transition:opacity .2s,background .15s,filter .2s}
+.row.l{grid-column:1;justify-self:end;flex-direction:row-reverse;padding-left:6px}
+.row.r{grid-column:3;justify-self:start;padding-right:6px}
+.row.hover{background:var(--hover)}
+.row:focus-visible{background:var(--hover);box-shadow:0 0 0 2px var(--accent)}
+.lead{width:28px;height:var(--row);flex:none;color:var(--muted)}
+.lead svg{display:block;width:28px;height:var(--row);overflow:visible}
+.row.r .lead svg.flip{transform:scaleX(-1)}
+.num{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:700 10.5px/1 var(--font-mono);flex:none;background:var(--st);color:var(--on);font-variant-numeric:tabular-nums;transition:box-shadow .2s}
+.st-safe{--st:var(--st-safe);--on:var(--on-st)}
+.st-caution{--st:var(--st-caution);--on:var(--on-caution)}
+.st-avoid{--st:var(--st-avoid);--on:var(--on-st)}
+.st-input{--st:var(--st-input);--on:var(--on-st)}
+.st-power{--st:var(--st-power);--on:var(--on-st)}
+
+.chip{--h:240;--cm:1;display:inline-block;font:600 10.5px/1 var(--font-mono);letter-spacing:.01em;padding:4px 6px;border-radius:4px;white-space:nowrap;background:oklch(var(--chip-bg-l) calc(var(--chip-bg-c) * var(--cm)) var(--h));color:oklch(var(--chip-fg-l) calc(var(--chip-fg-c) * var(--cm)) var(--h));transition:box-shadow .2s}
+.chip.strong{background:oklch(var(--strong-bg-l) calc(var(--strong-c) * var(--cm)) var(--h));color:var(--strong-fg);font-weight:700}
+.chip.k-gnd{background:var(--fg);color:var(--bg);font-weight:700}
+.chip.lit{box-shadow:0 0 0 1.5px var(--bg),0 0 0 3px oklch(var(--ring-l) .16 var(--h))}
+.k-gpio{--h:150}.k-pwr{--h:27}.k-en{--h:240;--cm:.35}
+.k-rtc{--h:235;--cm:.55}.k-adc1{--h:300}.k-adc2{--h:335}.k-touch{--h:58}.k-dac{--h:98}
+.k-vspi{--h:205}.k-hspi{--h:262}.k-i2c{--h:178}.k-uart{--h:12}.k-uart2{--h:12;--cm:.55}
+.k-jtag{--h:285;--cm:.4}.k-strap{--h:25}.k-flash{--h:45;--cm:.55}.k-misc{--h:240;--cm:.25}
+
+.stage.filtering .row:not(.hit):not(.hover){opacity:.2;filter:saturate(.3)}
+.stage.filtering .pad:not(.hit){opacity:.35}
+.row.hit .num{box-shadow:0 0 0 2px var(--bg),0 0 0 4px oklch(var(--ring-l) .16 var(--gh))}
+
+.board{grid-column:2;grid-row:1/-1;position:relative}
+.pcb{position:absolute;inset:0;background:var(--pcb);border-radius:12px;box-shadow:inset 0 0 0 2px var(--pcb-hi),var(--shadow)}
+.pad{position:absolute;width:16px;height:16px;border-radius:4px;background:var(--gold);box-shadow:inset 0 0 0 2px var(--gold-dark);cursor:help;transition:opacity .2s,box-shadow .2s,transform .15s}
+.pad::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--ic)}
+.pad.l{left:10px}.pad.r{right:10px}
+.pad.hover{transform:scale(1.25);box-shadow:inset 0 0 0 2px var(--gold-dark),0 0 0 3px oklch(0.85 0.1 200 / .7)}
+.pad.hit{box-shadow:inset 0 0 0 2px var(--gold-dark),0 0 0 3px oklch(0.75 0.16 var(--gh) / .9),0 0 12px oklch(0.75 0.16 var(--gh) / .7)}
+.silk{position:absolute;font:600 8px/1 var(--font-mono);color:var(--silk);opacity:.82;pointer-events:none}
+.silk.l{left:30px}.silk.r{right:30px;text-align:right}
+.module{position:absolute;left:54px;right:54px;top:6px;height:336px;border-radius:4px;overflow:hidden;box-shadow:0 2px 6px oklch(0 0 0 / .4)}
+.ant{height:66px;background:oklch(0.17 0.02 250);display:grid;place-items:center}
+.ant svg{width:100%;height:56px}
+.can{position:absolute;inset:66px 0 0;background:linear-gradient(160deg,var(--can-1),var(--can-2));display:grid;place-content:center;justify-items:center;gap:6px;text-align:center}
+.can-title{font:700 11px/1 var(--font-mono);color:var(--can-ink);letter-spacing:.04em}
+.can-sub{font:500 8.5px/1.4 var(--font-mono);color:var(--can-ink);opacity:.75}
+.can-mark{width:38px;height:38px;border:1.5px solid var(--can-ink);border-radius:50%;opacity:.35;margin-bottom:6px;display:grid;place-items:center;font:700 9px/1 var(--font-mono);color:var(--can-ink)}
+.part{position:absolute;background:var(--ic);border-radius:2px}
+.reg{left:66px;top:368px;width:34px;height:20px}
+.reg::before{content:"";position:absolute;left:6px;right:6px;top:-6px;height:6px;background:oklch(0.7 0.01 250);border-radius:1px}
+.led{right:72px;top:374px;width:9px;height:6px;background:var(--led);box-shadow:0 0 8px var(--led)}
+.uart{left:50%;top:446px;width:36px;height:36px;transform:translateX(-50%) rotate(45deg)}
+.uart::after{content:"";position:absolute;left:5px;top:5px;width:4px;height:4px;border-radius:50%;background:oklch(0.4 0.01 250)}
+.btn{position:absolute;top:586px;width:30px;height:30px;background:oklch(0.85 0.005 250);border-radius:3px}
+.btn::after{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--ic)}
+.btn.en{left:56px}.btn.boot{right:56px}
+.btn-lbl{position:absolute;top:624px;font:700 8.5px/1 var(--font-mono);color:var(--silk);width:30px;text-align:center}
+.btn-lbl.en{left:56px}.btn-lbl.boot{right:56px}
+.usb{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);width:60px;height:36px;border-radius:5px;background:linear-gradient(180deg,var(--can-1),var(--can-2));box-shadow:0 2px 6px oklch(0 0 0 / .4)}
+.usb::after{content:"";position:absolute;left:10px;right:10px;bottom:7px;height:9px;border-radius:5px;background:var(--ic)}
+.silk-mid{position:absolute;left:0;right:0;text-align:center;font:600 8px/1 var(--font-mono);color:var(--silk);opacity:.7}
+
+.tip{position:fixed;z-index:30;left:0;top:0;width:min(370px,calc(100vw - 24px));background:var(--tip-bg);color:var(--fg);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:14px 16px 15px;pointer-events:none;font-size:13.5px;line-height:1.45;display:grid;gap:10px}
+.tip.pinned{pointer-events:auto}
+.tip-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tip-name{font-family:var(--font-display);font-stretch:115%;font-weight:800;font-size:22px;line-height:1}
+.pill{font:700 10.5px/1 var(--font-mono);letter-spacing:.04em;text-transform:uppercase;padding:5px 8px;border-radius:999px;background:var(--st);color:var(--on);white-space:nowrap}
+.tip-sub{font:500 11.5px/1.3 var(--font-mono);color:var(--muted);margin-top:-4px}
+.tip p{margin:0}
+.caps{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.cap{border:1px solid var(--line);border-radius:6px;padding:5px 6px;font-size:11px;line-height:1.2;color:var(--muted);display:grid;gap:2px}
+.cap b{font:700 13px/1 var(--font-mono)}
+.cap.yes b{color:var(--st-safe)}
+.cap.no b{color:var(--st-avoid)}
+.fns{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.fns li{display:grid;grid-template-columns:96px 1fr;gap:8px;align-items:start;font-size:12.5px}
+.fns .chip{justify-self:start}
+.box{border-radius:8px;padding:8px 10px;font-size:12.5px}
+.box.warn{background:color-mix(in oklch, var(--st-avoid) 14%, transparent)}
+.box.warn.soft{background:color-mix(in oklch, var(--st-caution) 22%, transparent)}
+.box.note{background:var(--hover)}
+.box b{font-weight:700}
+.tip-groups{font-size:12px;color:var(--muted)}
+.tip-hint{font:500 11px/1.3 var(--font-mono);color:var(--muted)}
+.tip-keys{display:flex;align-items:center;flex-wrap:wrap;gap:5px}
+.tip-keys kbd{font-size:11px}
+.tip-keys span:last-child{margin-left:3px}
+.tip-btn{appearance:none;border:0;border-radius:8px;background:var(--fg);color:var(--bg);font:600 13px/1 var(--font-body);padding:9px 12px;cursor:pointer;justify-self:start}
+.tip-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.ref{display:grid;gap:18px}
+.ref h2{font-family:var(--font-display);font-stretch:112%;font-weight:750;font-size:19px;margin:0}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13px;color:var(--muted);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend .num{width:16px;height:16px;font-size:0}
+.legend svg{width:28px;height:18px;color:var(--fg)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.fact{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px 16px;display:grid;gap:6px;align-content:start;min-width:0}
+.fact h3{margin:0;font:700 15px/1.2 var(--font-body)}
+.fact p{margin:0;font-size:13.5px;color:var(--muted)}
+.fact code,.foot code{font:600 12px/1 var(--font-mono);color:var(--fg)}
+.foot{font-size:12.5px;color:var(--muted);margin:0;max-width:90ch}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);z-index:60;background:var(--fg);color:var(--bg);padding:10px 14px;border-radius:10px;font-size:13.5px;max-width:calc(100vw - 32px);box-shadow:var(--shadow)}
+
+/* ===================== vista de circuito ===================== */
+
+.sch{--fh:200}
+.sch text{font-family:var(--font-mono)}
+.sch .tx{fill:var(--fg);font-size:12px;font-weight:600}
+.sch .tm{fill:var(--muted);font-size:10.5px;font-weight:500}
+.sch .tb{fill:var(--fg);font-size:13px;font-weight:700}
+.sch .w{stroke:var(--wire);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.sch .c{stroke:var(--fg);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.sch .bgf{fill:var(--surface)}
+.sch .fillc{fill:var(--fg)}
+.sch .frame{fill:none;stroke:var(--line);stroke-width:1.5;stroke-dasharray:6 5}
+.sch .dot{fill:var(--fg)}
+.sch g{transition:opacity .25s}
+.sch .off{opacity:.28}
+.sch .maybe .c{stroke-dasharray:4 4}
+.sch .lever,.sch .mv{transition:transform .25s ease}
+.sch .ch-on{display:none}
+.sch .on-mos .ch-on{display:inline}
+.sch .on-mos .ch-off{display:none}
+.sch .regbox{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.sch .bitbox{fill:var(--bg);stroke:var(--line);stroke-width:1.2;transition:fill .2s}
+.sch .bittx{fill:var(--muted);font-size:12px;font-weight:700}
+.sch .reg-on .regbox{stroke:oklch(var(--ring-l) .14 var(--fh))}
+.sch .reg-on .bitbox{fill:oklch(var(--strong-bg-l) var(--strong-c) var(--fh));stroke:transparent}
+.sch .reg-on .bittx{fill:var(--strong-fg)}
+.sch .ctl{stroke:var(--wire);stroke-width:1.4;fill:none;stroke-dasharray:4 4;opacity:.6}
+.sch .ctl.on{stroke:oklch(var(--ring-l) .15 var(--fh));opacity:1}
+.sch .sig{stroke:oklch(var(--ring-l) .15 var(--fh));stroke-width:2;fill:none;stroke-dasharray:2 6;stroke-linecap:round;animation:flow 1.6s linear infinite;opacity:0;transition:opacity .2s}
+.sch .sig.on{opacity:1}
+.sch .sig.flick{opacity:1;animation:flow 1.6s linear infinite,flick .32s steps(2) infinite}
+.sch .fb{fill:none;stroke:oklch(var(--fb-l) .11 var(--fh));stroke-width:9;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .25s}
+.sch .fd{fill:none;stroke:oklch(var(--fd-l) .17 var(--fh));stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:8 8;opacity:0;animation:flow var(--dur,1.2s) linear infinite;transition:opacity .25s}
+.sch .fb.on{opacity:.75}.sch .fd.on{opacity:1}
+.sch .fd.rev{animation-direction:reverse}
+.sch .bad-flow{--fh:25}
+.sch .burn .c{stroke:var(--bad)}
+.sch .burn .fillc{fill:var(--bad)}
+.sch .burn{animation:burn .7s ease-in-out infinite alternate}
+.sch .hot .c{stroke:var(--warn)}
+.sch .hot .fillc{fill:var(--warn)}
+.sch .dmg{display:none}
+.sch .burn .dmg{display:inline}
+.sch .dmg rect{fill:var(--bad)}
+.sch .dmg text{fill:oklch(0.99 0 0);font-size:10px;font-weight:700}
+.sch .pad{fill:var(--gold);stroke:var(--gold-dark);stroke-width:2}
+.sch .pad.hot{stroke:var(--warn);stroke-width:3}
+.sch .pad.burn{stroke:var(--bad);stroke-width:3}
+.sch .diode-on .c{stroke:var(--warn)}
+.sch .diode-on .fillc{fill:var(--warn)}
+.sch .ledglow{fill:var(--led);opacity:0;transition:opacity .25s;filter:blur(6px)}
+.sch .ledfill{fill:var(--surface);transition:fill .2s}
+.sch .ival{fill:oklch(var(--ring-l) .15 var(--fh));font-size:11.5px;font-weight:700}
+.sch .ival.bad{fill:var(--bad)}
+.sch .ival.warn{fill:var(--warn)}
+.sch .ablk rect.box{fill:var(--surface);stroke:var(--fg);stroke-width:2}
+.sch .ablk.act rect.box{stroke:oklch(var(--ring-l) .15 var(--fh));stroke-width:2.5;fill:color-mix(in srgb, oklch(var(--ring-l) .15 var(--fh)) 8%, var(--surface))}
+.sch .ablk.act .ival{fill:oklch(var(--ring-l) .15 var(--fh))}
+.sch .elec{fill:var(--gold);stroke:var(--gold-dark);stroke-width:1.5}
+.sch .finger{fill:oklch(0.82 0.06 55);stroke:oklch(0.55 0.08 45);stroke-width:1.5}
+.sch .ctouch{opacity:0;transition:opacity .25s}
+.sch .ctouch.on{opacity:1}
+@keyframes flow{to{stroke-dashoffset:-32}}
+@keyframes flick{0%{opacity:1}100%{opacity:.15}}
+@keyframes burn{from{opacity:1}to{opacity:.55}}
+
+.outcard{padding:16px 18px;display:grid;gap:12px;--h:200}
+.outcard h3{margin:0;font:700 16px/1.25 var(--font-body)}
+.outcard h3 code{font:700 14px/1 var(--font-mono);color:oklch(var(--ring-l) .15 var(--h))}
+.outcard p{margin:0;font-size:13.5px;color:var(--muted);max-width:80ch}
+.outcard p b{color:var(--fg);font-weight:600}
+.usecase{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,360px);gap:16px;align-items:center}
+@media (max-width:760px){.usecase{grid-template-columns:1fr}}
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.stat{border:1px solid var(--line);border-radius:9px;padding:7px 10px;display:grid;gap:3px;min-width:104px}
+.stat span{font-size:11.5px;color:var(--muted)}
+.stat b{font:700 14px/1.1 var(--font-mono);font-variant-numeric:tabular-nums}
+.stat.hl{border-color:oklch(var(--ring-l) .15 var(--h));background:color-mix(in srgb, oklch(var(--ring-l) .15 var(--h)) 10%, transparent)}
+.stat.bad{border-color:color-mix(in srgb, var(--bad) 60%, transparent)}
+.stat.bad b{color:var(--bad)}
+.sc-wrap{overflow-x:auto}
+.scope{display:block;width:100%;height:auto;min-width:420px}
+.scope .sc-bg{fill:var(--code-bg)}
+.scope .sc-grid{stroke:var(--line);stroke-width:1}
+.scope .sc-lbl{fill:var(--muted);font:500 10.5px var(--font-mono)}
+.scope .sc-lbl.b{fill:var(--fg);font-weight:700}
+.scope .sc-tr{fill:none;stroke:oklch(var(--fd-l) .17 var(--h));stroke-width:2.4;stroke-linejoin:round}
+.scope .sc-tr2{fill:none;stroke:oklch(var(--fd-l) .14 calc(var(--h) + 120));stroke-width:2.2;stroke-linejoin:round}
+.scope .sc-ref{fill:none;stroke:var(--muted);stroke-width:1.4;stroke-dasharray:4 4;opacity:.7}
+.scope .sc-avg{stroke:oklch(var(--ring-l) .15 var(--h));stroke-width:1.4;stroke-dasharray:6 4}
+.scope .sc-cur{stroke:var(--fg);stroke-width:1.5;opacity:.55}
+.scope .sc-hl{fill:oklch(var(--ring-l) .15 var(--h));opacity:.16}
+.scope .sc-pt{fill:oklch(var(--fd-l) .17 var(--h));stroke:var(--surface);stroke-width:2}
+.scope .sc-bad{stroke:var(--bad)}
+.scope .sc-badtx{fill:var(--bad);font:700 11px var(--font-mono)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}
+.tile{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:4px;transition:opacity .25s,background .25s}
+.tile b{font-size:13.5px}
+.tile span{font-size:12px;color:var(--muted)}
+.tile.on{background:color-mix(in srgb, var(--st-safe) 14%, transparent);border-color:color-mix(in srgb, var(--st-safe) 45%, transparent)}
+.tile.half{background:color-mix(in srgb, var(--warn) 14%, transparent);border-color:color-mix(in srgb, var(--warn) 45%, transparent)}
+.tile.off{opacity:.45}
+.log{margin:0;background:var(--code-bg);border-radius:8px;padding:10px 12px;font:500 12px/1.55 var(--font-mono);white-space:pre-wrap;min-height:3.6em;overflow-x:auto;color:var(--fg)}
+.log .dim{color:var(--muted)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:0;padding:0;list-style:none}
+.steps li{border:1px solid var(--line);border-radius:10px;padding:9px 11px;font-size:12.5px;color:var(--muted);display:grid;gap:3px;transition:background .25s,border-color .25s,opacity .25s}
+.steps li b{color:var(--fg);font-size:13px}
+.steps li.now{border-color:oklch(var(--ring-l) .15 var(--h));background:color-mix(in srgb, oklch(var(--ring-l) .15 var(--h)) 14%, transparent)}
+.steps li.todo{opacity:.5}
+.stab-wrap{overflow-x:auto}
+.stab{width:100%;border-collapse:collapse;font-size:12.5px;min-width:520px}
+.stab th,.stab td{text-align:left;padding:6px 8px;border-top:1px solid var(--line);vertical-align:top}
+.stab th{font:600 10.5px/1.2 var(--font-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em;border-top:0}
+.stab td.v{font:700 12.5px/1 var(--font-mono);white-space:nowrap}
+.stab tr.me td{background:var(--hover)}
+.result{border-radius:10px;padding:10px 12px;font-size:13.5px;border:1px solid var(--line);display:grid;gap:3px}
+.result b{font-size:14.5px}
+.result.ok{background:color-mix(in srgb, var(--st-safe) 12%, transparent);border-color:color-mix(in srgb, var(--st-safe) 45%, transparent)}
+.result.warn{background:color-mix(in srgb, var(--warn) 14%, transparent);border-color:color-mix(in srgb, var(--warn) 45%, transparent)}
+.result.bad{background:color-mix(in srgb, var(--bad) 12%, transparent);border-color:color-mix(in srgb, var(--bad) 45%, transparent)}
+.meter{height:10px;border-radius:999px;background:var(--hover);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--led);transition:width .2s}
+.two{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px;align-items:start}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+
+.pv{display:block;width:100%;height:auto;--fh:200}
+.pv .w{stroke:var(--wire);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pv .c{stroke:var(--fg);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pv .fillc{fill:var(--fg)}
+.pv .bgf{fill:var(--surface)}
+.pv .frame{fill:none;stroke:var(--line);stroke-width:1.3;stroke-dasharray:5 4}
+.pv text{font-family:var(--font-mono);font-size:9.5px;font-weight:600;fill:var(--fg)}
+.pv .tm{fill:var(--muted);font-weight:500}
+.pv .pin{fill:var(--gold);stroke:var(--gold-dark);stroke-width:1.5}
+.pv .fb{fill:none;stroke:oklch(var(--fb-l) .11 var(--fh));stroke-width:7;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
+.pv .fd{fill:none;stroke:oklch(var(--fd-l) .17 var(--fh));stroke-width:3;stroke-dasharray:7 7;stroke-linejoin:round;animation:flow 1.1s linear infinite}
+.pv .glow{fill:var(--led);opacity:.55;filter:blur(5px)}
+
+.mpop{position:fixed;z-index:50;left:0;top:0;width:min(360px,calc(100vw - 24px));background:var(--tip-bg);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:12px 14px 12px;display:grid;gap:8px;pointer-events:none;font-size:13px}
+.mpop h4{margin:0;font:700 13.5px/1.2 var(--font-mono);color:oklch(var(--ring-l) .15 var(--h))}
+.mpop p{margin:0;color:var(--muted);line-height:1.45}
+.mpop p b{color:var(--fg);font-weight:600}
+.mpop .pvbox{border-radius:8px;background:var(--bg);padding:4px}
+.mpop .note{font:500 11px/1.3 var(--font-mono);color:var(--muted)}
+
+.side{display:grid;gap:12px;min-width:0}
+.panel{padding:14px 16px;display:grid;gap:10px}
+.panel h3{margin:0;font:600 11px/1.3 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.state{border-width:1.5px}
+.state.ok{border-color:color-mix(in srgb, var(--st-safe) 55%, transparent)}
+.state.warn{border-color:color-mix(in srgb, var(--warn) 70%, transparent);background:color-mix(in srgb, var(--warn) 8%, var(--surface))}
+.state.bad{border-color:color-mix(in srgb, var(--bad) 70%, transparent);background:color-mix(in srgb, var(--bad) 8%, var(--surface))}
+.state-title{display:flex;align-items:center;gap:8px;font:700 16px/1.2 var(--font-body)}
+.state-title i{width:10px;height:10px;border-radius:50%;background:var(--st-safe);flex:none}
+.state.warn .state-title i{background:var(--warn)}
+.state.bad .state-title i{background:var(--bad);animation:burn .6s infinite alternate}
+.state ul{margin:0;padding-left:18px;display:grid;gap:5px;font-size:13px;color:var(--muted)}
+.state li.bad{color:var(--fg)}
+.state li.bad::marker{color:var(--bad)}
+.state li.warn::marker{color:var(--warn)}
+.vbig{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.vbig b{font:700 30px/1 var(--font-mono);font-variant-numeric:tabular-nums}
+.readchip{font:600 12.5px/1 var(--font-mono);border-radius:999px;padding:6px 10px;background:var(--hover)}
+.readchip b{font-size:14px}
+.vbar{position:relative;height:26px;border-radius:6px;overflow:hidden;background:var(--hover)}
+.vz{position:absolute;top:0;bottom:0;display:grid;place-items:center;font:700 11px/1 var(--font-mono);color:var(--fg)}
+.vz.lo{background:color-mix(in srgb, var(--st-input) 28%, transparent)}
+.vz.hi{background:color-mix(in srgb, var(--st-safe) 30%, transparent)}
+.vz.mid{background:repeating-linear-gradient(135deg,var(--hatch) 0 5px,transparent 5px 10px)}
+.vz.warnz{background:color-mix(in srgb, var(--warn) 30%, transparent)}
+.vz.badz{background:color-mix(in srgb, var(--bad) 30%, transparent)}
+.vmark{position:absolute;top:-3px;bottom:-3px;width:3px;margin-left:-1.5px;background:var(--fg);border-radius:2px;transition:left .2s ease;box-shadow:0 0 0 2px var(--surface)}
+.vmark.float{transition:left .12s linear;background:var(--warn)}
+.vticks{position:relative;height:14px;font:500 10px/1 var(--font-mono);color:var(--muted)}
+.vticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.code{margin:0;background:var(--code-bg);border-radius:8px;padding:10px 12px;font:500 12.5px/1.6 var(--font-mono);overflow-x:auto;white-space:pre;--h:200}
+.code .k{color:oklch(var(--ring-l) .15 var(--h));font-weight:700}
+.code .cm{color:var(--muted)}
+.ctl-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.preset{appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 12.5px/1.15 var(--font-body);padding:6px 9px;border-radius:7px;cursor:pointer;text-align:left}
+.preset:hover{border-color:var(--muted)}
+.preset[aria-pressed="true"]{border-color:var(--fg);box-shadow:inset 0 0 0 1px var(--fg)}
+.preset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sl{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+.sl > span{display:flex;justify-content:space-between;gap:8px}
+.sl b{font:700 13px/1 var(--font-mono);color:var(--fg);font-variant-numeric:tabular-nums;text-align:right}
+.sl-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.nf{display:inline-flex;align-items:center;gap:5px}
+.nf i{font:600 12px var(--font-mono);font-style:normal;color:var(--muted)}
+.nin{width:84px;text-align:right;font:700 13px/1 var(--font-mono);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:5px 7px;font-variant-numeric:tabular-nums}
+.nin:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.sl input[type=range]{width:100%;accent-color:var(--fg)}
+.sl .nin{width:84px;flex:none}
+.sl-h > span:first-child{min-width:0}
+.itab{width:100%;border-collapse:collapse;font-size:12.5px}
+.itab td{padding:5px 0;border-top:1px solid var(--line);vertical-align:top}
+.itab td:nth-child(2){text-align:right;font:700 12.5px/1.3 var(--font-mono);white-space:nowrap;padding-left:8px;font-variant-numeric:tabular-nums}
+.itab .dir{display:block;color:var(--muted);font-size:11.5px}
+.itab tr.bad td:nth-child(2){color:var(--bad)}
+.itab tr.warn td:nth-child(2){color:var(--warn)}
+.ref-note{font-size:12px;color:var(--muted);margin:0}
+.try,.tog{appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:600 13px/1 var(--font-body);padding:8px 12px;border-radius:8px;cursor:pointer}
+.try:hover,.tog:hover{border-color:var(--muted)}
+.try:focus-visible,.tog:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tog[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.try.big{padding:11px 16px;font-size:14px}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chk{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--fg);cursor:pointer}
+.chk input{accent-color:var(--fg);width:16px;height:16px}
+.fld{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.fld input[type=text],.fld select{font:600 13px/1 var(--font-mono);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:7px 8px}
+.fld input[type=text]{width:3.2em;text-align:center}
+
+@media (prefers-reduced-motion: reduce){*{transition:none!important}.sch .fd,.pv .fd,.sch .sig{animation:none!important}}
+
+/* ===================== vista de circuito: lienzo + paneles flotantes ===================== */
+.cv{position:fixed;inset:0;z-index:40;background:var(--bg);overflow:hidden;--hdr-h:120px;--vcol-w:150px;--ext-w:350px;--gap:12px;--grid:color-mix(in srgb, var(--fg) 14%, transparent)}
+.vp{position:absolute;inset:0;overflow:hidden;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;background-color:var(--bg);background-image:radial-gradient(var(--grid) 1.1px, transparent 1.4px);background-size:24px 24px;outline:none}
+.vp.drag{cursor:grabbing}
+.vp:focus-visible{box-shadow:inset 0 0 0 2px var(--accent)}
+.stg{position:absolute;left:0;top:0}
+.stg .sch{display:block;width:1320px;height:760px;min-width:0}
+.stg .sch .frame-bg{fill:color-mix(in srgb, var(--surface) 82%, transparent)}
+
+.ov{position:absolute;z-index:2}
+.card{border:1px solid var(--line);border-radius:14px;background:var(--surface);min-width:0;box-shadow:var(--shadow)}
+.icon-btn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--fg);width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;cursor:pointer;flex:none}
+.icon-btn:hover{border-color:var(--muted)}
+.icon-btn:focus-visible,.ov-head:focus-visible,.ext-btn:focus-visible,.zoomctl button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.icon-btn svg,.ov-head svg{width:14px;height:14px;transition:transform .2s}
+[aria-expanded="false"] > svg.chev{transform:rotate(180deg)}
+
+/* cabecera plegable */
+.hdr{top:calc(var(--gap) + env(safe-area-inset-top,0px));left:var(--gap);right:var(--gap);max-width:1180px;margin-inline:auto;padding:10px 12px;display:grid;gap:8px}
+.hdr-bar{display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap}
+.back{appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:600 13.5px/1 var(--font-body);padding:9px 13px 9px 10px;border-radius:9px;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
+.back:hover{border-color:var(--muted)}
+.back:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hdr-t{display:grid;gap:3px;margin-right:auto;min-width:0}
+.hdr-t h2{font-family:var(--font-display);font-stretch:118%;font-weight:800;font-size:clamp(20px,2.6vw,28px);line-height:1;margin:0}
+.hdr-t h2 .soft{font-weight:300;color:var(--muted)}
+.pin-pick{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.pin-pick select{font:600 13px/1 var(--font-mono);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 8px}
+.hdr-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,400px);gap:10px 16px;align-items:start}
+.hdr-txt{display:grid;gap:8px;min-width:0}
+.hdr .code{margin:0;font-size:12px;line-height:1.55}
+@media (max-width:900px){.hdr-body{grid-template-columns:1fr}}
+.cv-sum{margin:0;color:var(--muted);font-size:13px;max-width:130ch}
+.cv-sum b{color:var(--fg);font-weight:600}
+.banner{border-radius:9px;padding:8px 12px;font-size:13px;border:1px solid var(--line)}
+.banner.bad{background:color-mix(in srgb, var(--bad) 12%, transparent);border-color:color-mix(in srgb, var(--bad) 35%, transparent)}
+.banner.warn{background:color-mix(in srgb, var(--warn) 16%, transparent);border-color:color-mix(in srgb, var(--warn) 40%, transparent)}
+.banner.info{background:color-mix(in srgb, var(--st-input) 12%, transparent);border-color:color-mix(in srgb, var(--st-input) 35%, transparent)}
+
+/* cabeceras de paneles plegables */
+.ov-head{appearance:none;border:0;background:transparent;color:var(--fg);width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;cursor:pointer;text-align:left;border-radius:14px}
+.ov-head h3{margin:0;font:600 11px/1.3 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ov-body{padding:0 14px 14px;display:grid;gap:10px}
+
+/* leyenda */
+.cvlegend{left:var(--gap);top:calc(var(--hdr-h) + var(--gap)*2);width:216px}
+.cvlegend[data-open="true"]{min-height:216px}
+.lg{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:12.5px;color:var(--fg)}
+.lg li{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:center}
+.lg svg{width:34px;height:14px;overflow:visible}
+.hint{margin:0;font-size:11.5px;color:var(--muted);line-height:1.4}
+
+/* interruptores */
+.sw{right:var(--gap);top:calc(var(--hdr-h) + var(--gap)*2);width:304px;max-height:calc(100dvh - var(--hdr-h) - var(--vcol-h,340px) - var(--gap)*4);display:flex;flex-direction:column}
+.sw .ov-body{overflow-y:auto;min-height:0}
+.sw h4{margin:6px 0 0;font:600 10.5px/1.3 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.sw-sec{display:grid;gap:2px}
+.sw-sec:empty{display:none}
+.sw-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 8px;margin-inline:-8px;border-radius:8px;font-size:13.5px}
+.sw-row:hover{background:var(--hover)}
+.sw-row.sub{padding-left:22px}
+.sw-row .sw-l{display:inline-flex;align-items:center;gap:8px}
+.sw-row .sw-l i{width:8px;height:8px;border-radius:2px;background:oklch(var(--ring-l) .15 var(--h,200))}
+.sw-row .sw-l small{font:500 11px var(--font-mono);color:var(--muted)}
+.swt{--h:200;appearance:none;border:0;padding:0;width:38px;height:22px;border-radius:999px;background:var(--line);position:relative;cursor:pointer;flex:none;transition:background .2s}
+.swt i{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--surface);box-shadow:0 1px 3px oklch(0 0 0 / .3);transition:transform .2s}
+.swt[aria-checked="true"]{background:oklch(var(--strong-bg-l) var(--strong-c) var(--h))}
+.swt[aria-checked="true"] i{transform:translateX(16px)}
+.swt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[aria-disabled="true"]{opacity:.4;cursor:not-allowed}
+.sw .seg button{padding:6px 9px;font-size:12.5px}
+.eq{margin:4px 0 0;font-size:12.5px;color:var(--muted)}
+.eq code{font:700 12px var(--font-mono);color:oklch(var(--ring-l) .15 var(--h,200))}
+.sw .code{margin-top:6px}
+
+/* zoom */
+.zoomctl{left:var(--gap);bottom:calc(var(--gap) + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:2px;padding:4px;border:1px solid var(--line);border-radius:10px;background:var(--surface);box-shadow:var(--shadow)}
+.zoomctl button{appearance:none;border:0;background:transparent;color:var(--fg);font:600 14px/1 var(--font-body);min-width:30px;height:30px;border-radius:7px;cursor:pointer;padding:0 8px}
+.zoomctl button:hover{background:var(--hover)}
+.zoomctl span{font:600 12px/1 var(--font-mono);color:var(--muted);min-width:46px;text-align:center;font-variant-numeric:tabular-nums}
+
+/* barra de tensión vertical */
+.vcol{right:var(--gap);bottom:calc(var(--gap) + env(safe-area-inset-bottom,0px));width:var(--vcol-w);padding:12px;display:grid;gap:8px;justify-items:center}
+.vcol h3{margin:0;font:600 10.5px/1.3 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);justify-self:start}
+.vtop{display:grid;justify-items:center;gap:4px}
+.vtop b{font:700 22px/1 var(--font-mono);font-variant-numeric:tabular-nums}
+.readchip{font:600 11.5px/1.2 var(--font-mono);border-radius:999px;padding:4px 8px;background:var(--hover);text-align:center}
+.readchip b{font-size:13px}
+.vwrap{position:relative;width:100%;height:190px;display:grid;grid-template-columns:1fr 30px 1fr}
+.vbarv{grid-column:2;position:relative;border-radius:6px;overflow:hidden;background:var(--hover)}
+.vz{position:absolute;left:0;right:0;top:auto;display:grid;place-items:center;font:700 10.5px/1 var(--font-mono);color:var(--fg)}
+.vz.lo{background:color-mix(in srgb, var(--st-input) 30%, transparent)}
+.vz.hi{background:color-mix(in srgb, var(--st-safe) 32%, transparent)}
+.vz.mid{background:repeating-linear-gradient(135deg,var(--hatch) 0 5px,transparent 5px 10px)}
+.vz.warnz{background:color-mix(in srgb, var(--warn) 32%, transparent)}
+.vz.badz{background:color-mix(in srgb, var(--bad) 32%, transparent)}
+.vmk{position:absolute;grid-column:2;left:calc(50% - 21px);width:42px;height:3px;margin-bottom:-1.5px;background:var(--fg);border-radius:2px;transition:bottom .2s ease;box-shadow:0 0 0 2px var(--surface)}
+.vmk.float{transition:bottom .12s linear;background:var(--warn)}
+.vticks{grid-column:1;position:relative;height:auto;font:500 9.5px/1 var(--font-mono);color:var(--muted)}
+.vticks span{position:absolute;right:6px;transform:translateY(50%);white-space:nowrap}
+.ext-btn{appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:600 12.5px/1.15 var(--font-body);padding:8px 10px;border-radius:9px;cursor:pointer;display:flex;align-items:center;gap:7px;width:100%;justify-content:center}
+.ext-btn:hover{border-color:var(--muted)}
+.ext-btn[aria-expanded="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.ext-btn i{width:9px;height:9px;border-radius:50%;background:var(--st-safe);flex:none}
+.ext-btn i.warn{background:var(--warn)}
+.ext-btn i.bad{background:var(--bad);animation:burn .6s infinite alternate}
+
+/* bocadillo de opciones */
+.extpop{right:calc(var(--gap)*2 + var(--vcol-w));bottom:calc(var(--gap) + env(safe-area-inset-bottom,0px));width:var(--ext-w);z-index:4}
+.ext-in{max-height:calc(100dvh - var(--hdr-h) - var(--gap)*4);overflow-y:auto;overflow-x:hidden;padding:14px;display:grid;gap:10px;border-radius:14px}
+#ext-type{display:grid;grid-template-columns:repeat(3,auto)}
+#ext-type button{border-left:0;border-top:1px solid var(--line)}
+#ext-type button:nth-child(-n+3){border-top:0}
+#ext-type button:not(:nth-child(3n+1)){border-left:1px solid var(--line)}
+.extpop::after{content:"";position:absolute;right:-7px;bottom:22px;width:12px;height:12px;background:var(--surface);border-right:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
+.extpop h3{margin:0;font:600 11px/1.3 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.extpop details summary{cursor:pointer;font:600 12.5px var(--font-body);color:var(--fg)}
+.extpop details[open] summary{margin-bottom:6px}
+
+/* mensajes de estado */
+.msgs{right:var(--msgs-r,170px);bottom:calc(var(--msgs-b,12px) + env(safe-area-inset-bottom,0px));transition:right .2s,bottom .2s;display:flex;flex-direction:column;align-items:flex-start;gap:6px;z-index:4;pointer-events:none}
+.bub{width:min-content;white-space:nowrap;text-align:left;font-size:13px;line-height:1.3;padding:8px 12px 8px 10px;border-radius:12px 12px 12px 4px;background:var(--tip-bg);border:1px solid var(--line);box-shadow:var(--shadow);display:flex;gap:8px;align-items:center;pointer-events:auto}
+.bub i{width:8px;height:8px;border-radius:50%;background:var(--st-safe);flex:none}
+.bub.warn{border-color:color-mix(in srgb, var(--warn) 60%, transparent)}
+.bub.warn i{background:var(--warn)}
+.bub.bad{border-color:color-mix(in srgb, var(--bad) 60%, transparent)}
+.bub.bad i{background:var(--bad)}
+.bub.head{font-weight:700;font-size:13.5px}
+
+/* ventana de función */
+.fnwin{right:calc(var(--gap)*2 + var(--vcol-w));bottom:calc(var(--gap) + env(safe-area-inset-bottom,0px));width:min(800px, calc(100vw - var(--vcol-w) - var(--gap)*4));max-height:calc(100dvh - var(--hdr-h) - var(--gap)*4);display:flex;flex-direction:column;z-index:3;transform-origin:100% 100%;--h:200}
+.fn-head{display:flex;align-items:center;gap:10px;padding:10px 10px 10px 14px;border-bottom:1px solid var(--line)}
+.fn-head h3{margin:0 auto 0 0;font:700 14.5px/1.2 var(--font-body)}
+.fn-dot{width:10px;height:10px;border-radius:3px;background:oklch(var(--ring-l) .15 var(--h))}
+.fn-body{overflow-y:auto;min-height:0;padding:14px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:16px;align-items:start}
+.fn-cfg{display:grid;gap:12px}
+.fn-cfg:empty{display:none}
+.fn-out.outcard{display:grid;gap:12px;min-width:0;padding:0}
+.scope .sc-lbl{font-size:12px}
+.fnwin.min{width:auto}
+.fnwin.min .fn-body{display:none}
+.fnwin.min .fn-head{border-bottom:0}
+@media (max-width:900px){.fn-body{grid-template-columns:1fr}}
+@media (max-width:760px){
+  .cv{--vcol-w:118px;--ext-w:min(300px, calc(100vw - var(--vcol-w) - 36px))}
+  .cvlegend{width:180px}
+  .cvlegend[data-open="true"]{min-height:0}
+  .sw{width:min(304px, calc(100vw - 24px - 0px));max-height:calc(100dvh - var(--hdr-h) - 60px)}
+  .vwrap{height:140px}
+  .fnwin{left:var(--gap);right:var(--gap);width:auto;bottom:calc(var(--gap) + env(safe-area-inset-bottom,0px));z-index:5}
+  .fnwin.min{left:auto;right:calc(var(--gap)*2 + var(--vcol-w));bottom:calc(var(--gap)*2 + 40px + env(safe-area-inset-bottom,0px))}
+  .msgs{right:var(--gap);left:var(--gap);bottom:auto;top:calc(var(--hdr-h) + var(--gap)*2);align-items:flex-end}
+  .bub{white-space:normal;width:auto;max-width:100%}
+}
+</style>
+
+<div id="pv">
+<div class="wrap">
+  <header>
+    <p class="eyebrow">DevKitC · 38 pines · lógica 3,3 V</p>
+    <h1>ESP32‑WROOM‑32 <span class="soft">pinout</span></h1>
+    <p class="lede">Elige uno o varios grupos para resaltar sus pines. Pasa el cursor (o toca) cualquier pin para ver su ficha. Con <kbd>Ctrl</kbd> + clic sobre un GPIO entras en su circuito interno y puedes experimentar con él.</p>
+  </header>
+
+  <section class="filters" aria-label="Grupos de pines">
+    <div class="fgroup"><h2>Uso recomendado</h2><div class="badges" id="b-uso"></div></div>
+    <div class="fgroup"><h2>Periféricos</h2><div class="badges" id="b-fn"></div></div>
+    <div class="toolbar">
+      <span class="lbl">Resaltar pines que estén en</span>
+      <div class="seg" role="group" aria-label="Modo de coincidencia">
+        <button type="button" id="m-any" aria-pressed="true">alguno</button>
+        <button type="button" id="m-all" aria-pressed="false">todos</button>
+      </div>
+      <span class="lbl">los grupos elegidos</span>
+      <button type="button" class="clear" id="clear" disabled>Limpiar</button>
+      <span class="count" id="count">38 pines</span>
+    </div>
+    <ul class="explain" id="explain"></ul>
+  </section>
+
+  <div class="scroller">
+    <div class="stage" id="stage">
+      <div class="side-cap l">Lado izquierdo · J2</div>
+      <div class="side-cap r">Lado derecho · J3</div>
+      <div class="board" id="board" aria-hidden="true">
+        <div class="pcb"></div>
+        <div class="module">
+          <div class="ant"><svg viewBox="0 0 142 56" fill="none"><path d="M10 48V10H24V42H38V10H52V42H66V10H80V42H94V10H108V42H122V10H132V30" stroke="var(--gold)" stroke-width="3" stroke-linejoin="round"/></svg></div>
+          <div class="can"><div class="can-mark">ESP</div><span class="can-title">ESP32-WROOM-32</span><span class="can-sub">2 núcleos · 240 MHz<br>Wi‑Fi · Bluetooth</span></div>
+        </div>
+        <div class="part reg"></div><div class="silk-mid" style="top:394px;left:60px;right:auto;text-align:left">3V3 REG</div>
+        <div class="part led"></div>
+        <div class="part uart"></div><div class="silk-mid" style="top:496px">USB‑UART</div>
+        <div class="btn en"></div><div class="btn boot"></div>
+        <div class="btn-lbl en">EN</div><div class="btn-lbl boot">BOOT</div>
+        <div class="usb"></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="ref">
+    <h2>Cómo leer el pinout</h2>
+    <div class="legend">
+      <span><i class="num st-safe"></i>Uso libre</span>
+      <span><i class="num st-caution"></i>Con precaución</span>
+      <span><i class="num st-input"></i>Solo entrada</span>
+      <span><i class="num st-avoid"></i>No usar</span>
+      <span><i class="num st-power"></i>Alimentación</span>
+      <span id="lg-pwm"></span>
+      <span id="lg-in"></span>
+    </div>
+    <div class="facts">
+      <div class="fact"><h3>3,3 V, nunca 5 V</h3><p>Los GPIO usan lógica LVCMOS de 3,3 V. Meter 5 V directamente en un pin puede dañarlo: usa un divisor de tensión o un conversor de nivel.</p></div>
+      <div class="fact"><h3>Corriente por pin</h3><p>El datasheet admite unos 40 mA en salida, pero conviene diseñar para 20 mA o menos. Un LED siempre con su resistencia.</p></div>
+      <div class="fact"><h3>ADC de 12 bits</h3><p><code>analogRead()</code> devuelve 0–4095. Con WiFi activo solo funciona ADC1 (GPIO 32–39). La lectura no es lineal cerca de 0 V y de 3,3 V.</p></div>
+      <div class="fact"><h3>PWM con LEDC</h3><p><code>ledcAttach(pin, frecuencia, resolución)</code>. Con 8 bits el ciclo va de 0 a 255: <code>ledcWrite(pin, 128)</code> ≈ 50 %.</p></div>
+    </div>
+    <p class="foot">Los GPIO 20, 24 y 28–31 no existen en el chip, y el 37 y el 38 existen pero el módulo WROOM-32 no los saca. Casi todos los periféricos (I2C, SPI, UART, PWM) se pueden reasignar a otros pines gracias a la matriz de GPIO; los pines marcados son los que usa Arduino por defecto. Datos según tus apuntes y el datasheet de Espressif; algunas placas clónicas cambian el LED integrado o el conector USB.</p>
+  </section>
+</div>
+</div>
+
+<section class="cv" id="cv" hidden aria-label="Circuito interno del pin">
+  <div class="vp" id="vp" tabindex="0" aria-label="Lienzo del esquema. Arrastra para moverte; usa la rueda, el pellizco o las teclas + y − para acercar.">
+    <div class="stg" id="stg"><div id="sch-host"></div></div>
+  </div>
+
+  <header class="ov card hdr" id="hdr">
+    <div class="hdr-bar">
+      <button type="button" class="back" id="cv-back"><span aria-hidden="true">←</span> Pinout</button>
+      <div class="hdr-t"><p class="eyebrow">Circuito interno</p><h2><span id="cv-name">GPIO14</span> <span class="soft">por dentro</span></h2></div>
+      <span class="pill" id="cv-pill"></span>
+      <label class="pin-pick" for="cv-pin">Pin <select id="cv-pin"></select></label>
+      <button type="button" class="icon-btn" id="hdr-tog" aria-expanded="true" aria-controls="hdr-body" aria-label="Plegar la descripción"><svg class="chev" viewBox="0 0 14 14" fill="none"><path d="M3 9l4-4 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div class="hdr-body" id="hdr-body">
+      <div class="hdr-txt"><p class="cv-sum" id="cv-sum"></p><div class="banner" id="cv-banner" hidden></div></div>
+      <pre class="code" id="code"></pre>
+    </div>
+  </header>
+
+  <aside class="ov card cvlegend" id="legend" data-open="false" aria-label="Leyenda">
+    <button type="button" class="ov-head" id="lg-tog" aria-expanded="false" aria-controls="lg-body"><h3>Leyenda</h3><svg class="chev" viewBox="0 0 14 14" fill="none"><path d="M3 9l4-4 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div class="ov-body" id="lg-body" hidden>
+      <ul class="lg">
+        <li><svg viewBox="0 0 34 14"><path d="M2 7H32" stroke="oklch(var(--fb-l) .11 200)" stroke-width="8" stroke-linecap="round"/><path d="M2 7H32" stroke="oklch(var(--fd-l) .17 200)" stroke-width="3" stroke-dasharray="6 6"/></svg>Corriente, de + a −</li>
+        <li><svg viewBox="0 0 34 14"><path d="M2 7H32" stroke="oklch(var(--ring-l) .15 200)" stroke-width="2" stroke-dasharray="2 5" stroke-linecap="round"/></svg>Señal lógica</li>
+        <li><svg viewBox="0 0 34 14"><path d="M2 7H32" stroke="var(--fg)" stroke-width="2"/></svg>Activo ahora</li>
+        <li><svg viewBox="0 0 34 14"><path d="M2 7H32" stroke="var(--fg)" stroke-width="2" opacity=".28"/></svg>Apagado ahora</li>
+        <li><svg viewBox="0 0 34 14"><path d="M2 7H32" stroke="var(--fg)" stroke-width="2" stroke-dasharray="4 4"/></svg>Solo en algunas placas</li>
+        <li><svg viewBox="0 0 34 14"><path d="M2 7H32" stroke="var(--warn)" stroke-width="2.5"/></svg>Al límite</li>
+        <li><svg viewBox="0 0 34 14"><path d="M2 7H32" stroke="var(--bad)" stroke-width="2.5"/></svg>Se daña</li>
+      </ul>
+      <p class="hint">Arrastra para moverte. Rueda, pellizco o + / − para acercar.</p>
+    </div>
+  </aside>
+
+  <aside class="ov card sw" id="sw" aria-label="Configuración del pin">
+    <button type="button" class="ov-head" id="sw-tog" aria-expanded="true" aria-controls="sw-body"><h3>Configuración del pin</h3><svg class="chev" viewBox="0 0 14 14" fill="none"><path d="M3 9l4-4 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div class="ov-body" id="sw-body">
+      <div class="sw-sec" id="sw-io"></div>
+      <div class="sw-sec" id="sw-fn"></div>
+      <div class="sw-sec" id="sw-board"></div>
+    </div>
+  </aside>
+
+  <div class="ov zoomctl" id="zoomctl" role="group" aria-label="Zoom del lienzo">
+    <button type="button" id="z-out" aria-label="Alejar">−</button><span id="z-val">100 %</span><button type="button" id="z-in" aria-label="Acercar">+</button><button type="button" id="z-fit">Ajustar</button>
+  </div>
+
+  <div class="ov card vcol" id="vcol">
+    <h3>Pin</h3>
+    <div class="vtop"><b id="v-big">0,00 V</b><span class="readchip" id="v-read"></span></div>
+    <div class="vwrap"><div class="vticks" id="vticks"></div><div class="vbarv" id="vbar"></div><div class="vmk" id="vmark"></div></div>
+    <button type="button" class="ext-btn" id="ext-btn" aria-expanded="false" aria-controls="extpop"><i id="ext-dot"></i>Tensión y corriente</button>
+  </div>
+
+  <div class="ov msgs" id="msgs" hidden aria-live="polite"></div>
+  <div class="ov card extpop" id="extpop" hidden>
+    <div class="ext-in">
+    <h3>Qué conectas al pin</h3>
+    <div class="seg" id="ext-type" role="group" aria-label="Componente externo">
+      <button type="button" data-t="none">Nada</button>
+      <button type="button" data-t="src">Tensión</button>
+      <button type="button" data-t="isrc">Corriente</button>
+      <button type="button" data-t="led">LED a GND</button>
+      <button type="button" data-t="ledup">LED desde 3,3 V</button>
+    </div>
+    <div class="presets" id="presets"></div>
+    <p class="ref-note" id="ext-hint"></p>
+    <div class="sl" id="sl-v"><div class="sl-h"><span id="in-v-l">Tensión externa</span><span class="nf"><input type="text" class="nin" id="in-v-n" inputmode="decimal" autocomplete="off" aria-labelledby="in-v-l"><i>V</i></span></div><input type="range" id="in-v" min="-2" max="12" step="0.05" aria-labelledby="in-v-l"></div>
+    <div class="sl" id="sl-i"><div class="sl-h"><span id="in-i-l">Corriente inyectada</span><span class="nf"><input type="text" class="nin" id="in-i-n" inputmode="decimal" autocomplete="off" aria-labelledby="in-i-l"><i>mA</i></span></div><input type="range" id="in-i" min="-51" max="51" step="1" aria-labelledby="in-i-l"></div>
+    <div class="sl" id="sl-r"><div class="sl-h"><span id="in-r-l">Resistencia en serie</span><span class="nf"><input type="text" class="nin" id="in-r-n" inputmode="decimal" autocomplete="off" aria-labelledby="in-r-l"><i>Ω</i></span></div><input type="range" id="in-r" min="0" max="15" step="1" aria-labelledby="in-r-l"></div>
+    <details><summary>Corrientes por rama</summary><table class="itab" id="itab"></table>
+      <p class="ref-note">Modelo didáctico: P-MOS ≈ 40 Ω, N-MOS ≈ 30 Ω, pull-up/down ≈ 45 kΩ, diodos de 0,6 V. Referencia: 20 mA recomendado y ~40 mA máximo por pin; los diodos de protección, unos pocos mA.</p></details>
+    </div>
+  </div>
+
+  <section class="ov card fnwin" id="fnwin" hidden aria-labelledby="fn-title">
+    <div class="fn-head"><i class="fn-dot"></i><h3 id="fn-title"></h3>
+      <button type="button" class="icon-btn" id="fn-min" aria-expanded="true" aria-label="Minimizar"><svg class="chev" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="icon-btn" id="fn-close" aria-label="Desactivar la función"><svg viewBox="0 0 14 14" fill="none"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="fn-body" id="fn-body"><div class="fn-cfg" id="cfg"></div><div class="fn-out outcard" id="out-card"></div></div>
+  </section>
+</section>
+
+<div class="tip" id="tip" role="tooltip" hidden></div>
+<div class="mpop" id="mpop" hidden></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+const ROW = 30, TOP = 72;
+
+/* =================== datos del pinout =================== */
+const GROUPS = [
+  {id:'seguro', sec:'uso', name:'Uso libre', h:150, pins:[4,13,14,16,17,25,26,27,32,33],
+   desc:'Entrada y salida digital con PWM y sin efectos en el arranque. Son los primeros que deberías elegir.'},
+  {id:'entrada', sec:'uso', name:'Solo entrada', h:252, pins:[34,35,36,39],
+   desc:'Solo pueden leer. No sacan señal ni tienen pull-up/pull-down internos: si los necesitas, pon una resistencia externa.'},
+  {id:'strapping', sec:'uso', name:'Arranque (strapping)', h:60, pins:[0,2,5,12,15],
+   desc:'El chip lee su nivel justo al encender para decidir cómo arrancar. Se pueden usar, pero un nivel equivocado al arrancar impide arrancar o grabar.'},
+  {id:'uart0', sec:'uso', name:'UART0 · USB', h:12, pins:[1,3],
+   desc:'TX/RX del puerto serie conectado al conversor USB. Los usan la grabación y el Serial Monitor: no los toques.'},
+  {id:'flash', sec:'uso', name:'Flash interna', h:40, pins:[6,7,8,9,10,11],
+   desc:'Van a la memoria flash SPI del módulo. No los uses: una señal ahí cuelga el programa o puede corromper la flash.'},
+  {id:'power', sec:'uso', name:'Alimentación', h:240, pins:['3V3','5V','GND1','GND2','GND3','EN'],
+   desc:'3,3 V, 5 V, reset (EN) y tierras. Todas las GND son la misma tierra.'},
+  {id:'adc1', sec:'fn', name:'ADC1', h:300, pins:[32,33,34,35,36,39],
+   desc:'Conversor analógico 1, 12 bits (0–4095). Funciona con WiFi activo: es el que debes usar para analogRead() en proyectos con WiFi.'},
+  {id:'adc2', sec:'fn', name:'ADC2', h:335, pins:[0,2,4,12,13,14,15,25,26,27],
+   desc:'Conversor analógico 2. No está disponible mientras el WiFi está activo, porque lo usa el driver de radio.'},
+  {id:'dac', sec:'fn', name:'DAC', h:98, pins:[25,26],
+   desc:'Salida analógica real de 8 bits: dacWrite(pin, 0–255) da entre 0 y 3,3 V.'},
+  {id:'touch', sec:'fn', name:'Táctil', h:58, pins:[0,2,4,12,13,14,15,27,32,33],
+   desc:'Sensores capacitivos: detectan el dedo por el cambio de capacidad del pin. Se leen con touchRead(pin).'},
+  {id:'pwm', sec:'fn', name:'PWM (LEDC)', h:125, pins:[0,1,2,3,4,5,12,13,14,15,16,17,18,19,21,22,23,25,26,27,32,33],
+   desc:'Cualquier GPIO con salida puede generar PWM con el periférico LEDC (16 canales). Los de solo entrada (34–39) no.'},
+  {id:'i2c', sec:'fn', name:'I2C', h:178, pins:[21,22],
+   desc:'Pines por defecto de Wire: SDA = 21, SCL = 22. Si conectas un bus I2C, resérvalos para él.'},
+  {id:'vspi', sec:'fn', name:'VSPI', h:205, pins:[5,18,19,23],
+   desc:'Bus SPI por defecto en Arduino (SPI.begin()). Si usas SPI, déjalos libres para el bus.'},
+  {id:'hspi', sec:'fn', name:'HSPI', h:262, pins:[12,13,14,15],
+   desc:'Segundo bus SPI de uso general. Comparte pines con JTAG y con los strapping 12 y 15.'},
+  {id:'rtc', sec:'fn', name:'RTC · deep sleep', h:235, pins:[0,2,4,12,13,14,15,25,26,27,32,33,34,35,36,39],
+   desc:'Pines del dominio RTC: siguen activos en deep sleep y pueden despertar al chip (ext0/ext1, táctil).'},
+];
+const GBY = Object.fromEntries(GROUPS.map(g=>[g.id,g]));
+const key = v => typeof v === 'number' ? 'G'+v : v;
+
+const LEFT = [
+  {id:'3V3', name:'3V3', k:'pwr'},
+  {id:'EN', name:'EN', k:'en', chips:['strap:RESET']},
+  {id:36, chips:['rtc:RTC','adc1:ADC1_0','misc:S_VP']},
+  {id:39, chips:['rtc:RTC','adc1:ADC1_3','misc:S_VN']},
+  {id:34, chips:['rtc:RTC','adc1:ADC1_6','misc:VDET_1']},
+  {id:35, chips:['rtc:RTC','adc1:ADC1_7','misc:VDET_2']},
+  {id:32, chips:['rtc:RTC','adc1:ADC1_4','touch:TOUCH9','misc:32K_XP']},
+  {id:33, chips:['rtc:RTC','adc1:ADC1_5','touch:TOUCH8','misc:32K_XN']},
+  {id:25, chips:['rtc:RTC','adc2:ADC2_8','dac:DAC_1']},
+  {id:26, chips:['rtc:RTC','adc2:ADC2_9','dac:DAC_2']},
+  {id:27, chips:['rtc:RTC','adc2:ADC2_7','touch:TOUCH7']},
+  {id:14, chips:['rtc:RTC','adc2:ADC2_6','touch:TOUCH6','jtag:MTMS','hspi:HSPI_CLK']},
+  {id:12, chips:['rtc:RTC','adc2:ADC2_5','touch:TOUCH5','jtag:MTDI','hspi:HSPI_MISO','strap:STRAP']},
+  {id:'GND1', name:'GND', k:'gnd'},
+  {id:13, chips:['rtc:RTC','adc2:ADC2_4','touch:TOUCH4','jtag:MTCK','hspi:HSPI_MOSI']},
+  {id:9,  chips:['flash:SD_D2']},
+  {id:10, chips:['flash:SD_D3']},
+  {id:11, chips:['flash:SD_CMD']},
+  {id:'5V', name:'5V', k:'pwr'},
+];
+const RIGHT = [
+  {id:'GND2', name:'GND', k:'gnd'},
+  {id:23, chips:['vspi:VSPI_MOSI']},
+  {id:22, chips:['i2c:SCL']},
+  {id:1,  chips:['uart:U0TXD']},
+  {id:3,  chips:['uart:U0RXD']},
+  {id:21, chips:['i2c:SDA']},
+  {id:'GND3', name:'GND', k:'gnd'},
+  {id:19, chips:['vspi:VSPI_MISO']},
+  {id:18, chips:['vspi:VSPI_CLK']},
+  {id:5,  chips:['vspi:VSPI_CS','strap:STRAP']},
+  {id:17, chips:['uart2:U2TXD']},
+  {id:16, chips:['uart2:U2RXD']},
+  {id:4,  chips:['rtc:RTC','adc2:ADC2_0','touch:TOUCH0']},
+  {id:0,  chips:['rtc:RTC','adc2:ADC2_1','touch:TOUCH1','strap:BOOT']},
+  {id:2,  chips:['rtc:RTC','adc2:ADC2_2','touch:TOUCH2','strap:STRAP']},
+  {id:15, chips:['rtc:RTC','adc2:ADC2_3','touch:TOUCH3','jtag:MTDO','hspi:HSPI_CS','strap:STRAP']},
+  {id:8,  chips:['flash:SD_D1']},
+  {id:7,  chips:['flash:SD_D0']},
+  {id:6,  chips:['flash:SD_CLK']},
+];
+
+const SILK = {'3V3':'3V3','EN':'EN',G36:'VP',G39:'VN',G9:'SD2',G10:'SD3',G11:'CMD','5V':'5V',GND1:'GND',GND2:'GND',GND3:'GND',G1:'TX',G3:'RX',G8:'SD1',G7:'SD0',G6:'CLK'};
+
+const FLASH_WARN = 'No usar. Está conectado a la memoria flash interna: cualquier señal aquí puede colgar el programa o corromper la flash.';
+const INFO = {
+  '3V3': {d:'Salida de 3,3 V del regulador de la placa para sensores y módulos de 3,3 V. También puedes alimentar la placa por aquí con 3,3 V ya regulados.', w:'Los GPIO trabajan a 3,3 V y no toleran 5 V.', soft:true},
+  'EN':  {d:'Enable/reset del chip, conectado al botón EN. Tiene pull-up: en alto el chip funciona; si lo llevas a GND se reinicia.'},
+  'GND': {d:'Tierra común. Todas las GND son la misma. Cualquier circuito externo que se comunique con el ESP32 debe compartir esta tierra, o las señales no tendrán referencia.'},
+  '5V':  {d:'Conectado a los 5 V del USB. Sirve para alimentar módulos de 5 V o para alimentar la placa con 5 V externos, que el regulador baja a 3,3 V.', w:'Nunca conectes 5 V a un GPIO.', soft:true},
+  G36: {d:'Uno de los cuatro pines de solo entrada. Lee señales digitales y analógicas (ADC1), pero no puede sacar señal ni tiene pull-up/pull-down internos.', n:'Buena opción para sensores analógicos en proyectos con WiFi.'},
+  G39: {d:'Pin de solo entrada con ADC1. No tiene salida ni pull-up/pull-down internos.', n:'Si lees un botón aquí, añade una resistencia pull-up o pull-down externa.'},
+  G34: {d:'Pin de solo entrada con ADC1. No tiene salida ni pull-up/pull-down internos.', n:'Buena opción para sensores analógicos en proyectos con WiFi.'},
+  G35: {d:'Pin de solo entrada con ADC1. No tiene salida ni pull-up/pull-down internos.', n:'En muchas placas con batería se usa para medir su tensión.'},
+  G32: {d:'Pin de uso libre con ADC1 y sensor táctil. Puede llevar un cristal externo de 32 kHz para el reloj RTC; la DevKitC no lo trae, así que está libre.'},
+  G33: {d:'Pin de uso libre con ADC1 y sensor táctil. Es la otra pata del cristal opcional de 32 kHz; en la DevKitC está libre.'},
+  G25: {d:'Uno de los dos DAC: salida analógica real de 8 bits. También es entrada ADC2 y salida digital/PWM.'},
+  G26: {d:'Segundo canal DAC: salida analógica de 8 bits. También es entrada ADC2 y salida digital/PWM.'},
+  G27: {d:'Pin de uso libre con ADC2 y sensor táctil.'},
+  G14: {d:'Pin de uso libre. También es el reloj de HSPI y TMS de JTAG, con ADC2 y táctil.', w:'Saca una señal PWM durante el arranque: evita conectar aquí algo que reaccione a pulsos al encender, como un relé.', soft:true},
+  G12: {d:'Pin de strapping (MTDI) con pull-down interno. Al arrancar decide la tensión de la flash interna. También es HSPI_MISO, TDI de JTAG, ADC2 y táctil.', w:'Si está en ALTO al encender, la flash se alimenta a 1,8 V y el módulo no arranca. Evita pull-ups o cargas que lo suban en el arranque.'},
+  G13: {d:'Pin de uso libre. También es HSPI_MOSI y TCK de JTAG, con ADC2 y táctil.'},
+  G9:  {d:'Línea de datos D2 de la flash SPI del módulo.', w:FLASH_WARN},
+  G10: {d:'Línea de datos D3 de la flash SPI del módulo.', w:FLASH_WARN},
+  G11: {d:'Línea CMD de la flash SPI del módulo.', w:FLASH_WARN},
+  G23: {d:'MOSI del bus SPI por defecto (VSPI). Si no usas SPI, funciona como un GPIO normal.', n:'Si conectas un dispositivo SPI, resérvalo para el bus.'},
+  G22: {d:'SCL (reloj) de I2C por defecto en Arduino (Wire). Si no usas I2C, funciona como un GPIO normal.', n:'Si conectas un dispositivo I2C, resérvalo para el bus.'},
+  G1:  {d:'TX de UART0. Va al conversor USB-serie: por aquí sale el log de arranque y todo lo que imprimes con Serial.', w:'No usar. Interfiere con la grabación y con el Serial Monitor.'},
+  G3:  {d:'RX de UART0. Recibe desde el conversor USB-serie: por aquí entra el programa al grabar.', w:'No usar. Interfiere con la grabación y con el Serial Monitor.'},
+  G21: {d:'SDA (datos) de I2C por defecto en Arduino (Wire). Si no usas I2C, funciona como un GPIO normal.', n:'Si conectas un dispositivo I2C, resérvalo para el bus.'},
+  G19: {d:'MISO del bus SPI por defecto (VSPI). Si no usas SPI, funciona como un GPIO normal.', n:'Si conectas un dispositivo SPI, resérvalo para el bus.'},
+  G18: {d:'Reloj (SCK) del bus SPI por defecto (VSPI). Si no usas SPI, funciona como un GPIO normal.', n:'Si conectas un dispositivo SPI, resérvalo para el bus.'},
+  G5:  {d:'CS (selección de esclavo) del bus VSPI. También es pin de strapping, con pull-up interno.', w:'Debe estar en alto al arrancar y saca PWM durante el arranque. Si no lo fuerzas a bajo al encender, no da problemas.', soft:true},
+  G17: {d:'Pin de uso libre. Es el TX por defecto de UART2 (Serial2).', n:'En módulos WROVER se usa para la PSRAM; en el WROOM-32 está libre.'},
+  G16: {d:'Pin de uso libre. Es el RX por defecto de UART2 (Serial2).', n:'En módulos WROVER se usa para la PSRAM; en el WROOM-32 está libre.'},
+  G4:  {d:'Pin de uso libre con ADC2 y sensor táctil (T0). Tiene pull-down interno.'},
+  G0:  {d:'Pin de strapping conectado al botón BOOT, con pull-up interno. También tiene ADC2 y táctil.', w:'Si está en BAJO al encender, el chip entra en modo descarga (grabación) y tu programa no se ejecuta. Un circuito que lo mantenga a GND deja la placa siempre en ese modo.'},
+  G2:  {d:'Pin de strapping con pull-down interno. En muchas placas tiene conectado el LED azul integrado. También ADC2 y táctil.', w:'Para grabar tiene que estar en BAJO o al aire. Si un circuito lo pone en ALTO al encender, no podrás subir programas.'},
+  G15: {d:'Pin de strapping (MTDO) con pull-up interno. También es HSPI_CS, TDO de JTAG, ADC2 y táctil.', w:'Si está en BAJO al encender, se silencian los mensajes de arranque por el puerto serie. Además saca PWM durante el arranque.', soft:true},
+  G8:  {d:'Línea de datos D1 de la flash SPI del módulo.', w:FLASH_WARN},
+  G7:  {d:'Línea de datos D0 de la flash SPI del módulo.', w:FLASH_WARN},
+  G6:  {d:'Reloj (CLK) de la flash SPI del módulo.', w:FLASH_WARN},
+};
+
+const CHIP_GROUP = {rtc:'rtc',adc1:'adc1',adc2:'adc2',touch:'touch',dac:'dac',vspi:'vspi',hspi:'hspi',i2c:'i2c',uart:'uart0',strap:'strapping',flash:'flash'};
+const STATUS = {safe:'Uso libre',caution:'Con precaución',avoid:'No usar',input:'Solo entrada',power:'Alimentación'};
+
+function chipInfo(k,t,g){
+  const n = (t.match(/\d+$/)||[''])[0];
+  switch(k){
+    case 'rtc': return 'Dominio RTC: sigue activo en deep sleep y puede despertar al chip.';
+    case 'adc1': return `ADC1, canal ${n}: entrada analógica de 12 bits, funciona con WiFi.`;
+    case 'adc2': return `ADC2, canal ${n}: entrada analógica, no disponible con WiFi activo.`;
+    case 'touch': return `Sensor táctil T${n}: touchRead(${g}).`;
+    case 'dac': return `DAC canal ${n}: salida analógica de 8 bits con dacWrite(${g}, 0–255).`;
+    case 'vspi': case 'hspi': {
+      const r = {MOSI:'MOSI, datos del maestro al esclavo',MISO:'MISO, datos del esclavo al maestro',CLK:'SCK, reloj del bus',CS:'CS/SS, selección del esclavo'}[t.split('_')[1]];
+      return `Bus ${k.toUpperCase()}: ${r}.`; }
+    case 'i2c': return t==='SDA' ? 'I2C (Wire): SDA, línea de datos.' : 'I2C (Wire): SCL, línea de reloj.';
+    case 'uart': return t==='U0TXD' ? 'UART0 TX: transmite hacia el conversor USB.' : 'UART0 RX: recibe desde el conversor USB.';
+    case 'uart2': return t==='U2TXD' ? 'UART2 TX: Serial2 por defecto.' : 'UART2 RX: Serial2 por defecto.';
+    case 'jtag': return `JTAG ${({MTMS:'TMS',MTDI:'TDI',MTCK:'TCK',MTDO:'TDO'})[t]}: depuración por hardware.`;
+    case 'strap': return ({RESET:'Reinicia el chip al llevarlo a GND (botón EN).',BOOT:'Strapping: elige el modo de arranque (botón BOOT).',STRAP:'Strapping: el chip lee su nivel al encender.'})[t];
+    case 'flash': return `Flash SPI interna, línea ${t.replace('SD_','')}.`;
+    case 'misc': return ({S_VP:'SENSOR_VP: entrada del preamplificador analógico.',S_VN:'SENSOR_VN: entrada del preamplificador analógico.',VDET_1:'VDET_1: nombre del pin en el datasheet.',VDET_2:'VDET_2: nombre del pin en el datasheet.','32K_XP':'XTAL_32K_P: cristal opcional de 32 kHz.','32K_XN':'XTAL_32K_N: cristal opcional de 32 kHz.'})[t];
+  }
+  return '';
+}
+
+const SVG_LINE = '<svg viewBox="0 0 28 30" fill="none"><path d="M0 15H28" stroke="currentColor" stroke-width="1.5" opacity=".55"/></svg>';
+const SVG_PWM = '<svg viewBox="0 0 28 30" fill="none"><path d="M0 15H4q2.5-7 5 0t5 0t5 0H28" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+const svgIn = flip => `<svg viewBox="0 0 28 30" fill="none"${flip?' class="flip"':''}><path d="M0 15H25M19 10l6 5-6 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+const $ = id => document.getElementById(id);
+const stage = $('stage'), board = $('board'), tip = $('tip');
+const PINS = [];
+const esc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function build(list, side){
+  list.forEach((d,i)=>{
+    const n = i+1;
+    const isG = typeof d.id === 'number';
+    const p = {
+      key: key(d.id), side, n,
+      gpio: isG ? d.id : null,
+      name: isG ? 'GPIO'+d.id : d.name,
+      k: isG ? 'gpio' : d.k,
+      chips: (d.chips||[]).map(s=>{ const [k,t]=s.split(':'); return {k,t,group:CHIP_GROUP[k]||null}; }),
+      groups: new Set(),
+    };
+    GROUPS.forEach(g=>{ if(g.pins.map(key).includes(p.key)) p.groups.add(g.id); });
+    p.status = p.groups.has('power') ? 'power'
+      : p.groups.has('seguro') ? 'safe'
+      : p.groups.has('entrada') ? 'input'
+      : (p.groups.has('flash')||p.groups.has('uart0')) ? 'avoid' : 'caution';
+    p.info = INFO[p.key] || INFO[p.name] || {d:''};
+
+    const row = document.createElement('div');
+    row.className = `row ${side}`;
+    row.style.gridRow = String(n+1);
+    row.tabIndex = 0;
+    row.setAttribute('role','button');
+    row.setAttribute('aria-label', `${p.name}, pin ${n} del lado ${side==='l'?'izquierdo':'derecho'}. ${STATUS[p.status]}.`);
+    const lead = document.createElement('span');
+    lead.className = 'lead';
+    lead.innerHTML = p.groups.has('entrada') ? svgIn(side==='r') : p.groups.has('pwm') ? SVG_PWM : SVG_LINE;
+    const num = document.createElement('span');
+    num.className = `num st-${p.status}`;
+    num.textContent = n;
+    const nameChip = document.createElement('span');
+    nameChip.className = `chip k-${p.k}` + (p.k==='gpio'||p.k==='pwr' ? ' strong' : '');
+    nameChip.textContent = p.name;
+    row.append(lead, num, nameChip);
+    p.chipEls = p.chips.map(c=>{
+      const el = document.createElement('span');
+      el.className = `chip k-${c.k}` + (c.k==='strap' ? ' strong' : '');
+      el.textContent = c.t;
+      row.append(el);
+      return {el, group:c.group};
+    });
+    stage.append(row);
+    p.row = row;
+
+    const y = TOP + i*ROW;
+    const pad = document.createElement('div');
+    pad.className = `pad ${side}`;
+    pad.style.top = (y + (ROW-16)/2) + 'px';
+    board.append(pad);
+    p.pad = pad;
+    const silk = document.createElement('div');
+    silk.className = `silk ${side}`;
+    silk.style.top = (y + ROW/2 - 4) + 'px';
+    silk.textContent = SILK[p.key] || String(p.gpio);
+    board.append(silk);
+
+    bind(row, p); bind(pad, p);
+    row.addEventListener('focus', ()=>{ if(!pinned && !cvOpen){ setHover(p); showTip(p,{el:row}); } });
+    row.addEventListener('blur', ()=>{ if(!pinned){ setHover(null); hideTip(); } });
+    row.addEventListener('keydown', e=>{
+      if(e.key==='Enter' && (e.ctrlKey||e.metaKey)){ e.preventDefault(); openFromRow(p); return; }
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); togglePin(p); }
+    });
+    PINS.push(p);
+  });
+}
+
+/* =================== ficha flotante =================== */
+let pinned = null, hovered = null, cvOpen = false;
+function setHover(p){
+  if(hovered){ hovered.row.classList.remove('hover'); hovered.pad.classList.remove('hover'); }
+  hovered = p;
+  if(p){ p.row.classList.add('hover'); p.pad.classList.add('hover'); }
+}
+function renderTip(p){
+  let h = `<div class="tip-head"><span class="tip-name">${p.name}</span><span class="pill st-${p.status}">${STATUS[p.status]}</span></div>`;
+  h += `<div class="tip-sub">Pin físico ${p.n} · lado ${p.side==='l'?'izquierdo (J2)':'derecho (J3)'}</div>`;
+  if(p.info.d) h += `<p>${esc(p.info.d)}</p>`;
+  if(p.gpio!==null){
+    const io = !p.groups.has('entrada');
+    const cap = (label,ok)=>`<div class="cap ${ok?'yes':'no'}"><b>${ok?'✓':'✕'}</b>${label}</div>`;
+    h += `<div class="caps">${cap('Entrada digital',true)}${cap('Salida digital',io)}${cap('PWM',io)}${cap('Pull-up/down',io)}</div>`;
+  }
+  if(p.chips.length){
+    h += '<ul class="fns">' + p.chips.map(c=>`<li><span class="chip k-${c.k}${c.k==='strap'?' strong':''}">${c.t}</span><span>${esc(chipInfo(c.k,c.t,p.gpio))}</span></li>`).join('') + '</ul>';
+  }
+  if(p.info.w) h += `<div class="box warn${p.info.soft?' soft':''}"><b>Atención.</b> ${esc(p.info.w)}</div>`;
+  if(p.info.n) h += `<div class="box note">${esc(p.info.n)}</div>`;
+  const gs = GROUPS.filter(g=>p.groups.has(g.id)).map(g=>g.name);
+  if(gs.length) h += `<div class="tip-groups">Grupos: ${gs.join(' · ')}</div>`;
+  if(p.gpio!==null){
+    if(pinned===p) h += `<button type="button" class="tip-btn" data-open>Ver circuito interno →</button>`;
+    else h += `<div class="tip-hint tip-keys"><kbd>Ctrl</kbd><span aria-hidden="true">+</span><kbd>clic</kbd><span>ver el circuito interno</span></div>`;
+  }
+  if(pinned===p) h += `<div class="tip-hint">Toca fuera o pulsa Esc para cerrar</div>`;
+  return h;
+}
+let anchor = null;
+function showTip(p,a){
+  tip.innerHTML = renderTip(p);
+  tip.hidden = false;
+  tip.classList.toggle('pinned', pinned===p);
+  anchor = a; place(tip, a);
+}
+function hideTip(){ tip.hidden = true; anchor = null; }
+function place(el, a){
+  const w = el.offsetWidth, h = el.offsetHeight, vw = innerWidth, vh = innerHeight, m = 12;
+  let x, y;
+  if(a.el){
+    const r = a.el.getBoundingClientRect();
+    x = a.el.classList.contains('l') ? r.right - w : r.left;
+    y = r.bottom + 8;
+    if(y + h > vh - m) y = r.top - h - 8;
+  } else {
+    x = a.x + 18; y = a.y + 18;
+    if(x + w > vw - m) x = a.x - w - 18;
+    if(y + h > vh - m) y = a.y - h - 14;
+  }
+  x = Math.max(m, Math.min(x, vw - w - m));
+  y = Math.max(m, Math.min(y, vh - h - m));
+  el.style.transform = `translate(${Math.round(x)}px,${Math.round(y)}px)`;
+}
+function togglePin(p){
+  if(pinned===p){ pinned=null; setHover(null); hideTip(); return; }
+  pinned = p; setHover(p); showTip(p,{el:p.row});
+}
+function bind(el,p){
+  el.addEventListener('pointerenter', e=>{
+    if(e.pointerType!=='mouse' || cvOpen) return;
+    pinned = null; setHover(p); showTip(p,{x:e.clientX,y:e.clientY});
+  });
+  el.addEventListener('pointermove', e=>{
+    if(e.pointerType!=='mouse' || pinned || cvOpen) return;
+    if(tip.hidden || hovered!==p){ setHover(p); showTip(p,{x:e.clientX,y:e.clientY}); }
+    else place(tip,{x:e.clientX,y:e.clientY});
+  });
+  el.addEventListener('pointerleave', e=>{
+    if(e.pointerType!=='mouse' || pinned) return;
+    setHover(null); hideTip();
+  });
+  el.addEventListener('click', e=>{
+    e.stopPropagation();
+    if(e.ctrlKey || e.metaKey){ e.preventDefault(); openCircuit(p, e.clientX, e.clientY); return; }
+    togglePin(p);
+  });
+  // en macOS Ctrl+clic abre el menú contextual en lugar de hacer click
+  el.addEventListener('contextmenu', e=>{ if(e.ctrlKey){ e.preventDefault(); openCircuit(p, e.clientX, e.clientY); } });
+}
+tip.addEventListener('click', e=>{
+  if(e.target.closest('[data-open]') && pinned) openFromRow(pinned);
+});
+document.addEventListener('click', e=>{ if(pinned && !tip.contains(e.target)){ pinned=null; setHover(null); hideTip(); } });
+document.addEventListener('keydown', e=>{
+  if(e.key!=='Escape') return;
+  if(cvOpen){ if(!document.getElementById('extpop').hidden){ setExtOpen(false); return; } closeCircuit(); return; }
+  pinned=null; setHover(null); hideTip();
+});
+const onScroll = ()=>{ if(tip.hidden) return; if(pinned) place(tip,{el:pinned.row}); else { setHover(null); hideTip(); } };
+addEventListener('scroll', onScroll, {passive:true});
+document.querySelector('.scroller').addEventListener('scroll', onScroll, {passive:true});
+addEventListener('resize', ()=>{ if(!tip.hidden && anchor) place(tip, anchor); });
+
+build(LEFT,'l'); build(RIGHT,'r');
+
+/* =================== filtros =================== */
+const sel = [];
+let fmode = 'any';
+const badgeEls = {};
+GROUPS.forEach(g=>{
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'badge';
+  b.style.setProperty('--h', g.h);
+  b.setAttribute('aria-pressed','false');
+  b.title = g.desc;
+  b.innerHTML = `<span class="dot"></span>${g.name}<span class="cnt">${g.pins.length}</span>`;
+  b.addEventListener('click', ()=>{
+    const i = sel.indexOf(g.id);
+    if(i>=0) sel.splice(i,1); else sel.push(g.id);
+    applyFilter();
+  });
+  $(g.sec==='uso'?'b-uso':'b-fn').append(b);
+  badgeEls[g.id] = b;
+});
+$('m-any').addEventListener('click', ()=>{ fmode='any'; applyFilter(); });
+$('m-all').addEventListener('click', ()=>{ fmode='all'; applyFilter(); });
+$('clear').addEventListener('click', ()=>{ sel.length=0; applyFilter(); });
+
+function applyFilter(){
+  const filtering = sel.length>0;
+  stage.classList.toggle('filtering', filtering);
+  let count = 0;
+  PINS.forEach(p=>{
+    const m = sel.filter(g=>p.groups.has(g));
+    const hit = filtering && (fmode==='any' ? m.length>0 : m.length===sel.length);
+    p.row.classList.toggle('hit', hit);
+    p.pad.classList.toggle('hit', hit);
+    if(hit){ const h = GBY[m[0]].h; p.row.style.setProperty('--gh',h); p.pad.style.setProperty('--gh',h); count++; }
+    p.chipEls.forEach(c=>c.el.classList.toggle('lit', hit && !!c.group && sel.includes(c.group)));
+  });
+  GROUPS.forEach(g=>badgeEls[g.id].setAttribute('aria-pressed', String(sel.includes(g.id))));
+  $('m-any').setAttribute('aria-pressed', String(fmode==='any'));
+  $('m-all').setAttribute('aria-pressed', String(fmode==='all'));
+  $('clear').disabled = !filtering;
+  $('count').textContent = filtering ? `${count} de ${PINS.length} pines resaltados` : `${PINS.length} pines`;
+  $('explain').innerHTML = filtering
+    ? sel.map(id=>{ const g=GBY[id]; return `<li style="--h:${g.h}"><span class="dot"></span><span><b>${g.name}.</b> ${esc(g.desc)}</span></li>`; }).join('')
+    : '<li style="--h:200"><span class="dot"></span><span>Sin selección: se muestran todos los pines. Prueba, por ejemplo, <b>Uso libre</b> + <b>ADC1</b> con «todos» para ver qué pines analógicos puedes usar sin miedo con WiFi.</span></li>';
+}
+applyFilter();
+$('lg-pwm').innerHTML = SVG_PWM + 'Admite PWM';
+$('lg-in').innerHTML = svgIn(false) + 'Solo entrada';
+
+let toastT;
+function toast(msg){
+  const t = $('toast'); t.textContent = msg; t.hidden = false;
+  clearTimeout(toastT); toastT = setTimeout(()=>{ t.hidden = true; }, 3200);
+}
+/* =================== modelo eléctrico =================== */
+const VDD=3.3, RON_P=40, RON_N=30, RPU=45000, RPD=45000, VF=0.6, RDIO=8, VF_LED=2.0, R_LED=10, R_DAC=1000, R_BOOT=0.5, R_UTX=50;
+const VIL=0.25*VDD, VIH=0.75*VDD;
+const RVALS=[0,10,22,47,100,220,330,470,1000,2200,4700,10000,22000,47000,100000,1000000];
+
+const MODES = [
+  {id:'off', name:'Desactivado', h:240, ie:0,oe:0,od:0,wpu:0,wpd:0,
+   desc:'Ni entrada ni salida: el pad queda en alta impedancia y el registro de entrada no se actualiza.',
+   use:'Pines que no usas. No consume y no interfiere con lo que haya conectado.', ex:{preset:'none', level:0}},
+  {id:'input', name:'INPUT', h:200, ie:1,oe:0,od:0,wpu:0,wpd:0,
+   desc:'Solo el buffer de entrada (Schmitt trigger) está activo. Su impedancia es altísima: si nada fija la tensión, el pin flota y lee valores aleatorios.',
+   use:'Un botón hacia 3,3 V con una resistencia pull-down externa de 10 kΩ, o la salida de un sensor digital que ya fija el nivel.', ex:{preset:'sig33', level:0}},
+  {id:'input_pullup', name:'INPUT_PULLUP', h:150, ie:1,oe:0,od:0,wpu:1,wpd:0,
+   desc:'Entrada con la resistencia interna (~45 kΩ) hacia 3,3 V conectada. Sin nada conectado lee 1; al unir el pin a GND lee 0.',
+   use:'Un botón entre el pin y GND, sin resistencias externas. Pulsado = LOW.', ex:{preset:'btn_gnd', level:0}},
+  {id:'input_pulldown', name:'INPUT_PULLDOWN', h:300, ie:1,oe:0,od:0,wpu:0,wpd:1,
+   desc:'Entrada con la resistencia interna (~45 kΩ) hacia GND conectada. Sin nada conectado lee 0; al unir el pin a 3,3 V lee 1.',
+   use:'Un botón entre el pin y 3,3 V. Pulsado = HIGH.', ex:{preset:'btn_33', level:0}},
+  {id:'output', name:'OUTPUT', h:262, ie:1,oe:1,od:0,wpu:0,wpd:0,
+   desc:'Salida push-pull: en HIGH conduce el P-MOS y conecta el pin a 3,3 V; en LOW conduce el N-MOS y lo conecta a GND. Puede dar y absorber corriente.',
+   use:'Encender un LED con su resistencia de 330 Ω hacia GND. En HIGH la corriente sale del pin.', ex:{preset:'led', level:1}},
+  {id:'od', name:'OUTPUT_OPEN_DRAIN', h:65, ie:1,oe:1,od:1,wpu:0,wpd:0,
+   desc:'Solo trabaja el N-MOS: en LOW une el pin a GND; en HIGH lo suelta (alta impedancia). Nunca da corriente, solo la absorbe.',
+   use:'Un LED alimentado desde 3,3 V (o desde otra tensión) que se enciende cuando el pin está en LOW.', ex:{preset:'ledup', level:0}},
+  {id:'od_pu', name:'OPEN_DRAIN + PULLUP', h:330, ie:1,oe:1,od:1,wpu:1,wpd:0,
+   desc:'Open-drain con la pull-up interna: en HIGH la resistencia sube el pin a 3,3 V; en LOW el N-MOS lo baja. Varios dispositivos pueden compartir la línea sin cortocircuitos.',
+   use:'Bus I2C (SDA/SCL): cada dispositivo solo tira de la línea hacia 0 y la pull-up la devuelve a 1.', ex:{preset:'none', level:0}},
+];
+const MBY = Object.fromEntries(MODES.map(m=>[m.id,m]));
+
+const PRESETS = [
+  {id:'none', name:'Al aire', ext:{type:'none'}},
+  {id:'btn_gnd', name:'Botón pulsado a GND', ext:{type:'src', v:0, r:0}},
+  {id:'btn_33', name:'Botón pulsado a 3,3 V', ext:{type:'src', v:3.3, r:0}},
+  {id:'sig33', name:'Señal de 3,3 V', ext:{type:'src', v:3.3, r:100}},
+  {id:'pot', name:'Potenciómetro a 1,65 V', ext:{type:'src', v:1.65, r:1000}},
+  {id:'led', name:'LED + 330 Ω a GND', ext:{type:'led', r:330}},
+  {id:'ledup', name:'LED + 330 Ω desde 3,3 V', ext:{type:'ledup', r:330}},
+  {id:'v5', name:'Señal de 5 V directa', ext:{type:'src', v:5, r:47}},
+  {id:'v5div', name:'5 V con divisor 10k/20k', ext:{type:'src', v:3.33, r:6667}},
+  {id:'i10', name:'Inyectar 10 mA', ext:{type:'isrc', i:0.01}},
+];
+
+const STRAP = {0:'up', 2:'down', 5:'up', 12:'down', 15:'up'};
+const RTCMAP = {36:0,37:1,38:2,39:3,34:4,35:5,25:6,26:7,33:8,32:9,4:10,0:11,2:12,15:13,13:14,12:15,14:16,27:17};
+const TABS = {
+  digital:{name:'Digital (GPIO)', h:200},
+  pwm:{name:'PWM (LEDC)', h:125},
+  adc:{name:'ADC', h:300},
+  dac:{name:'DAC', h:98},
+  touch:{name:'Táctil', h:58},
+  rtc:{name:'RTC · sueño', h:235},
+  boot:{name:'Arranque', h:75},
+  uart:{name:'UART', h:290},
+  flash:{name:'Flash SPI', h:40},
+};
+const ATT = {
+  0:{fs:1.1, rng:'100–950 mV', k:'ADC_0db', n:'0 dB'},
+  2.5:{fs:1.5, rng:'100–1250 mV', k:'ADC_2_5db', n:'2,5 dB'},
+  6:{fs:2.2, rng:'150–1750 mV', k:'ADC_6db', n:'6 dB'},
+  11:{fs:3.1, rng:'150–2450 mV', k:'ADC_11db', n:'11 dB'},
+};
+
+const S = {p:null, tab:'digital', io:{ie:1,oe:0,od:0,pull:'up'}, level:1, preset:'none', ext:{type:'none', v:0, r:0, i:0.001},
+  pwm:{f:5000, bits:8, duty:128, lv:1}, adc:{att:11, wifi:false}, dac:{val:128},
+  touch:{finger:false, ce:10, ct:5, thr:40, ph:0},
+  rtc:{state:'active', wake:true, wl:1, hold:false, log:[], waking:false},
+  boot:{phase:-1}, board:{boot:false}, uart:{ch:'A', baud:115200, lv:1, idx:-1}, flash:{crashed:false}};
+
+const inputOnly = p => p.groups.has('entrada');
+const modeAllowed = (m,p) => !(inputOnly(p) && (m.oe || m.wpu || m.wpd));
+const chipT = (p,k) => { const c = p.chips.find(x=>x.k===k); return c ? c.t : null; };
+function pinAnalog(p){
+  const a = chipT(p,'adc1') || chipT(p,'adc2'), d = chipT(p,'dac'), t = chipT(p,'touch');
+  return {
+    adc: a ? {unit:+a[3], ch:+a.split('_')[1]} : null,
+    dac: d ? +d.split('_')[1] : null,
+    touch: t ? +t.replace('TOUCH','') : null,
+    xtal: p.gpio===32 || p.gpio===33,
+    rtc: p.groups.has('rtc') ? RTCMAP[p.gpio] : null,
+  };
+}
+function pinFns(p){
+  const t = ['digital'], A = pinAnalog(p), g = p.gpio;
+  if(!inputOnly(p) && !p.groups.has('flash')) t.push('pwm');
+  if(A.adc) t.push('adc');
+  if(A.dac) t.push('dac');
+  if(A.touch!==null) t.push('touch');
+  if(A.rtc!==null) t.push('rtc');
+  if(p.groups.has('strapping')) t.push('boot');
+  if([1,3,16,17].includes(g)) t.push('uart');
+  if(p.groups.has('flash')) t.push('flash');
+  return t;
+}
+function boardKind(p){
+  const g = p.gpio;
+  if(g===0) return 'boot';
+  if(g===2) return 'led2';
+  if(g===1) return 'uart1';
+  if(g===3) return 'uart3';
+  if(p.groups.has('flash')) return 'flash';
+  return null;
+}
+function defaultSrc(p){
+  const f = p.chips.find(c=>['vspi','hspi','i2c','uart','uart2','flash'].includes(c.k));
+  if(!f) return 'LEDC / periféricos';
+  if(f.k==='flash') return 'SPI0 · flash';
+  if(f.k==='i2c') return 'I2C · '+f.t;
+  if(f.k==='uart') return 'UART0 · '+f.t;
+  if(f.k==='uart2') return 'UART2 · '+f.t;
+  return f.t.replace('_',' · ');
+}
+function aBlocks(p){
+  const A = pinAnalog(p), b = [];
+  if(A.adc) b.push({k:'adc', t:`ADC${A.adc.unit} · canal ${A.adc.ch}`, s:'SAR de 12 bits'});
+  if(A.dac) b.push({k:'dac', t:`DAC ${A.dac} · 8 bits`, s:'salida analógica'});
+  if(A.touch!==null) b.push({k:'touch', t:`Sensor táctil T${A.touch}`, s:'mide capacidad'});
+  if(A.xtal) b.push({k:'xtal', t:`XTAL_32K_${p.gpio===32?'P':'N'}`, s:'oscilador 32 kHz'});
+  if(A.rtc!==null) b.push({k:'rtc', t:`RTC_GPIO${A.rtc}`, s:'despertar y hold'});
+  b.forEach((x,i)=>{ x.x2 = 930 - i*170; x.x1 = x.x2 - 150; x.cx = x.x1 + 75; });
+  return b;
+}
+
+/* ---------- formatos ---------- */
+const fmtNum = (x,d)=>x.toFixed(d).replace('.',',');
+const sig3 = x => (+x.toPrecision(3)).toString().replace('.',',');
+function fmtV(v){ if(v===null||v===undefined) return '—'; const s = Math.abs(v)<0.005 ? 0 : v; return (s<0?'−':'')+fmtNum(Math.abs(s),2)+' V'; }
+function fmtI(a){ a=Math.abs(a); if(a<1e-9) return '0 A'; if(a<1e-3) return sig3(a*1e6)+' µA'; if(a<1) return sig3(a*1e3)+' mA'; return sig3(a)+' A'; }
+const fmtIsigned = a => (a<0?'−':'')+fmtI(a);
+function fmtR(r){ if(r===0) return '0 Ω (directo)'; if(r>=1e6) return sig3(r/1e6)+' MΩ'; if(r>=1000) return sig3(r/1000)+' kΩ'; return r+' Ω'; }
+function fmtHz(f){ if(f>=1e6) return sig3(f/1e6)+' MHz'; if(f>=1e3) return sig3(f/1e3)+' kHz'; return sig3(f)+' Hz'; }
+function fmtT(t){ if(t>=1) return sig3(t)+' s'; if(t>=1e-3) return sig3(t*1e3)+' ms'; if(t>=1e-6) return sig3(t*1e6)+' µs'; return sig3(t*1e9)+' ns'; }
+const fmtPct = D => sig3(D*100)+' %';
+
+/* ---------- configuración efectiva del pad según la pestaña ---------- */
+function cfg(o={}){
+  const p = S.p, g = p.gpio, io = !inputOnly(p), eq = eqMode();
+  const Z = {ie:0,oe:0,od:0,wpu:0,wpd:0};
+  let m = {ie:S.io.ie, oe:S.io.oe, od:S.io.od, wpu:S.io.pull==='up'?1:0, wpd:S.io.pull==='down'?1:0};
+  const c = {tab:S.tab, level:S.level, ext:S.ext, dac:null, ana:null, rtcRoute:false, mux:'gpio', src:defaultSrc(p), h:eq.h};
+  switch(S.tab){
+    case 'pwm': m = {ie:1,oe:1,od:0,wpu:0,wpd:0}; c.level = S.pwm.lv; c.mux='per'; c.src='LEDC · PWM'; c.h=TABS.pwm.h; if(!pwmInfo().valid) m.oe=0; break;
+    case 'adc': m = {...Z}; c.ana='adc'; c.rtcRoute=true; c.h=TABS.adc.h; break;
+    case 'dac': m = {...Z}; c.ana='dac'; c.rtcRoute=true; c.dac=S.dac.val/255*VDD; c.h=TABS.dac.h; break;
+    case 'touch': m = {...Z}; c.ana='touch'; c.rtcRoute=true; c.ext={type:'none'}; c.h=TABS.touch.h; break;
+    case 'rtc': if(S.rtc.state==='deep'){ if(!S.rtc.hold) m.oe=0; m.ie=1; c.ana='rtc'; c.rtcRoute=true; } break;
+    case 'boot': m = {ie:1,oe:0,od:0,wpu:STRAP[g]==='up'?1:0,wpd:STRAP[g]==='down'?1:0}; c.h=TABS.boot.h; break;
+    case 'uart':
+      if(g===1||g===17){ m={ie:1,oe:1,od:0,wpu:0,wpd:0}; c.level=S.uart.lv; c.mux='per'; c.src=g===1?'UART0 · U0TXD':'UART2 · U2TXD'; }
+      else { m={ie:1,oe:0,od:0,wpu:0,wpd:0}; }
+      c.ext = g===16 ? {type:'src', v:S.uart.lv*VDD, r:100} : {type:'none'};
+      c.h=TABS.uart.h; break;
+    case 'flash':
+      c.h=TABS.flash.h; c.mux='per'; c.src='SPI0 · flash';
+      m = S.flash.crashed ? {ie:1,oe:1,od:0,wpu:0,wpd:0} : {...Z};
+      if(S.flash.crashed){ c.level=0; c.mux='gpio'; }
+      break;
+  }
+  if(o.level!==undefined) c.level = o.level;
+  if(!io){ m.oe=0; m.od=0; m.wpu=0; m.wpd=0; }
+  c.m = m;
+  return c;
+}
+function boardSrc(){
+  const g = S.p.gpio;
+  if(g===0 && S.board.boot) return {type:'gnd', r:R_BOOT};
+  if(g===3) return {type:'src', v:(S.tab==='uart'?S.uart.lv:1)*VDD, r:R_UTX};
+  return null;
+}
+
+function solve(c){
+  const m = c.m, e = c.ext, bd = boardSrc();
+  const pm = !!(m.oe && !m.od && c.level===1), nm = !!(m.oe && c.level===0), pu = !!m.wpu, pd = !!m.wpd;
+  const br = {
+    ext: V => e.type==='src' ? (e.v-V)/Math.max(e.r,0.05)
+         : e.type==='isrc' ? e.i
+         : e.type==='led' ? (V>VF_LED ? -(V-VF_LED)/(e.r+R_LED) : 0)
+         : e.type==='ledup' ? (VDD-VF_LED-V>0 ? (VDD-VF_LED-V)/(e.r+R_LED) : 0) : 0,
+    pmos: V => pm ? (VDD-V)/RON_P : 0,
+    nmos: V => nm ? -V/RON_N : 0,
+    pu: V => pu ? (VDD-V)/RPU : 0,
+    pd: V => pd ? -V/RPD : 0,
+    d1: V => V>VDD+VF ? -(V-VDD-VF)/RDIO : 0,
+    d2: V => V<-VF ? (-VF-V)/RDIO : 0,
+    board: V => !bd ? 0 : bd.type==='gnd' ? -V/bd.r : (bd.v-V)/bd.r,
+    ana: V => c.dac!==null ? (c.dac-V)/R_DAC : 0,
+  };
+  const keys = Object.keys(br);
+  const f = V => keys.reduce((s,k)=>s+br[k](V),0);
+  let lo=-200, hi=200;
+  for(let k=0;k<120;k++){ const mid=(lo+hi)/2; if(f(mid)>0) lo=mid; else hi=mid; }
+  const V = (lo+hi)/2;
+  const I = {ext:br.ext(V), pmos:br.pmos(V), nmos:-br.nmos(V), pu:br.pu(V), pd:-br.pd(V), d1:-br.d1(V), d2:br.d2(V),
+             board: bd ? (bd.type==='gnd' ? -br.board(V) : br.board(V)) : 0, ana:br.ana(V)};
+  const driven = e.type==='src' || e.type==='isrc' || pm || nm || pu || pd || !!bd || c.dac!==null;
+  const floating = !driven && Object.values(I).every(x=>Math.abs(x)<1e-9);
+  return {m, V: floating ? null : V, I, pm, nm, pu, pd, floating, bd};
+}
+
+function readVal(r){
+  if(!r.m.ie) return {t:'0', note:'entrada desactivada'};
+  if(r.floating) return {t:'?', note:'aleatorio'};
+  if(r.V>=VIH) return {t:'1'};
+  if(r.V<=VIL) return {t:'0'};
+  return {t:'?', note:'indeterminado'};
+}
+
+/* ---------- modelos de cada función ---------- */
+function niceUp(x){ const e=Math.floor(Math.log10(x)); for(const m of [1,2,5,10]){ const v=m*10**e; if(v>=x*0.999) return v; } return 10**(e+1); }
+function pwmInfo(){
+  const f = S.pwm.f, bits = S.pwm.bits, lv = 2**bits;
+  const duty = Math.min(S.pwm.duty, lv), D = duty/lv, max = 80e6/lv;
+  const T = 1/f, W = niceUp(2.5*T);
+  return {f, bits, lv, duty, D, max, valid: f<=max, T, W, n: W/T};
+}
+function adcCode(V,att){ if(V===null) return null; const fs=ATT[att].fs; if(V<=0.075) return 0; return Math.max(0,Math.min(4095,Math.round((V-0.075)/(fs-0.075)*4095))); }
+function adcMv(code,att){ const fs=ATT[att].fs; return Math.round((0.075+code/4095*(fs-0.075))*1000); }
+function touchVals(){ const C0 = 5+S.touch.ct+S.touch.ce, C = C0 + (S.touch.finger?60:0); return {C0, C, v0:Math.round(1500/C0), v:Math.round(1500/C)}; }
+function uartBits(){ const code = (S.uart.ch||'A').charCodeAt(0) & 255; const b=[1,1,0]; for(let i=0;i<8;i++) b.push((code>>i)&1); b.push(1,1); return b; }
+function bootLevels(rd){
+  const g = S.p.gpio, L = {0:1, 2:0, 5:1, 12:0, 15:1};
+  if(g!==0) L[0] = S.board.boot ? 0 : 1;
+  L[g] = rd.t==='?' ? '?' : +rd.t;
+  return L;
+}
+function bootOutcome(L){
+  if(Object.values(L).includes('?')) return {lv:'warn', t:'Arranque impredecible', d:`${S.p.name} queda en la zona indeterminada: cada reinicio puede leerse distinto.`, log:'<span class="dim">(cada reinicio puede comportarse de forma distinta)</span>'};
+  if(L[12]===1) return {lv:'bad', t:'No arranca', d:'GPIO12 en ALTO al arrancar fija la tensión de la flash a 1,8 V. La flash del WROOM-32 es de 3,3 V y no responde.', log:'rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)\nflash read err, 1000\nets_main.c 371\n<span class="dim">(se repite en bucle)</span>'};
+  if(L[0]===0 && L[2]===1) return {lv:'bad', t:'No entra en modo descarga', d:'GPIO0 en BAJO pide el modo descarga, pero GPIO2 está en ALTO: combinación no válida. La herramienta de grabación no consigue conectar.', log:'<span class="dim">(el chip no responde)</span>\nA fatal error occurred: Failed to connect to ESP32'};
+  if(L[0]===0) return {lv:'warn', t:'Modo descarga', d:'GPIO0 en BAJO: el chip espera un programa nuevo por el puerto serie. Tu programa no se ejecuta.', log:'rst:0x1 (POWERON_RESET),boot:0x3 (DOWNLOAD_BOOT(UART0/UART1/SDIO_REI_REO_V2))\nwaiting for download'};
+  const n = [];
+  if(L[15]===0) n.push('GPIO15 en BAJO: no se imprime el log de arranque.');
+  if(L[5]===0) n.push('GPIO5 en BAJO: cambia el timing del esclavo SDIO (no afecta a un arranque normal).');
+  return {lv:'ok', t:'Arranque normal', d:'Arranca desde la flash y ejecuta tu programa. '+n.join(' '),
+    log: L[15]===0 ? '<span class="dim">(sin mensajes de arranque)</span>\n→ setup()' : 'rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)\nconfigsip: 0, SPIWP:0xee\nmode:DIO, clock div:1\nload:0x3fff0030,len:…\nentry 0x400…\n→ setup()'};
+}
+
+/* =================== esquema SVG (generado por pin) =================== */
+function zigH(x1,y,x2,a=7,n=6){const w=(x2-x1)/n;let d=`M${x1} ${y}`;for(let i=0;i<n;i++)d+=` L${(x1+w*(i+.5)).toFixed(1)} ${i%2?y+a:y-a}`;return d+` L${x2} ${y}`;}
+function zigV(x,y1,y2,a=7,n=6){const h=(y2-y1)/n;let d=`M${x} ${y1}`;for(let i=0;i<n;i++)d+=` L${i%2?x+a:x-a} ${(y1+h*(i+.5)).toFixed(1)}`;return d+` L${x} ${y2}`;}
+const vddSym=(x,y,lbl='VDD')=>`<path class="c" d="M${x-12} ${y}H${x+12}"/><text class="tm" x="${x}" y="${y-7}" text-anchor="middle">${lbl}</text>`;
+const gndSym=(x,y)=>`<path class="c" d="M${x-12} ${y}H${x+12}M${x-7} ${y+5}H${x+7}M${x-3} ${y+10}H${x+3}"/>`;
+function hmos(cx, yc, gateBelow, isP, id){
+  const gp = gateBelow ? yc+8 : yc-8;
+  let s = `<g class="hmos" id="${id}"><path class="c ch-off" d="M${cx-18} ${yc} H${cx-8} M${cx-5} ${yc} H${cx+5} M${cx+8} ${yc} H${cx+18}"/><path class="c ch-on" d="M${cx-18} ${yc} H${cx+18}"/>`;
+  s += `<path class="c" d="M${cx-16} ${gp} H${cx+16}"/>`;
+  if(isP) s += `<circle class="c bgf" cx="${cx}" cy="${gp+4}" r="3.5"/>`;
+  return s + '</g>';
+}
+function mos(xc,g,type){
+  let s=`<path class="c" d="M${xc-8} ${g-16}V${g+16}"/>`;
+  s+=`<path class="c" d="M${xc} ${g-20}V${g-8}M${xc} ${g-5}V${g+5}M${xc} ${g+8}V${g+20}"/>`;
+  s+=`<path class="c" d="M${xc} ${g-14}H${xc+20}M${xc} ${g+14}H${xc+20}M${xc} ${g}H${xc+20}V${type==='p'?g-14:g+14}"/>`;
+  s+= type==='n' ? `<path class="fillc" d="M${xc+2} ${g}l8 -4v8z"/>` : `<path class="fillc" d="M${xc+17} ${g}l-8 -4v8z"/>`;
+  if(type==='p') s+=`<circle class="c bgf" cx="${xc-13}" cy="${g}" r="4"/>`;
+  return s;
+}
+const dmgTag=(x,y)=>`<g class="dmg"><rect x="${x}" y="${y}" width="44" height="16" rx="4"/><text x="${x+22}" y="${y+11.5}" text-anchor="middle">DAÑO</text></g>`;
+const REGS = [
+  {id:'wpu', name:'FUN_WPU', sub:'pull-up', y:100},
+  {id:'ie',  name:'FUN_IE', sub:'entrada', y:135},
+  {id:'in',  name:'GPIO_IN', sub:'digitalRead', y:170},
+  {id:'out', name:'GPIO_OUT', sub:'digitalWrite', y:250},
+  {id:'oe',  name:'GPIO_ENABLE', sub:'salida', y:290},
+  {id:'od',  name:'PAD_DRIVER', sub:'open-drain', y:330},
+  {id:'wpd', name:'FUN_WPD', sub:'pull-down', y:410},
+];
+let FKEYS = [];
+
+function ablock(b){
+  const x=b.x1, y=600; let icon='';
+  switch(b.k){
+    case 'adc': icon=`<path class="c" d="M${x+12} ${y+84} h12 v-8 h12 v-8 h12 v-8 h12 v-8 h10"/><text class="tm" x="${x+82}" y="${y+70}">0 … 4095</text>`; break;
+    case 'dac': icon=`<path class="c" d="M${x+12} ${y+84} h12 v-8 h12 v-8 h12 v-8 h12 v-8 h10"/><text class="tm" x="${x+82}" y="${y+70}">0 … 255</text>`; break;
+    case 'touch': icon=`<path class="c" d="M${x+12} ${y+84} l10 -28 l10 28 l10 -28 l10 28 l10 -28"/><text class="tm" x="${x+76}" y="${y+64}">carga y</text><text class="tm" x="${x+76}" y="${y+77}">descarga</text>`; break;
+    case 'xtal': icon=`<path class="c" d="M${x+18} ${y+56} v28 M${x+24} ${y+60} h12 v20 h-12 z M${x+42} ${y+56} v28"/><text class="tm" x="${x+56}" y="${y+73}">sin cristal</text>`; break;
+    case 'rtc': icon=`<circle class="c" cx="${x+28}" cy="${y+70}" r="13"/><path class="c" d="M${x+28} ${y+62} V${y+70} H${x+35}"/><text class="tm" x="${x+52}" y="${y+66}">ext0 / ext1</text><text class="tm" x="${x+52}" y="${y+79}">hold</text>`; break;
+  }
+  return `<g class="ablk" id="ab-${b.k}"><path class="c" d="M${b.cx} 580 V600"/><circle class="dot" cx="${b.cx}" cy="580" r="3"/>`+
+    `<rect class="box" x="${x}" y="${y}" width="150" height="112" rx="8"/>`+
+    `<text class="tx" x="${x+10}" y="${y+20}">${b.t}</text><text class="tm" x="${x+10}" y="${y+36}">${b.s}</text>${icon}`+
+    `<text class="ival" id="abv-${b.k}" x="${x+10}" y="${y+104}"></text></g>`;
+}
+
+function boardSVG(p,bk){
+  const g=p.gpio, jn=`<circle class="dot" cx="1020" cy="290" r="3.5"/>`;
+  let s=`<rect class="frame" x="1000" y="470" width="310" height="270" rx="12"/><text class="tm" x="1014" y="492" letter-spacing="1.2">${bk==='flash'?'EN EL MÓDULO WROOM-32':'EN LA PLACA DEVKITC'}</text>`;
+  switch(bk){
+    case 'boot':
+      s+=`<g id="g-board">${jn}<path class="c" d="M1020 290 V540"/><circle class="fillc" cx="1020" cy="540" r="3"/><circle class="fillc" cx="1020" cy="590" r="3"/>`+
+         `<g class="mv" id="bd-bar"><path class="c" d="M1032 530 V600 M1032 565 H1050 M1050 555 V575"/></g>`+
+         `<path class="c" d="M1020 590 V622"/>${gndSym(1020,622)}<text class="tx" x="1064" y="560">Botón BOOT</text><text class="tm" x="1064" y="576">pulsado = GPIO0 a GND</text>`+
+         `<rect class="c bgf" x="1060" y="660" width="240" height="46" rx="6"/><text class="tm" x="1072" y="679">Auto-programación (DTR/RTS)</text><text class="tm" x="1072" y="695">baja GPIO0 al grabar desde el IDE</text>`+
+         `<path class="ctl on" d="M1060 683 H1008 V510 H1020"/></g>`;
+      break;
+    case 'led2':
+      s+=`<g id="g-board" class="maybe">${jn}<path class="c" d="M1020 290 V520"/><path class="c" d="${zigV(1020,520,556)}"/><path class="c" d="M1020 556 V566 M1008 566 H1032 L1020 588 Z M1008 588 H1032 M1020 588 V610 M1036 572 l8 -6 M1038 580 l8 -6"/>${gndSym(1020,610)}`+
+         `<text class="tm" x="1048" y="542">resistencia</text><text class="tx" x="1048" y="586">LED azul</text><text class="tm" x="1048" y="602">solo en muchas clónicas;</text><text class="tm" x="1048" y="616">la DevKitC v4 no lo trae</text></g>`;
+      break;
+    case 'uart1': case 'uart3': case 'flash': {
+      const isF = bk==='flash', lab = isF ? (chipT(p,'flash')||'').replace('SD_','') : (bk==='uart1'?'RXD':'TXD');
+      const arrow = bk==='uart1' ? 'M1052 594 L1064 600 L1052 606 Z' : bk==='uart3' ? 'M1064 594 L1052 600 L1064 606 Z' : '';
+      s+=`<g id="g-board">${jn}<path class="c" d="M1020 290 V600 H1080"/>${arrow?`<path class="fillc" d="${arrow}"/>`:''}`+
+         `<rect class="c bgf" x="1080" y="560" width="210" height="84" rx="6"/><text class="tx" x="1196" y="592" text-anchor="middle">${isF?'Flash SPI · 4 MB':'USB-UART'}</text>`+
+         `<text class="tm" x="1196" y="608" text-anchor="middle">${isF?'la controla SPI0':'CP2102 / CH340'}</text><text class="tm" x="1088" y="625">${lab}</text>`+
+         `<text class="tm" x="1014" y="668">${isF?'La CPU lee aquí su programa':'Va al USB del ordenador:'}</text><text class="tm" x="1014" y="684">${isF?'continuamente (decenas de MHz).':'grabación y Serial Monitor.'}</text></g>`;
+      break; }
+    default:
+      s+=`<text class="tm" x="1014" y="520">Nada más conectado: el pin va</text><text class="tm" x="1014" y="536">directo al conector J2/J3.</text>`+
+         (g===32||g===33 ? `<text class="tm" x="1014" y="566">El hueco del cristal de 32 kHz</text><text class="tm" x="1014" y="582">está sin montar.</text>` : '');
+  }
+  return s;
+}
+
+function schematic(p){
+  const io = !inputOnly(p), A = pinAnalog(p), bl = aBlocks(p), bk = boardKind(p), hasT = A.touch!==null;
+  const F = {};
+  let s = `<svg class="sch" id="sch" viewBox="0 0 1320 760" role="img" aria-label="Esquema interno de ${p.name}">`;
+  s += `<rect class="frame" x="12" y="12" width="968" height="728" rx="14"/>`;
+  s += `<text class="tm" x="28" y="32" letter-spacing="1.5">INTERIOR DEL ESP32 · PAD DE ${p.name}</text>`;
+  s += `<text class="tm" x="1004" y="32" letter-spacing="1.5">EXTERIOR</text>`;
+  s += `<text class="tm" x="28" y="72">Registros (bit del pin)</text>`;
+  REGS.filter(r=>io||r.id==='ie'||r.id==='in').forEach(r=>{
+    s += `<g id="reg-${r.id}"><rect class="regbox" x="28" y="${r.y-14}" width="190" height="28" rx="5"/>`+
+         `<text class="tx" x="38" y="${r.y+4}">${r.name}</text><text class="tm" x="180" y="${r.y+4}" text-anchor="end">${r.sub}</text>`+
+         `<rect class="bitbox" x="186" y="${r.y-10}" width="26" height="20" rx="4"/><text class="bittx" id="bit-${r.id}" x="199" y="${r.y+4.5}" text-anchor="middle">0</text></g>`;
+  });
+  if(!io) s += `<text class="tm" x="28" y="214">Sin registros de salida ni de pull:</text><text class="tm" x="28" y="230">este pad solo tiene entrada.</text>`;
+  const top = io?70:170, bot = io?440:290;
+  s += `<path class="w" d="M840 ${top} V${bot}"/><path class="w" d="M840 290 H968"/>`;
+  s += `<path class="w" d="M920 42 V150 M920 180 V395 M920 425 V468"/><g>${vddSym(920,42)}${gndSym(920,468)}</g>`;
+  // corrientes
+  if(io){ F.pu='M660 42 V70 H684 V80 H716 V70 H840 V290 H920'; F.pmos='M600 205 V290 H920'; F.nmos='M920 290 H600 V378'; F.pd='M920 290 H840 V440 H716 V430 H684 V440 H660 V470'; }
+  F.d1='M920 290 V42'; F.d2='M920 468 V290'; F.ext='M1190 440 V290 H920';
+  if(bk==='boot') F.board='M920 290 H1020 V622';
+  if(bk==='uart3') F.board='M1080 600 H1020 V290 H920';
+  bl.forEach(b=>{ if(['adc','dac','touch'].includes(b.k)) F['a_'+b.k]=`M${b.cx} 600 V580 H950 V290 H920`; });
+  if(hasT) F.tchx='M920 290 H1160 V330';
+  FKEYS = Object.keys(F);
+  s += '<g id="flows">'+FKEYS.map(k=>`<path class="fb" id="fb-${k}" d="${F[k]}"/><path class="fd" id="fd-${k}" d="${F[k]}"/>`).join('')+'</g>';
+  // líneas de control
+  s += `<path class="ctl" id="ctl-ie" d="M212 135 H730 V159"/><path class="sig" id="sig" d="M700 170 H212"/>`;
+  if(io){
+    s += `<path class="ctl" id="ctl-wpu" d="M212 100 H700 V96"/><path class="ctl" id="ctl-wpd" d="M212 410 H700 V422"/>`;
+    s += `<path class="ctl" id="ctl-out" d="M212 250 H280"/><path class="ctl" id="ctl-mx" d="M330 251 H430"/><path class="ctl" id="ctl-oe" d="M212 290 H430"/><path class="ctl" id="ctl-od" d="M212 330 H430"/>`;
+    // matriz GPIO
+    s += `<g id="g-mx"><g id="mx-per"><rect class="c bgf" x="240" y="186" width="130" height="28" rx="5"/><text class="tm" id="mx-src" x="305" y="204" text-anchor="middle"></text><path class="c" d="M305 214 V233"/></g>`+
+         `<path class="c bgf" d="M280 228 L330 238 V264 L280 274 Z"/><path class="c" id="mx-sel" d="M284 250 H326"/><text class="tm" x="336" y="230">matriz GPIO</text></g>`;
+    // pull-up
+    s += `<g id="g-pu">${vddSym(660,42)}<path class="c" d="M660 42 V70 H684 V80 M716 80 V70 H740 ${zigH(740,70,800).replace('M740 70','')} H840"/>`+
+         `${hmos(700,80,true,true,'mpu')}<text class="tm" x="700" y="62" text-anchor="middle">P-MOS</text>`+
+         `<text class="tm" x="770" y="52" text-anchor="middle">R pull-up 45 kΩ</text><text class="ival" id="iv-pu" x="796" y="94" text-anchor="middle"></text></g>`+
+         `<g id="inv-wpu"><path class="c bgf" d="M632 92 L646 100 L632 108 Z"/><circle class="c bgf" cx="649.5" cy="100" r="3"/><text class="tm" x="639" y="120" text-anchor="middle">inversor</text></g>`;
+    // lógica de salida + MOSFET
+    s += `<g id="g-ctl"><rect class="c bgf" x="430" y="226" width="100" height="128" rx="8"/>`+
+         `<text class="tx" x="480" y="284" text-anchor="middle">Lógica</text><text class="tx" x="480" y="300" text-anchor="middle">de salida</text>`+
+         `<path class="c" d="M530 245 H563"/><path class="c" d="M530 335 H572"/><text class="tm" id="gp-lbl" x="536" y="238"></text><text class="tm" id="gn-lbl" x="536" y="328"></text></g>`;
+    s += `<g id="g-pmos">${vddSym(600,205)}<path class="c" d="M600 205 V231"/>${mos(580,245,'p')}<path class="c" d="M600 259 V290"/>`+
+         `<text class="tx" x="616" y="240">P-MOS</text><text class="ival" id="iv-pmos" x="616" y="256"></text>${dmgTag(676,236)}</g>`;
+    s += `<g id="g-nmos"><path class="c" d="M600 290 V321"/>${mos(580,335,'n')}<path class="c" d="M600 349 V378"/>${gndSym(600,378)}`+
+         `<text class="tx" x="616" y="330">N-MOS</text><text class="ival" id="iv-nmos" x="616" y="346"></text>${dmgTag(676,326)}</g>`;
+    s += `<g id="g-outw"><path class="c" d="M600 290 H840"/><circle class="dot" cx="600" cy="290" r="3.5"/><text class="tm" id="zout" x="720" y="282" text-anchor="middle">Zout ≈ 40 Ω</text></g>`;
+    // pull-down
+    s += `<g id="g-pd"><path class="c" d="M840 440 H800 ${zigH(800,440,740).replace('M800 440','')} H716 V430 M684 430 V440 H660 V470"/>`+
+         `${hmos(700,430,false,false,'mpd')}<text class="tm" x="694" y="458" text-anchor="middle">N-MOS</text>${gndSym(660,470)}`+
+         `<text class="tm" x="782" y="466" text-anchor="middle">R pull-down 45 kΩ</text><text class="ival" id="iv-pd" x="770" y="424" text-anchor="middle"></text></g>`;
+  }
+  // buffer de entrada
+  s += `<g id="g-in"><path class="c" d="M840 170 H760"/><path class="c bgf" d="M760 148 V192 L700 170 Z"/>`+
+       `<path class="c" d="M722 176 H736 V164 M730 176 V164 H744" stroke-width="1.5"/>`+
+       `<text class="tm" x="730" y="210" text-anchor="middle">Buffer de entrada (Schmitt)</text><text class="tm" id="zin" x="776" y="162">Zin → ∞</text></g>`;
+  // diodos
+  s += `<g id="g-d1"><path class="c" d="M910 150 H930"/><path class="fillc" d="M910 180 H930 L920 152 Z"/>`+
+       `<text class="tx" x="904" y="160" text-anchor="end">D1</text><text class="ival" id="iv-d1" x="904" y="176" text-anchor="end"></text>${dmgTag(856,128)}</g>`;
+  s += `<g id="g-d2"><path class="c" d="M910 395 H930"/><path class="fillc" d="M910 425 H930 L920 397 Z"/>`+
+       `<text class="tx" x="904" y="406" text-anchor="end">D2</text><text class="ival" id="iv-d2" x="904" y="422" text-anchor="end"></text>${dmgTag(856,428)}</g>`;
+  s += `<text class="tm" x="880" y="98" text-anchor="middle">diodos de</text><text class="tm" x="880" y="111" text-anchor="middle">protección</text>`;
+  s += `<circle class="dot" cx="840" cy="170" r="3.5"/><circle class="dot" cx="840" cy="290" r="3.5"/><circle class="dot" cx="920" cy="290" r="3.5"/>`;
+  // dominio RTC
+  if(bl.length){
+    s += `<text class="tm" x="28" y="560" letter-spacing="1.2">DOMINIO RTC · FUNCIONES ANALÓGICAS Y DE BAJO CONSUMO</text>`;
+    s += `<g id="g-rtcsw"><path class="c" d="M950 290 V500"/><circle class="dot" cx="950" cy="290" r="3.5"/><circle class="fillc" cx="950" cy="500" r="3"/><circle class="fillc" cx="950" cy="540" r="3"/>`+
+         `<line class="c lever" id="lev-rtc" x1="950" y1="500" x2="950" y2="540" style="transform-origin:950px 500px"/>`+
+         `<path class="c" d="M950 540 V580 H${Math.min(...bl.map(b=>b.cx))}"/><text class="tm" x="940" y="514" text-anchor="end">RTC_IO</text><text class="tm" x="940" y="528" text-anchor="end">mux analógico</text></g>`;
+    bl.forEach(b=>{ s += ablock(b); });
+  } else {
+    s += `<text class="tm" x="28" y="560" letter-spacing="1.2">SIN DOMINIO RTC</text><text class="tm" x="28" y="584">Este pin no tiene funciones analógicas ni puede despertar al chip desde deep sleep:</text><text class="tm" x="28" y="600">solo usa la parte digital (IO_MUX y matriz GPIO).</text>`;
+  }
+  // pad
+  s += `<rect class="pad" id="padsq" x="968" y="278" width="24" height="24" rx="3"/>`;
+  s += `<text class="tb" id="pin-lbl" x="1004" y="274">${p.name}</text><text class="ival" id="vpin-lbl" x="1030" y="318"></text>`;
+  // placa
+  s += boardSVG(p,bk);
+  // circuito externo del usuario
+  s += `<g id="g-ext">`+
+       `<g id="ext-none"><path class="c" d="M992 290 H1044"/><circle class="c bgf" cx="1048" cy="290" r="4"/><text class="tm" x="1058" y="294">sin conexión</text></g>`+
+       `<g id="ext-conn"><path class="c" d="M992 290 H1045"/>`+
+         `<g id="ext-r"><path class="c" d="${zigH(1045,290,1115)}"/><text class="tm" id="rext-l" x="1080" y="274" text-anchor="middle"></text></g>`+
+         `<path class="c" id="ext-short" d="M1045 290 H1115"/><path class="c" d="M1115 290 H1190 V332"/>`+
+         `<text class="ival" id="iv-ext" x="1152" y="281" text-anchor="middle"></text>`+
+         `<g id="ext-src"><circle class="c bgf" cx="1190" cy="358" r="26"/><text class="tx" x="1190" y="351" text-anchor="middle">+</text><text class="tx" x="1190" y="375" text-anchor="middle">−</text></g>`+
+         `<g id="ext-isrc"><circle class="c bgf" cx="1190" cy="358" r="26"/><path class="c" d="M1190 374 V346"/><path class="fillc" d="M1183 350 H1197 L1190 339 Z"/></g>`+
+         `<g id="ext-led"><circle class="ledglow" id="glow-led" cx="1190" cy="354" r="30"/><path class="c" d="M1190 332 V340 M1190 366 V384"/><path class="c ledfill" d="M1176 340 H1204 L1190 366 Z"/><path class="c" d="M1176 366 H1204"/>`+
+           `<path class="c" d="M1208 348 l10 -9 M1212 358 l10 -9" stroke-width="1.5"/>${dmgTag(1210,384)}</g>`+
+         `<g id="ext-ledup"><circle class="ledglow" id="glow-ledup" cx="1190" cy="354" r="30"/><path class="c" d="M1190 332 V340 M1190 366 V384"/><path class="c ledfill" d="M1176 366 H1204 L1190 340 Z"/><path class="c" d="M1176 340 H1204"/>`+
+           `<path class="c" d="M1208 348 l10 -9 M1212 358 l10 -9" stroke-width="1.5"/>${dmgTag(1210,384)}</g>`+
+         `<path class="c" d="M1190 384 V440"/><g id="ext-gnd">${gndSym(1190,440)}</g>`+
+         `<g id="ext-vdd"><path class="c" d="M1178 440 H1202"/><text class="tm" x="1190" y="456" text-anchor="middle">3,3 V</text></g>`+
+         `<text class="tx" id="ext-l1" x="1224" y="354"></text><text class="tm" id="ext-l2" x="1224" y="370"></text>`+
+       `</g></g>`;
+  if(hasT){
+    s += `<g id="g-tchx"><path class="c" d="M992 290 H1160 V330"/><circle class="dot" cx="1100" cy="290" r="3.5"/>`+
+         `<path class="c" d="M1100 290 V318 M1088 318 H1112 M1088 326 H1112 M1100 326 V346"/>${gndSym(1100,346)}<text class="tm" x="1116" y="314">C pista</text><text class="ival" id="tv-ct" x="1116" y="328"></text>`+
+         `<rect class="elec" x="1150" y="330" width="90" height="8" rx="2"/><text class="tm" x="1246" y="338">electrodo</text>`+
+         `<path class="c" d="M1200 338 V352 M1188 352 H1212 M1188 360 H1212 M1200 360 V380"/>${gndSym(1200,380)}<text class="tm" x="1218" y="362">C electrodo</text><text class="ival" id="tv-ce" x="1218" y="376"></text>`+
+         `<g class="ctouch" id="ctouch"><path class="c" d="M1212 300 V312 M1200 312 H1224 M1200 320 H1224 M1212 320 V330"/><text class="tm" x="1232" y="318">C dedo</text></g>`+
+         `<g class="mv" id="finger"><rect class="finger" x="1196" y="214" width="32" height="86" rx="15"/><path class="c" d="M1203 232 q9 -10 18 0" stroke-width="1.4"/>`+
+         `<text class="tm" x="1236" y="236">dedo</text><text class="tm" x="1236" y="250">(a tierra por</text><text class="tm" x="1236" y="264">el cuerpo)</text></g></g>`;
+  }
+  s += `</svg>`;
+  return s;
+}
+
+/* =================== previsualizaciones de los modos =================== */
+const pvFrame = (lbl='ESP32')=>`<rect class="frame" x="6" y="6" width="104" height="128" rx="8"/><text class="tm" x="14" y="20">${lbl}</text>`;
+const pvPin = y=>`<rect class="pin" x="104" y="${y-6}" width="12" height="12" rx="2"/>`;
+const pvVdd=(x,y,l='3,3 V')=>`<path class="c" d="M${x-9} ${y}H${x+9}"/><text x="${x+12}" y="${y+3}">${l}</text>`;
+const pvGnd=(x,y)=>`<path class="c" d="M${x-9} ${y}H${x+9}M${x-5} ${y+4}H${x+5}M${x-2} ${y+8}H${x+2}"/>`;
+const pvBtn=(x,y1,y2)=>{const m=(y1+y2)/2;return `<path class="c" d="M${x} ${y1}V${y2}M${x} ${m}H${x+12}M${x+12} ${m-6}V${m+6}"/><text class="tm" x="${x+17}" y="${m+3}">pulsado</text>`;};
+const pvLedDown=(x,y)=>`<circle class="glow" cx="${x}" cy="${y+8}" r="13"/><path class="c bgf" d="M${x-8} ${y}H${x+8}L${x} ${y+14}Z"/><path class="c" d="M${x-8} ${y+14}H${x+8}M${x+10} ${y+4}l6-5M${x+12} ${y+10}l6-5"/>`;
+const pvBox=(x,y1,y2,l)=>`<rect class="c bgf" x="${x-12}" y="${y1}" width="24" height="${y2-y1}" rx="3"/><text x="${x+16}" y="${(y1+y2)/2+3}">${l}</text>`;
+const pvFlow=d=>`<path class="fb" d="${d}"/><path class="fd" d="${d}"/>`;
+const PV = {
+  off: ()=>`${pvFrame()}<path class="c" d="M60 70H104"/><rect class="c bgf" x="44" y="60" width="32" height="20" rx="3"/><text x="60" y="74" text-anchor="middle">Hi-Z</text>${pvPin(70)}<path class="w" d="M116 70H170"/><circle class="c bgf" cx="174" cy="70" r="3.5"/><text class="tm" x="132" y="100">no lee ni escribe</text>`,
+  input: ()=>`${pvFrame()}<path class="c bgf" d="M90 58V82L62 70Z"/><path class="c" d="M90 70H104M62 70H30"/><text x="22" y="62">1</text><text class="tm" x="14" y="98">lee 1</text>${pvPin(70)}`+
+    `${pvFlow('M200 22V118')}<path class="w" d="M116 70H200"/><circle class="fillc" cx="200" cy="70" r="3"/>${pvVdd(200,22)}${pvBtn(200,24,66)}<path class="c" d="${zigV(200,78,108,6,5)}M200 74V78M200 108V114"/><text x="212" y="96">10 kΩ</text>${pvGnd(200,116)}`,
+  input_pullup: ()=>`${pvFlow('M66 22V70H200V118')}${pvFrame()}${pvVdd(66,22)}<path class="c" d="${zigV(66,30,58,6,5)}M66 22V30M66 58V70H104"/><text x="22" y="48">45k</text><text class="tm" x="14" y="98">lee 0</text>${pvPin(70)}<path class="w" d="M116 70H200"/>${pvBtn(200,70,112)}${pvGnd(200,116)}`,
+  input_pulldown: ()=>`${pvFlow('M200 22V70H66V118')}${pvFrame()}<path class="c" d="M104 70H66V78${zigV(66,78,106,6,5).replace('M66 78','')}V114"/><text x="22" y="96">45k</text>${pvGnd(66,116)}<text class="tm" x="14" y="44">lee 1</text>${pvPin(70)}<path class="w" d="M116 70H200"/>${pvBtn(200,24,70)}${pvVdd(200,22)}`,
+  output: ()=>`${pvFlow('M60 22V70H222V118')}${pvFrame()}${pvVdd(60,22)}<path class="c" d="M60 22V32M60 56V70H104"/>${pvBox(60,32,56,'P-MOS')}${pvPin(70)}<path class="w" d="M116 70H140"/><path class="c" d="${zigH(140,70,190,6,5)}"/><text x="152" y="58">330 Ω</text><path class="w" d="M190 70H222V80"/>${pvLedDown(222,80)}<path class="w" d="M222 94V114"/>${pvGnd(222,116)}`,
+  od: ()=>`${pvFlow('M222 20V96H60V124')}${pvFrame()}<path class="c" d="M104 96H60V102M60 120V124"/>${pvBox(60,102,120,'N-MOS')}${pvGnd(60,126)}${pvPin(96)}<text class="tm" x="14" y="44">pin en LOW</text>${pvVdd(222,20)}<path class="c" d="${zigV(222,26,50,6,4)}M222 20V26"/><text x="234" y="42">330 Ω</text><path class="w" d="M222 50V56"/>${pvLedDown(222,56)}<path class="w" d="M222 70V96H116"/>`,
+  od_pu: ()=>`${pvFlow('M44 20V72H80V118')}${pvFrame()}${pvVdd(44,20)}<path class="c" d="${zigV(44,26,52,5,4)}M44 20V26M44 52V72H104M80 72V84M80 104V112"/><circle class="fillc" cx="80" cy="72" r="2.5"/>${pvBox(80,84,104,'')}<text x="64" y="128">N-MOS</text>${pvGnd(80,114)}${pvPin(72)}<path class="w" d="M116 72H290"/><text x="140" y="64">SDA (bus I2C)</text><path class="w" d="M240 72V92"/><rect class="c bgf" x="214" y="92" width="52" height="28" rx="4"/><text x="240" y="110" text-anchor="middle">sensor</text>`,
+};
+const pvSVG = m=>`<svg class="pv" viewBox="0 0 300 140" style="--fh:${m.h}" aria-hidden="true">${PV[m.id]()}</svg>`;
+
+/* =================== gráficos (osciloscopio / curvas) =================== */
+let scG = null;
+function plot(o){
+  const w=o.w||760, h=o.h||230, L=52, R=w-14, T=14, B=h-30, x0=o.xMin||0;
+  const X = x=>L+(R-L)*(x-x0)/(o.xMax-x0), Y = v=>B-(B-T)*(v-o.yMin)/(o.yMax-o.yMin);
+  const path = pts=>pts.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join('');
+  let s = `<div class="sc-wrap"><svg class="scope" viewBox="0 0 ${w} ${h}" role="img" aria-label="${o.label||''}">`;
+  s += `<rect class="sc-bg" x="${L}" y="${T}" width="${R-L}" height="${B-T}" rx="4"/>`;
+  (o.yTicks||[]).forEach(([v,l])=>{ s += `<line class="sc-grid" x1="${L}" x2="${R}" y1="${Y(v)}" y2="${Y(v)}"/><text class="sc-lbl" x="${L-6}" y="${Y(v)+3.5}" text-anchor="end">${l}</text>`; });
+  (o.xTicks||[]).forEach(([x,l])=>{ const xx=X(x), an = xx>R-40 ? 'end' : 'middle'; s += `<line class="sc-grid" x1="${xx}" x2="${xx}" y1="${T}" y2="${B}"/><text class="sc-lbl" x="${an==='end'?R:xx}" y="${B+16}" text-anchor="${an}">${l}</text>`; });
+  if(o.pre) s += o.pre(X,Y,{L,R,T,B});
+  (o.traces||[]).forEach(t=>{ s += `<path class="${t.cls||'sc-tr'}" d="${path(t.pts)}"/>`; });
+  if(o.post) s += o.post(X,Y,{L,R,T,B});
+  if(o.cursor) s += `<line class="sc-cur" id="sc-cur" x1="${L}" x2="${L}" y1="${T}" y2="${B}"/>`;
+  s += '</svg></div>';
+  if(o.keep) scG = {L,R,X};
+  return s;
+}
+const stat = (l,v,cls='')=>`<div class="stat ${cls}"><span>${l}</span><b>${v}</b></div>`;
+
+/* =================== salida de cada función =================== */
+function outDigital(){
+  const m = MBY[S.mode];
+  return `<div class="usecase"><div><h3>Uso típico de <code>${m.name}</code></h3><p>${esc(m.desc)}</p><p style="margin-top:8px"><b>Ejemplo:</b> ${esc(m.use)}</p>`+
+    `<div class="btnrow" style="margin-top:10px"><button type="button" class="try" id="try-ex">Cargar este ejemplo en el circuito</button></div></div><div>${pvSVG(m)}</div></div>`;
+}
+function outPWM(){
+  const P = pwmInfo();
+  const hi = solve(cfg({level:1})), lo = solve(cfg({level:0}));
+  const Vh = hi.V ?? VDD, Vl = lo.V ?? 0, Va = P.D*Vh + (1-P.D)*Vl, W = P.W, T = P.T;
+  let pts = [];
+  if(!P.valid) pts = [[0,0],[W,0]];
+  else if(P.D<=0) pts = [[0,Vl],[W,Vl]];
+  else if(P.D>=1) pts = [[0,Vh],[W,Vh]];
+  else for(let k=0; k*T<W-1e-15 && k<200; k++){ const t0=k*T, t1=Math.min(W,t0+P.D*T), t2=Math.min(W,(k+1)*T); pts.push([t0,Vh],[t1,Vh]); if(t1<W) pts.push([t1,Vl],[t2,Vl]); }
+  const steps = P.valid && P.lv<=64;
+  const sc = plot({keep:true, xMax:W, yMin:-0.6, yMax:4.1, label:'Forma de onda PWM', cursor:P.valid,
+    yTicks:[[0,'0 V'],[VDD,'3,3 V']], xTicks:[[0,'0'],[W/2,fmtT(W/2)],[W,fmtT(W)]],
+    traces:[{pts, cls: P.valid?'sc-tr':'sc-tr sc-bad'}],
+    post:(X,Y,g)=>{
+      if(!P.valid) return `<text class="sc-badtx" x="${(g.L+g.R)/2}" y="${(g.T+g.B)/2}" text-anchor="middle">ledcAttach() falla: el pin no saca señal</text>`;
+      let s = `<line class="sc-avg" x1="${g.L}" x2="${g.R}" y1="${Y(Va)}" y2="${Y(Va)}"/><text class="sc-lbl b" x="${g.R-6}" y="${Y(Va)-6}" text-anchor="end">media ${fmtV(Va)}</text>`;
+      s += `<path class="sc-avg" d="M${X(0)} ${Y(3.85)} H${X(T)} M${X(0)} ${Y(3.7)} V${Y(4)} M${X(T)} ${Y(3.7)} V${Y(4)}"/><text class="sc-lbl b" x="${(X(0)+X(T))/2}" y="${Y(3.85)-5}" text-anchor="middle">T = ${fmtT(T)}</text>`;
+      if(steps) for(let i=0;i<=P.lv;i++){ const xx=X(i*T/P.lv); s += `<line class="sc-grid" x1="${xx}" x2="${xx}" y1="${g.B}" y2="${g.B-8}" style="stroke:var(--fg)"/>`; }
+      return s; }});
+  const ledT = S.ext.type==='led'||S.ext.type==='ledup';
+  const ledAvg = ledT ? P.D*Math.abs(hi.I.ext) + (1-P.D)*Math.abs(lo.I.ext) : 0;
+  const Tv = P.f<=1 ? 1/P.f : 1.6;
+  return `<h3>Salida PWM en ${S.p.name}</h3>`+
+    `<p>El LEDC cuenta pulsos de un reloj de 80 MHz. Con <b>${P.bits} bits</b> cada periodo tiene ${P.lv.toLocaleString('es-ES')} pasos y <code>ledcWrite</code> decide cuántos van en alto.${steps?' Las marcas de abajo son esos pasos: el duty solo puede caer en una de ellas.':''}</p>${sc}`+
+    `<div class="stats">${stat('Frecuencia',fmtHz(P.f),'hl')}${stat('Periodo',fmtT(P.T))}${stat('Tiempo en alto',fmtT(P.D*P.T))}${stat('Duty',fmtPct(P.D),'hl')}${stat('Tensión media',fmtV(P.valid?Va:0))}${stat('Periodos en pantalla',fmtNum(P.n,1))}${stat(`Máx. con ${P.bits} bits`,fmtHz(P.max),P.valid?'':'bad')}</div>`+
+    (ledT ? `<p><b>Brillo del LED:</b> corriente media ${fmtI(ledAvg)}. Por encima de ~100 Hz el ojo no ve el parpadeo y percibe la media.</p><div class="meter"><i style="width:${Math.min(100,ledAvg/0.01*100)}%"></i></div>`
+          : `<p>Conecta un <b>LED a GND</b> en «Tensión y corriente» para ver cómo el duty controla su brillo.</p>`)+
+    `<p>El esquema va a cámara lenta: ${P.f<=1?'a velocidad real':`un ciclo cada ${fmtNum(Tv,1)} s`}.${P.f>1?` En el pin real son ${fmtHz(P.f)}.`:''}</p>`;
+}
+function outADC(r){
+  const A = pinAnalog(S.p), att = S.adc.att, blocked = A.adc.unit===2 && S.adc.wifi;
+  const V = r.V, code = blocked ? null : adcCode(V, att);
+  const curve = a => { const pts=[]; for(let v=0; v<=3.6001; v+=0.02) pts.push([v, adcCode(v,a)]); return pts; };
+  const traces = Object.keys(ATT).map(Number).filter(a=>a!==att).map(a=>({pts:curve(a), cls:'sc-ref'}));
+  traces.push({pts:curve(att), cls:'sc-tr'});
+  const sc = plot({xMax:3.6, yMin:0, yMax:4200, label:'Curva del ADC',
+    xTicks:[[0,'0 V'],[1.1,'1,1'],[2.2,'2,2'],[3.3,'3,3 V']], yTicks:[[0,'0'],[2048,'2048'],[4095,'4095']], traces,
+    post:(X,Y,g)=>{
+      let s = Object.keys(ATT).map(Number).map(a=>`<text class="sc-lbl${a===att?' b':''}" x="${X(Math.min(ATT[a].fs,3.45))+4}" y="${Y(4095)-5}">${ATT[a].n}</text>`).join('');
+      if(V!==null && !blocked) s += `<line class="sc-avg" x1="${X(Math.min(V,3.6))}" x2="${X(Math.min(V,3.6))}" y1="${g.B}" y2="${Y(code)}"/><line class="sc-avg" x1="${g.L}" x2="${X(Math.min(V,3.6))}" y1="${Y(code)}" y2="${Y(code)}"/><circle class="sc-pt" cx="${X(Math.min(V,3.6))}" cy="${Y(code)}" r="6"/>`;
+      if(blocked) s += `<text class="sc-badtx" x="${(g.L+g.R)/2}" y="${(g.T+g.B)/2}" text-anchor="middle">ADC2 ocupado por el WiFi: sin lectura</text>`;
+      return s; }});
+  return `<h3>Conversión analógica en ${S.p.name} · ADC${A.adc.unit} canal ${A.adc.ch}</h3>`+
+    `<p>El RTC_IO conecta el pad al ADC de aproximaciones sucesivas (SAR): un condensador de muestreo copia la tensión y se compara con una referencia interna bit a bit. La <b>atenuación</b> divide la entrada para poder medir tensiones más altas que la referencia (~1,1 V).</p>${sc}`+
+    `<div class="stats">${stat('Tensión en el pin', V===null?'flota':fmtV(V))}${stat('analogRead()', blocked?'error':code===null?'aleatorio':code,'hl')}${stat('analogReadMilliVolts()', blocked||code===null?'—':adcMv(code,att)+' mV')}${stat('Atenuación',ATT[att].n)}${stat('Rango útil',ATT[att].rng)}${stat('1 paso ≈', sig3(ATT[att].fs/4095*1000)+' mV')}</div>`+
+    `<p>Modelo aproximado: el ADC del ESP32 no es lineal en los extremos y cada chip varía. <code>analogReadMilliVolts()</code> usa la calibración de fábrica para compensarlo.${A.adc.unit===2?' Este pin es del <b>ADC2</b>: no funciona mientras el WiFi está activo.':' Este pin es del <b>ADC1</b>: funciona aunque uses WiFi.'}</p>`;
+}
+function outDAC(r){
+  const val = S.dac.val, Vd = val/255*VDD, step = VDD/255;
+  const stair = (a,b)=>{ const pts=[]; for(let v=a; v<=b; v++){ const y=v/255*VDD; pts.push([v,y],[v+1,y]); } return pts; };
+  const big = plot({w:560, h:280, xMax:256, yMin:0, yMax:3.5, label:'Transferencia del DAC', xTicks:[[0,'0'],[128,'128'],[255,'255']], yTicks:[[0,'0 V'],[1.65,'1,65'],[3.3,'3,3 V']],
+    traces:[{pts:stair(0,255)}], post:(X,Y)=>`<circle class="sc-pt" cx="${X(val+0.5)}" cy="${Y(Vd)}" r="6"/>`});
+  const a = Math.max(0,val-5), b = Math.min(255,val+5);
+  const zoom = plot({w:360, h:280, xMin:a, xMax:b+1, yMin:a/255*VDD-step, yMax:(b+1)/255*VDD+step*0.5, label:'Escalones del DAC',
+    xTicks:[[a,String(a)],[val,String(val)],[b+1,String(b+1)]], yTicks:[[val/255*VDD, fmtV(Vd)]],
+    traces:[{pts:stair(a,b)}], post:(X,Y)=>`<circle class="sc-pt" cx="${X(val+0.5)}" cy="${Y(Vd)}" r="5"/><text class="sc-lbl b" x="${X(val+0.5)+8}" y="${Y(Vd)+16}">${sig3(step*1000)} mV</text>`});
+  return `<h3>Salida analógica del DAC en ${S.p.name}</h3>`+
+    `<p>Un conversor de 8 bits genera una tensión real (no un PWM): 256 escalones entre 0 y 3,3 V. Su salida tiene impedancia (en este modelo, ~1 kΩ), así que si le conectas una carga la tensión baja.</p>`+
+    `<div class="two">${big}${zoom}</div>`+
+    `<div class="stats">${stat('dacWrite()',val,'hl')}${stat('Tensión ideal',fmtV(Vd))}${stat('Tensión en el pin',fmtV(r.V),'hl')}${stat('Paso',sig3(step*1000)+' mV')}${stat('Corriente de salida',fmtIsigned(r.I.ana))}</div>`;
+}
+function outTouch(){
+  const T = touchVals(), Pu = T.C0/20, Pt = T.C/20, thr = S.touch.thr;
+  const tri = P=>{ const pts=[]; let t=0, up=true; pts.push([0,0.5]); while(t<6){ t=Math.min(6,t+P/2); const frac=(t%(P/2))||P/2; pts.push([t, up?0.5+(2.2)*(frac/(P/2)):2.7-(2.2)*(frac/(P/2))]); up=!up; } return pts; };
+  const traces = [];
+  if(S.touch.finger) traces.push({pts:tri(Pu), cls:'sc-ref'});
+  traces.push({pts:tri(Pt)});
+  const sc = plot({xMax:6, yMin:0, yMax:3.3, label:'Oscilación del sensor táctil', yTicks:[[0.5,'0,5 V'],[2.7,'2,7 V']], xTicks:[[0,'inicio'],[6,'fin de la ventana']], traces,
+    post:(X,Y,g)=>`<text class="sc-lbl" x="${g.L+6}" y="${Y(2.7)-6}">umbral alto</text><text class="sc-lbl" x="${g.L+6}" y="${Y(0.5)+14}">umbral bajo</text>`+(S.touch.finger?`<text class="sc-lbl" x="${g.R-6}" y="${g.T+14}" text-anchor="end">gris: sin tocar</text>`:'')});
+  const det = T.v < thr;
+  return `<h3>Sensor táctil T${pinAnalog(S.p).touch} en ${S.p.name}</h3>`+
+    `<p>El sensor carga y descarga el pin entre dos umbrales con una corriente fija. Cuanta más capacidad cuelga del pin (pista, electrodo y tu dedo), más tarda cada ciclo. <code>touchRead()</code> cuenta los ciclos en una ventana fija: <b>al tocar, el valor baja</b>.</p>${sc}`+
+    `<div class="stats">${stat('C total',sig3(T.C)+' pF')}${stat('Ciclos en la ventana',fmtNum(6/Pt,1))}${stat('touchRead()',T.v,'hl')}${stat('Sin tocar',T.v0)}${stat('Umbral',thr)}</div>`+
+    `<div class="result ${det?'ok':''}"><b>${det?'Toque detectado':'Sin toque'}</b><span>${det?`${T.v} < ${thr}: se dispararía touchAttachInterrupt().`:`${T.v} ≥ ${thr}: no se considera un toque.`}</span></div>`;
+}
+function outRTC(){
+  const st = S.rtc.state, p = S.p, io = !inputOnly(p);
+  const tiles = {
+    active: [['on','CPU (2 núcleos)','ejecutando tu programa'],['half','WiFi / Bluetooth','según uses la radio'],['on','Periféricos y GPIO','activos'],['on',`RTC_IO de ${p.name}`,'en espera'],['on','Memoria RTC (8 KB)','disponible'],['off','Coprocesador ULP','opcional']],
+    light: [['half','CPU (2 núcleos)','pausada: reloj parado'],['off','WiFi / Bluetooth','apagados'],['half','Periféricos y GPIO','conservan su estado'],['on',`RTC_IO de ${p.name}`,S.rtc.wake?`vigila ${S.rtc.wl?'HIGH':'LOW'}`:'en espera'],['on','Memoria RTC (8 KB)','conserva datos'],['off','Coprocesador ULP','opcional']],
+    deep: [['off','CPU (2 núcleos)','apagada'],['off','WiFi / Bluetooth','apagados'],['off','Periféricos y GPIO','dominio digital apagado'],['on',`RTC_IO de ${p.name}`,S.rtc.wake?`vigila ${S.rtc.wl?'HIGH':'LOW'}`:'sin despertar configurado'],['on','Memoria RTC (8 KB)','conserva RTC_DATA_ATTR'],['off','Coprocesador ULP','opcional']],
+  }[st];
+  const cons = {active:'≈ 30–50 mA (sin WiFi)', light:'≈ 0,8 mA', deep:'≈ 10–150 µA'}[st];
+  const name = {active:'Activo', light:'Light sleep', deep:'Deep sleep'}[st];
+  const outMode = S.io.oe && io;
+  const pinBeh = st==='active' ? 'funciona como GPIO normal' : st==='light' ? 'mantiene su configuración' : outMode ? (S.rtc.hold?'mantiene el nivel con hold':'suelta la salida (alta impedancia)') : 'lo vigila el RTC_IO';
+  const log = S.rtc.log.length ? S.rtc.log.slice(-6).map(esc).join('\n') : '<span class="dim">Cambia a light o deep sleep y luego pon el pin al nivel de despertar.</span>';
+  return `<h3>Estado del chip · ${name}${S.rtc.waking?' → despertando…':''}</h3>`+
+    `<p>${p.name} pertenece al dominio RTC (RTC_GPIO${pinAnalog(p).rtc}): esta parte del chip sigue alimentada cuando todo lo demás se apaga, así que el pin puede <b>despertar al chip</b> (ext0) y mantener su nivel (hold).</p>`+
+    `<div class="tiles">${tiles.map(([c,t,s])=>`<div class="tile ${c}"><b>${t}</b><span>${s}</span></div>`).join('')}</div>`+
+    `<div class="stats">${stat('Consumo aproximado',cons,'hl')}${stat(`${p.name} al dormir`,pinBeh)}${stat('Despertar',S.rtc.wake?`ext0 en ${S.rtc.wl?'HIGH':'LOW'}`:'desactivado')}</div>`+
+    `<pre class="log">${log}</pre>`;
+}
+function outBoot(r,rd){
+  const g = S.p.gpio, L = bootLevels(rd), o = bootOutcome(L), ph = S.boot.phase;
+  const rows = [[0,'GPIO0','1 (pull-up)','1 = ejecutar programa · 0 = modo descarga'],[2,'GPIO2','0 (pull-down)','debe ser 0 para entrar en modo descarga'],[5,'GPIO5','1 (pull-up)','timing del esclavo SDIO'],[12,'GPIO12 (MTDI)','0 (pull-down)','tensión de la flash: 0 = 3,3 V · 1 = 1,8 V'],[15,'GPIO15 (MTDO)','1 (pull-up)','0 = silencia el log de arranque']];
+  const steps = [['Reset','EN pasa de 0 a 1'],['Lectura de strapping','el chip congela el nivel de los 5 pines'],['Decisión','modo de arranque y tensión de la flash'],['Resultado',o.t]];
+  const cls = i => ph<0 ? '' : i<ph ? '' : i===ph ? 'now' : 'todo';
+  return `<h3>Arranque con ${S.p.name}</h3>`+
+    `<p>En el instante del reset, antes de que corra tu programa, el chip lee estos pines y decide cómo arrancar. Después quedan libres como GPIO normales. Pulsa <b>EN</b> en el panel de la derecha para verlo paso a paso.</p>`+
+    `<ol class="steps">${steps.map((s,i)=>`<li class="${cls(i)}"><b>${i+1}. ${s[0]}</b>${esc(s[1])}</li>`).join('')}</ol>`+
+    `<div class="stab-wrap"><table class="stab"><thead><tr><th>Pin</th><th>Por defecto</th><th>Leído</th><th>Qué decide</th></tr></thead><tbody>`+
+    rows.map(([n,nm,d,w])=>`<tr class="${n===g?'me':''}"><td>${nm}${n===g?' ← este':''}</td><td>${d}</td><td class="v">${L[n]}</td><td>${w}</td></tr>`).join('')+`</tbody></table></div>`+
+    `<div class="result ${o.lv}"><b>${o.t}</b><span>${esc(o.d)}</span></div>`+
+    `<pre class="log">${ph>=3 ? o.log : '<span class="dim">Monitor serie (115200 baud): pulsa EN para reiniciar…</span>'}</pre>`;
+}
+function outUART(){
+  const g = S.p.gpio, bits = uartBits(), n = bits.length, code = (S.uart.ch||'A').charCodeAt(0)&255;
+  const pts = []; bits.forEach((b,i)=>{ const v=b?VDD:0; pts.push([i,v],[i+1,v]); });
+  const names = ['reposo','','start','b0','b1','b2','b3','b4','b5','b6','b7','stop',''];
+  const tx = g===1||g===17;
+  const sc = plot({keep:true, xMax:n, yMin:-0.6, yMax:4, label:'Trama UART', yTicks:[[0,'0 V'],[VDD,'3,3 V']], traces:[{pts}], cursor:true,
+    pre:(X,Y,gm)=>`<rect class="sc-hl" id="u-hl" x="${X(0)}" y="${gm.T}" width="${X(1)-X(0)}" height="${gm.B-gm.T}"/>`,
+    post:(X,Y,gm)=>names.map((t,i)=>t?`<text class="sc-lbl${i>=3&&i<=10?' b':''}" x="${X(i+0.5)}" y="${gm.B+16}" text-anchor="middle">${t}</text>`:'').join('')+
+      bits.map((b,i)=>i>=3&&i<=10?`<text class="sc-lbl" x="${X(i+0.5)}" y="${Y(VDD)-6}" text-anchor="middle">${b}</text>`:'').join('')});
+  const who = g===1 ? 'El ESP32 la envía por U0TXD hacia el conversor USB.' : g===3 ? 'La envía el conversor USB (su TXD) y el ESP32 la recibe por U0RXD.' : g===17 ? 'El ESP32 la envía por U2TXD (Serial2).' : 'La envía otro dispositivo y el ESP32 la recibe por U2RXD (Serial2).';
+  return `<h3>Trama UART en ${S.p.name}</h3>`+
+    `<p>En reposo la línea está en alto. Un <b>bit de start</b> (0) avisa, siguen 8 bits de datos empezando por el menos significativo y un <b>bit de stop</b> (1). ${who}</p>${sc}`+
+    `<div class="stats">${stat('Carácter',`'${esc(S.uart.ch||'A')}'`,'hl')}${stat('Código',`0x${code.toString(16).toUpperCase().padStart(2,'0')} · ${code.toString(2).padStart(8,'0')}`)}${stat('Velocidad',S.uart.baud.toLocaleString('es-ES')+' baud')}${stat('Tiempo de bit',fmtT(1/S.uart.baud))}${stat('Trama (10 bits)',fmtT(10/S.uart.baud))}</div>`+
+    `<p>El esquema la reproduce a cámara lenta, bit a bit.</p>`;
+}
+function outFlash(){
+  const cr = S.flash.crashed, N = 24, pts1=[], pts2=[];
+  let seed = 7; const rnd = ()=>{ seed=(seed*9301+49297)%233280; return seed/233280; };
+  for(let i=0;i<N;i++){
+    const stop = cr && i>=N/2;
+    const c = stop ? 4.2 : (i%2 ? 7.5 : 4.2);
+    pts1.push([i,c],[i+1,c]);
+    if(i%2===0){ const d = stop ? 0 : (rnd()<.5?0:VDD); pts2.push([i,d],[i+2,d]); }
+  }
+  const sc = plot({xMax:N, yMin:-0.5, yMax:8.2, label:'Bus SPI de la flash', yTicks:[[0,'D 0'],[VDD,'D 1'],[4.2,'CLK 0'],[7.5,'CLK 1']], traces:[{pts:pts1},{pts:pts2, cls:'sc-tr2'}],
+    post:(X,Y,g)=> cr ? `<line class="sc-avg sc-bad" x1="${X(N/2)}" x2="${X(N/2)}" y1="${g.T}" y2="${g.B}"/><text class="sc-badtx" x="${X(N/2)+6}" y="${g.T+16}">pinMode(${S.p.gpio}, OUTPUT)</text>` : ''});
+  const log = cr ? `pinMode(${S.p.gpio}, OUTPUT);\n→ el pin deja de estar conectado al controlador SPI0\n→ la CPU no puede leer más instrucciones de la flash\n→ excepción o watchdog: el chip se reinicia\n<span class="dim">(en el monitor verás un "Guru Meditation Error" o reinicios en bucle)</span>`
+    : '<span class="dim">La CPU lee su programa de la flash por estas líneas de forma continua.</span>';
+  return `<h3>${S.p.name} pertenece a la flash</h3><p>Dentro del módulo, GPIO6–11 van directamente a la memoria flash donde está tu programa. El controlador SPI0 los usa sin parar, a decenas de MHz.</p>${sc}<pre class="log">${log}</pre>`;
+}
+
+/* =================== panel de configuración por función =================== */
+function buildCfg(){
+  const t = S.tab, box = $('cfg'), title = {}, p = S.p, A = pinAnalog(p);
+  let h = '';
+  const segBtns = (id, items, cur)=>`<div class="seg" id="${id}" role="group">${items.map(([v,l])=>`<button type="button" data-v="${v}" aria-pressed="${String(v)===String(cur)}">${l}</button>`).join('')}</div>`;
+  switch(t){
+    case 'pwm':
+      h = nrow('pwm-f','Frecuencia','Hz',0,76,1)+nrow('pwm-b','Resolución','bits',1,20,1)+nrow('pwm-d','Duty (ledcWrite)','',0,2**S.pwm.bits,1)+
+          `<p class="ref-note" id="pwm-note"></p><p class="ref-note">Puedes escribir valores como 500, 5k o 1M. Con N bits, la frecuencia máxima es 80 MHz / 2^N.</p>`;
+      break;
+    case 'adc':
+      h = `<div class="ctl-row">Atenuación ${segBtns('adc-att',[[0,'0 dB'],[2.5,'2,5 dB'],[6,'6 dB'],[11,'11 dB']],S.adc.att)}</div>`+
+          nrow('adc-v','Tensión de entrada','V',0,3.6,0.01)+
+          (A.adc.unit===2 ? `<label class="chk" for="adc-wifi"><input type="checkbox" id="adc-wifi" ${S.adc.wifi?'checked':''}> WiFi activo</label>` : `<p class="ref-note">ADC1: compatible con WiFi.</p>`);
+      break;
+    case 'dac':
+      h = nrow('dac-v',`dacWrite(${p.gpio}, valor)`,'',0,255,1)+`<p class="ref-note" id="dac-note"></p>`;
+      break;
+    case 'touch':
+      h = `<button type="button" class="tog try big" id="t-finger" aria-pressed="${S.touch.finger}">${S.touch.finger?'Soltar el electrodo':'Tocar el electrodo'}</button>`+
+          nrow('t-ce','Electrodo','pF',2,50,1)+nrow('t-ct','Pista','pF',1,30,1)+nrow('t-thr','Umbral de detección','',5,120,1);
+      break;
+    case 'rtc':
+      title.textContent = 'Estado del chip';
+      h = `${segBtns('rtc-st',[['active','Activo'],['light','Light sleep'],['deep','Deep sleep']],S.rtc.state)}`+
+          `<label class="chk" for="rtc-wk"><input type="checkbox" id="rtc-wk" ${S.rtc.wake?'checked':''}> Despertar con ${p.name} (ext0)</label>`+
+          `<div class="ctl-row">al ver ${segBtns('rtc-wl',[[1,'HIGH'],[0,'LOW']],S.rtc.wl)}</div>`+
+          (inputOnly(p) ? '' : `<label class="chk" for="rtc-hold"><input type="checkbox" id="rtc-hold" ${S.rtc.hold?'checked':''}> Mantener la salida al dormir (hold)</label>`)+
+          `<p class="ref-note">Para despertarlo, cambia lo que conectas al pin (por ejemplo, «Botón pulsado a 3,3 V»).</p>`;
+      break;
+    case 'boot':
+      title.textContent = 'Reiniciar el chip';
+      h = `<button type="button" class="try big" id="boot-en">Pulsar EN (reiniciar)</button>`+
+          (p.gpio!==0 ? `<label class="chk" for="boot-g0"><input type="checkbox" id="boot-g0" ${S.board.boot?'checked':''}> Mantener BOOT pulsado (GPIO0 en BAJO)</label>` : '')+
+          `<p class="ref-note">Lo que conectes al pin cuenta: cambia «Qué conectas al pin» y vuelve a reiniciar.</p>`;
+      break;
+    case 'uart':
+      title.textContent = 'Enviar un carácter';
+      h = `<div class="fld"><label for="u-ch">Carácter</label><input type="text" id="u-ch" maxlength="1" value="${esc(S.uart.ch)}"><label for="u-baud">Velocidad</label><select id="u-baud">${[9600,115200,921600].map(b=>`<option value="${b}" ${b===S.uart.baud?'selected':''}>${b.toLocaleString('es-ES')}</option>`).join('')}</select></div>`;
+      break;
+    case 'flash':
+      title.textContent = 'Qué pasa si lo usas';
+      h = `<button type="button" class="try big" id="fl-go">${S.flash.crashed?'Reiniciar el chip':`Ejecutar pinMode(${p.gpio}, OUTPUT)`}</button>`;
+      break;
+  }
+  box.innerHTML = h;
+  const on = (id,ev,fn)=>{ const el=$(id); if(el) el.addEventListener(ev,fn); };
+  const segOn = (id,fn)=>{ const el=$(id); if(el) el.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ fn(b.dataset.v); el.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b))); render(); })); };
+  segOn('adc-att', v=>{ S.adc.att=+v; });
+  on('adc-wifi','change',e=>{ S.adc.wifi=e.target.checked; render(); });
+  on('t-finger','click',e=>{ S.touch.finger=!S.touch.finger; e.currentTarget.setAttribute('aria-pressed',String(S.touch.finger)); e.currentTarget.textContent=S.touch.finger?'Soltar el electrodo':'Tocar el electrodo'; render(); });
+  const rng=(v,a,b)=>Math.max(a,Math.min(b,v)), id1=v=>v;
+  bindNum('pwm-f',{get:()=>S.pwm.f, set:v=>{ S.pwm.f=rng(v,1,40e6); }, fmt:fmtHzc, parse:parseSI, toR:v=>Math.round(10*Math.log10(v)), fromR:i=>+(10**(i/10)).toPrecision(2)});
+  bindNum('pwm-b',{get:()=>S.pwm.bits, set:v=>{ const nb=rng(Math.round(v),1,20), old=2**S.pwm.bits; S.pwm.bits=nb; S.pwm.duty=Math.round(S.pwm.duty/old*2**nb); const d=$('pwm-d'); if(d) d.max=2**nb; }, fmt:String, parse:parseSI, toR:id1, fromR:id1});
+  bindNum('pwm-d',{get:()=>S.pwm.duty, set:v=>{ S.pwm.duty=rng(Math.round(v),0,2**S.pwm.bits); }, fmt:String, parse:parseSI, toR:id1, fromR:id1});
+  bindNum('adc-v',{get:()=>S.ext.type==='src'?S.ext.v:0, set:v=>{ S.ext={type:'src', v:rng(v,-1,6), r:S.ext.type==='src'?S.ext.r:1000, i:S.ext.i}; S.preset=null; }, fmt:v=>fmtNum(v,2), parse:parseSI, toR:id1, fromR:id1});
+  bindNum('dac-v',{get:()=>S.dac.val, set:v=>{ S.dac.val=rng(Math.round(v),0,255); }, fmt:String, parse:parseSI, toR:id1, fromR:id1});
+  bindNum('t-ce',{get:()=>S.touch.ce, set:v=>{ S.touch.ce=rng(v,1,500); }, fmt:v=>sig3(v), parse:t=>{ const v=parseSI(t); return v===null?null:(/[pnuµ]/.test(t)?v*1e12:v); }, toR:id1, fromR:id1});
+  bindNum('t-ct',{get:()=>S.touch.ct, set:v=>{ S.touch.ct=rng(v,0,500); }, fmt:v=>sig3(v), parse:t=>{ const v=parseSI(t); return v===null?null:(/[pnuµ]/.test(t)?v*1e12:v); }, toR:id1, fromR:id1});
+  bindNum('t-thr',{get:()=>S.touch.thr, set:v=>{ S.touch.thr=rng(Math.round(v),0,1000); }, fmt:String, parse:parseSI, toR:id1, fromR:id1});
+  segOn('rtc-st', v=>{
+    if(v===S.rtc.state) return;
+    S.rtc.state=v; S.rtc.waking=false; clearTimeout(wakeT);
+    rlog(v==='active' ? 'Chip despierto.' : v==='light' ? 'esp_light_sleep_start(): CPU pausada, el programa espera.' : 'esp_deep_sleep_start(): se apaga todo menos el dominio RTC.');
+  });
+  on('rtc-wk','change',e=>{ S.rtc.wake=e.target.checked; render(); });
+  segOn('rtc-wl', v=>{ S.rtc.wl=+v; });
+  on('rtc-hold','change',e=>{ S.rtc.hold=e.target.checked; render(); });
+  on('boot-en','click',()=>bootRun());
+  on('boot-g0','change',e=>{ S.board.boot=e.target.checked; S.boot.phase=-1; render(); });
+  on('u-ch','input',e=>{ S.uart.ch = e.target.value || 'A'; t0 = performance.now(); render(); });
+  on('u-baud','change',e=>{ S.uart.baud=+e.target.value; render(); });
+  on('fl-go','click',e=>{ S.flash.crashed=!S.flash.crashed; e.currentTarget.textContent=S.flash.crashed?'Reiniciar el chip':`Ejecutar pinMode(${p.gpio}, OUTPUT)`; render(); });
+}
+function syncCfg(){
+  const txt2=(id,t)=>{ const el=$(id); if(el) el.textContent=t; };
+  if(S.tab==='pwm'){ const P=pwmInfo(); txt2('pwm-note',`${P.lv.toLocaleString('es-ES')} pasos · duty ${fmtPct(P.D)} · máximo ${fmtHz(P.max)} con ${P.bits} bits`); }
+  if(S.tab==='dac') txt2('dac-note',`Salida ideal ≈ ${fmtV(S.dac.val/255*VDD)}`);
+  syncNums();
+}
+let wakeT=null, bootT=[];
+function rlog(t){ S.rtc.log.push(t); if(S.rtc.log.length>20) S.rtc.log.shift(); }
+function bootRun(){
+  bootT.forEach(clearTimeout); bootT=[]; S.boot.phase=0; render();
+  [1,2,3].forEach((ph,i)=>bootT.push(setTimeout(()=>{ S.boot.phase=ph; if(cvOpen && S.tab==='boot') render(); }, (i+1)*(reduced()?1:650))));
+}
+function rtcWakeCheck(rd){
+  if(S.tab!=='rtc' || S.rtc.state==='active' || !S.rtc.wake || S.rtc.waking) return;
+  if(rd.t!==String(S.rtc.wl)) return;
+  S.rtc.waking = true;
+  rlog(`Nivel ${S.rtc.wl?'HIGH':'LOW'} en ${S.p.name} → el RTC_IO dispara el despertar (EXT0).`);
+  clearTimeout(wakeT);
+  wakeT = setTimeout(()=>{
+    const deep = S.rtc.state==='deep';
+    S.rtc.state='active'; S.rtc.waking=false;
+    rlog(deep ? 'Deep sleep: el chip arranca de nuevo y setup() vuelve a empezar. esp_sleep_get_wakeup_cause() = ESP_SLEEP_WAKEUP_EXT0.' : 'Light sleep: el programa continúa justo después de esp_light_sleep_start().');
+    if(cvOpen && S.tab==='rtc'){ buildCfg(); render(); }
+  }, reduced()?10:1100);
+  render();
+}
+
+/* =================== modo equivalente y código =================== */
+function eqMode(){
+  const {ie,oe,od,pull} = S.io;
+  const P = pull==='up' ? 'GPIO_PULLUP_ONLY' : pull==='down' ? 'GPIO_PULLDOWN_ONLY' : 'GPIO_FLOATING';
+  const idf = !ie&&!oe ? 'GPIO_MODE_DISABLE' : ie&&!oe ? 'GPIO_MODE_INPUT' : !ie&&!od ? 'GPIO_MODE_OUTPUT' : !ie ? 'GPIO_MODE_OUTPUT_OD' : od ? 'GPIO_MODE_INPUT_OUTPUT_OD' : 'GPIO_MODE_INPUT_OUTPUT';
+  let ard = null, h = null;
+  if(ie && !oe){ ard = pull==='up'?'INPUT_PULLUP':pull==='down'?'INPUT_PULLDOWN':'INPUT'; h = MBY[{INPUT:'input',INPUT_PULLUP:'input_pullup',INPUT_PULLDOWN:'input_pulldown'}[ard]].h; }
+  else if(ie && oe && !od && pull==='none'){ ard='OUTPUT'; h=MBY.output.h; }
+  else if(ie && oe && od && pull==='none'){ ard='OUTPUT_OPEN_DRAIN'; h=MBY.od.h; }
+  else if(ie && oe && od && pull==='up'){ ard='OUTPUT_OPEN_DRAIN | PULLUP'; h=MBY.od_pu.h; }
+  let name = ard;
+  if(!ie && !oe){ name = 'Desactivado'+(pull!=='none'?` + pull-${pull}`:''); h = MBY.off.h; }
+  else if(!ard) name = 'Combinación de ESP-IDF';
+  return {name, ard, idf, P, h: h ?? (oe ? 262 : 200)};
+}
+const cmS = s=>`<span class="cm">${s}</span>`, kS = s=>`<span class="k">${s}</span>`;
+function digitalCode(r,rd){
+  const g = S.p.gpio, e = eqMode();
+  let s = '';
+  if(e.ard) s += `pinMode(${g}, ${kS(e.ard)});\n`;
+  else s += `${cmS('// Arduino no tiene esta combinación:')}\ngpio_set_direction(GPIO_NUM_${g}, ${kS(e.idf)});\n` + (S.io.pull!=='none' ? `gpio_set_pull_mode(GPIO_NUM_${g}, ${kS(e.P)});\n` : '');
+  if(S.io.oe) s += `digitalWrite(${g}, ${S.level?'HIGH':'LOW'});\n`;
+  s += `int v = digitalRead(${g});  ${cmS('// '+(!S.io.ie?'0 (IE apagado)':r.floating?'aleatorio':rd.t))}`;
+  return s;
+}
+function codeFor(c,r,rd){
+  const p=S.p, g=p.gpio;
+  switch(S.tab){
+    case 'pwm': { const P=pwmInfo(); return `${kS('ledcAttach')}(${g}, ${P.f}, ${P.bits});${P.valid?'':'  '+cmS('// ✕ falla')}\n${kS('ledcWrite')}(${g}, ${P.duty});    ${cmS('// '+fmtPct(P.D))}`; }
+    case 'adc': { const A=pinAnalog(p), bl=A.adc.unit===2&&S.adc.wifi, code=adcCode(r.V,S.adc.att);
+      return `analogSetPinAttenuation(${g}, ${kS(ATT[S.adc.att].k)});\nint raw = ${kS('analogRead')}(${g});   ${cmS('// '+(bl?'error: ADC2 ocupado':code===null?'aleatorio':code))}\nint mv = analogReadMilliVolts(${g});`; }
+    case 'dac': return `${kS('dacWrite')}(${g}, ${S.dac.val});   ${cmS('// ≈ '+fmtV(c.dac))}`;
+    case 'touch': { const T=touchVals(); return `int v = ${kS('touchRead')}(T${pinAnalog(p).touch});   ${cmS('// '+T.v)}\nif (v < ${S.touch.thr}) {\n  ${cmS('// tocado')}\n}`; }
+    case 'rtc': { const st=S.rtc.state, w=S.rtc.wake?`esp_sleep_enable_ext0_wakeup(GPIO_NUM_${g}, ${S.rtc.wl});\n`:'', hd=S.rtc.hold&&S.io.oe?`rtc_gpio_hold_en(GPIO_NUM_${g});\n`:'';
+      if(st==='active') return digitalCode(r,rd)+`\n${cmS('// para dormir:')}\n${w}${hd}${kS('esp_deep_sleep_start')}();`;
+      return `${w}${hd}${kS(st==='deep'?'esp_deep_sleep_start':'esp_light_sleep_start')}();   ${cmS('// dormido')}`; }
+    case 'boot': return cmS('// Aquí no hay código: el chip lee este pin\n// en el instante del reset, antes de\n// ejecutar tu programa.');
+    case 'uart': { const ch=esc(S.uart.ch||'A');
+      if(g===1) return `Serial.begin(${S.uart.baud});\n${kS('Serial.write')}('${ch}');`;
+      if(g===3) return `Serial.begin(${S.uart.baud});\nchar c = ${kS('Serial.read')}();   ${cmS(`// '${ch}'`)}`;
+      if(g===17) return `Serial2.begin(${S.uart.baud}, SERIAL_8N1, 16, 17);\n${kS('Serial2.write')}('${ch}');`;
+      return `Serial2.begin(${S.uart.baud}, SERIAL_8N1, 16, 17);\nchar c = ${kS('Serial2.read')}();   ${cmS(`// '${ch}'`)}`; }
+    case 'flash': return `${cmS('// No lo uses: pertenece a la flash')}\npinMode(${g}, OUTPUT);   ${cmS('// ✕ cuelga el chip')}`;
+  }
+  return digitalCode(r,rd);
+}
+
+/* =================== avisos (frases cortas para los bocadillos) =================== */
+function assess(r,c){
+  const it = []; const add=(lv,t)=>it.push({lv,t});
+  const comp = {};
+  const mark=(k,lv)=>{ if(lv==='bad'||comp[k]!=='bad') comp[k]=lv; };
+  const ip=Math.abs(r.I.pmos), inn=Math.abs(r.I.nmos);
+  if(r.pm && ip>0.040){ add('bad',`P-MOS da ${fmtI(ip)}: más de 40 mA, el driver se daña`); mark('pmos','bad'); }
+  else if(r.pm && ip>0.020){ add('warn',`P-MOS da ${fmtI(ip)}: por encima de los 20 mA recomendados`); mark('pmos','warn'); }
+  if(r.nm && inn>0.040){ add('bad',`N-MOS absorbe ${fmtI(inn)}: más de 40 mA, el driver se daña`); mark('nmos','bad'); }
+  else if(r.nm && inn>0.020){ add('warn',`N-MOS absorbe ${fmtI(inn)}: por encima de los 20 mA recomendados`); mark('nmos','warn'); }
+  if(r.I.d1>0.005){ add('bad',`Diodo D1 conduce ${fmtI(r.I.d1)}: se quema`); mark('d1','bad'); }
+  else if(r.I.d1>1e-6){ add('warn',`Diodo D1 conduce ${fmtI(r.I.d1)}: no metas más de 3,3 V`); mark('d1','warn'); }
+  if(r.I.d2>0.005){ add('bad',`Diodo D2 conduce ${fmtI(r.I.d2)}: se quema`); mark('d2','bad'); }
+  else if(r.I.d2>1e-6){ add('warn',`Diodo D2 conduce ${fmtI(r.I.d2)}: el pin está bajo GND`); mark('d2','warn'); }
+  const led = c.ext.type==='led'||c.ext.type==='ledup' ? Math.abs(r.I.ext) : 0;
+  if(led>0.030){ add('bad',`LED con ${fmtI(led)}: se quema, sube la resistencia`); mark('led','bad'); }
+  else if(led>1e-4 && S.tab==='digital'){ add('ok',`LED encendido con ${fmtI(led)}`); }
+  if(r.bd && r.bd.type==='src' && Math.abs(r.I.board)>0.020){ const b=Math.abs(r.I.board)>0.040; add(b?'bad':'warn',`TX del USB y el pin se pelean: ${fmtI(r.I.board)}`); mark('board', b?'bad':'warn'); }
+  if(r.V!==null && r.V>3.6){ add('warn',`Pin a ${fmtV(r.V)}: supera el máximo de 3,6 V`); mark('pad', comp.d1==='bad'?'bad':'warn'); }
+  if(r.V!==null && r.V< -0.3){ add('warn',`Pin a ${fmtV(r.V)}: por debajo de −0,3 V`); mark('pad', comp.d2==='bad'?'bad':'warn'); }
+  const reads = ['digital','rtc','uart'].includes(S.tab);
+  if(reads && r.m.ie && r.floating) add('warn','Pin flotando: digitalRead() da valores aleatorios');
+  else if(reads && r.m.ie && r.V!==null && r.V>VIL && r.V<VIH) add('warn',`${fmtV(r.V)} en zona indeterminada (0,83–2,48 V)`);
+  if(S.tab==='digital' && !r.m.ie && !r.m.oe) add('ok','Pin desactivado: ni lee ni escribe');
+  if(S.tab==='digital' && r.V!==null && !r.m.oe){
+    if(r.m.wpu && r.V<=VIL) add('ok','El exterior puede más que la pull-up de 45 kΩ: lee 0');
+    if(r.m.wpd && r.V>=VIH) add('ok','El exterior puede más que la pull-down de 45 kΩ: lee 1');
+  }
+  if(S.tab==='digital' && r.m.oe && r.m.ie) add('ok','Entrada y salida a la vez: digitalRead() lee el nivel real del pin');
+  if(S.tab==='digital' && r.m.oe && !r.m.od && (r.m.wpu||r.m.wpd)) add('ok','Pull con salida push-pull: posible, pero el driver manda');
+  if(S.tab==='digital' && r.m.oe && r.m.od && r.m.wpu) add('ok','Open-drain + pull-up: la pareja típica del bus I2C');
+  const level = it.some(x=>x.lv==='bad') ? 'bad' : it.some(x=>x.lv==='warn') ? 'warn' : 'ok';
+  return {level, it, comp};
+}
+function tabExtra(r,c,rd){
+  const it=[], p=S.p, add=(lv,t)=>it.push({lv,t});
+  switch(S.tab){
+    case 'pwm': { const P=pwmInfo(); if(!P.valid) add('warn',`Con ${P.bits} bits, máximo ${fmtHz(P.max)}: ledcAttach() falla`); else add('ok',`PWM de ${fmtHz(P.f)} al ${fmtPct(P.D)}`); break; }
+    case 'adc': { const A=pinAnalog(p);
+      if(A.adc.unit===2 && S.adc.wifi) add('warn','ADC2 ocupado por el WiFi: sin lectura');
+      else if(r.V===null) add('warn','Entrada flotando: lectura aleatoria');
+      else { const code=adcCode(r.V,S.adc.att); if(code>=4095) add('warn','Satura en 4095: sube la atenuación'); else add('ok',`analogRead() = ${code} (≈ ${adcMv(code,S.adc.att)} mV)`); }
+      break; }
+    case 'dac': add('ok',`El DAC fija ${fmtV(c.dac)}; en el pin hay ${fmtV(r.V)}`); break;
+    case 'touch': { const T=touchVals(), thr=S.touch.thr;
+      if(thr>=T.v0) add('warn',`Umbral ${thr} ≥ valor sin tocar (${T.v0}): falsos toques`);
+      else if(S.touch.finger && thr<=T.v) add('warn',`Umbral ${thr} demasiado bajo: nunca detecta`);
+      else add('ok', S.touch.finger ? `Toque detectado: ${T.v} < ${thr}` : `Sin tocar: touchRead() = ${T.v}`);
+      break; }
+    case 'rtc': { const st=S.rtc.state, lv=S.rtc.wl?'HIGH':'LOW';
+      add('ok', st==='active' ? 'Chip despierto' : st==='light' ? (S.rtc.wake?`Light sleep: espera ${lv} en ${p.name}`:'Light sleep sin forma de despertar') : (S.rtc.wake?`Deep sleep: el RTC vigila ${lv} en ${p.name}`:'Deep sleep: solo un reset lo despierta'));
+      if(st==='deep' && S.io.oe && !S.rtc.hold && !inputOnly(p)) add('warn','Deep sleep suelta la salida: activa hold');
+      break; }
+    case 'boot': { const o=bootOutcome(bootLevels(rd)); add(o.lv,`Al reiniciar: ${o.t.toLowerCase()}`); break; }
+    case 'uart': add('ok', (p.gpio===1||p.gpio===17 ? 'Enviando' : 'Recibiendo')+` '${S.uart.ch}' a ${S.uart.baud.toLocaleString('es-ES')} baud`); break;
+    case 'flash': if(S.flash.crashed) add('bad','Bus de la flash cortado: el chip se cuelga'); else add('ok','Flash funcionando: no toques este pin'); break;
+  }
+  return it;
+}
+
+/* =================== interruptores (arriba a la derecha) =================== */
+const FN_DESC = {
+  pwm:'El periférico LEDC genera una onda cuadrada de frecuencia y duty configurables y la saca por este pin a través de la matriz GPIO.',
+  adc:'El RTC_IO conecta el pad al conversor analógico-digital: analogRead() mide la tensión.',
+  dac:'El conversor digital-analógico de 8 bits saca una tensión real por el pin.',
+  touch:'El sensor táctil mide la capacidad que cuelga del pin: tu dedo la aumenta.',
+  rtc:'Duerme el chip y deja al dominio RTC vigilando este pin para despertarlo.',
+  boot:'Simula un reinicio: el chip lee este pin en ese instante para decidir cómo arrancar.',
+  uart:'Envía o recibe un carácter por el puerto serie y mira la trama.',
+  flash:'Mira qué le pasa al bus de la flash si usas este pin.',
+};
+const SWD = {
+  ie:{t:'Entrada (IE · FUN_IE)', d:'Activa el buffer de entrada (Schmitt trigger). Sin él, GPIO_IN no se actualiza y digitalRead() devuelve 0. Puede estar activa a la vez que la salida (GPIO_MODE_INPUT_OUTPUT): así digitalRead() lee el nivel real del pin. Arduino lo hace siempre que usas OUTPUT.', pv:'input'},
+  oe:{t:'Salida (OE · GPIO_ENABLE)', d:'Conecta el driver: el pin se fuerza a HIGH con el P-MOS o a LOW con el N-MOS según digitalWrite().', pv:'output'},
+  od:{t:'Open-drain (PAD_DRIVER)', d:'Anula el P-MOS: el pin solo puede tirar a GND (LOW) o soltarse (HIGH = alta impedancia).', pv:'od'},
+  lv:{t:'digitalWrite (GPIO_OUT)', d:'Valor del registro de salida: decide qué transistor conduce cuando la salida está activa.', pv:'output'},
+  'pull:none':{t:'Sin resistencia interna', d:'Si nada externo fija la tensión, el pin flota y lee valores aleatorios.', pv:'off'},
+  'pull:up':{t:'Pull-up (FUN_WPU, ~45 kΩ)', d:'Un P-MOS conecta una resistencia interna hacia 3,3 V: sin nada conectado el pin lee 1. Si algo externo lo une a GND, gana el exterior y lee 0. Es independiente de la dirección: con open-drain es la pareja natural (I2C); con push-pull no aporta nada.', pv:'input_pullup'},
+  'pull:down':{t:'Pull-down (FUN_WPD, ~45 kΩ)', d:'Un N-MOS conecta una resistencia interna hacia GND: sin nada conectado el pin lee 0. Si algo externo lo une a 3,3 V, gana el exterior y lee 1. Es independiente de la dirección.', pv:'input_pulldown'},
+  boot:{t:'Botón BOOT de la placa', d:'Une GPIO0 a GND. Durante el arranque elige el modo; después tu programa puede leerlo como un botón.'},
+};
+const swt = (act,h) => `<button type="button" role="switch" class="swt" data-act="${act}" aria-checked="false" style="--h:${h}"><i></i></button>`;
+function buildSwitches(){
+  const p = S.p, fns = pinFns(p).filter(t=>t!=='digital');
+  $('sw-io').innerHTML = `<h4>Modo digital</h4>`+
+    `<div class="sw-row" data-pop="ie"><span class="sw-l">Entrada <small>IE</small></span>${swt('ie',200)}</div>`+
+    `<div class="sw-row" data-pop="oe"><span class="sw-l">Salida <small>OE</small></span>${swt('oe',262)}</div>`+
+    `<div class="sw-row sub" data-pop="od"><span class="sw-l">Open-drain</span>${swt('od',65)}</div>`+
+    `<div class="sw-row sub" data-pop="lv"><span class="sw-l">digitalWrite</span><div class="seg" role="group" aria-label="Nivel de salida"><button type="button" data-act="lv1" id="lv-1">HIGH</button><button type="button" data-act="lv0" id="lv-0">LOW</button></div></div>`+
+    `<div class="sw-row" data-pop="pull"><span class="sw-l">Resistencia</span><div class="seg" role="group" aria-label="Resistencia interna"><button type="button" data-act="pull:none" data-pop="pull:none">Nada</button><button type="button" data-act="pull:up" data-pop="pull:up">Up</button><button type="button" data-act="pull:down" data-pop="pull:down">Down</button></div></div>`+
+    `<p class="eq" id="eq-line"></p>`;
+  $('sw-fn').innerHTML = fns.length ? `<h4>Funciones especiales</h4>`+fns.map(t=>`<div class="sw-row" data-pop="fn:${t}" style="--h:${TABS[t].h}"><span class="sw-l"><i></i>${TABS[t].name}</span>${swt('fn:'+t,TABS[t].h)}</div>`).join('') : '';
+  $('sw-board').innerHTML = p.gpio===0 ? `<h4>En la placa</h4><div class="sw-row" data-pop="boot"><span class="sw-l">Botón BOOT pulsado</span>${swt('boot',75)}</div>` : '';
+  $('sw-body').querySelectorAll('[data-pop]').forEach(n=>{
+    n.addEventListener('pointerenter', e=>{ if(e.pointerType==='mouse'){ e.stopPropagation(); showSwPop(n.dataset.pop, n); } });
+    n.addEventListener('pointerleave', e=>{ if(e.pointerType==='mouse'){ const par=n.parentElement.closest('[data-pop]'); if(par && par.matches(':hover')) showSwPop(par.dataset.pop, par); else hideMpop(); } });
+  });
+  $('sw-body').querySelectorAll('button[data-act]').forEach(b=>{
+    b.addEventListener('focus', ()=>{ const n=b.closest('[data-pop]'); if(n) showSwPop(b.dataset.pop||n.dataset.pop, n); });
+    b.addEventListener('blur', hideMpop);
+  });
+}
+$('sw-body').addEventListener('click', e=>{
+  const b = e.target.closest('button[data-act]'); if(!b) return;
+  if(b.getAttribute('aria-disabled')==='true'){ toast(b.dataset.why || 'No disponible ahora mismo.'); return; }
+  const a = b.dataset.act;
+  if(a==='ie') S.io.ie ^= 1;
+  else if(a==='oe') S.io.oe ^= 1;
+  else if(a==='od') S.io.od ^= 1;
+  else if(a==='lv1') S.level = 1;
+  else if(a==='lv0') S.level = 0;
+  else if(a.startsWith('pull:')) S.io.pull = a.slice(5);
+  else if(a.startsWith('fn:')){ const t=a.slice(3); setFn(S.tab===t ? 'digital' : t); return; }
+  else if(a==='boot'){ S.board.boot = !S.board.boot; S.boot.phase = -1; }
+  render();
+});
+const mpop = $('mpop');
+function showSwPop(key, anchor){
+  let h, title, text, pv = null;
+  if(key.startsWith('fn:')){ const t=key.slice(3); h=TABS[t].h; title=TABS[t].name; text=FN_DESC[t]; }
+  else if(key==='pull'){ const k='pull:'+S.io.pull; ({t:title,d:text,pv}=SWD[k]); h=MBY[pv].h; }
+  else { const d=SWD[key]; if(!d) return; title=d.t; text=d.d; pv=d.pv||null; h = pv ? MBY[pv].h : 75; }
+  const why = anchor.querySelector('[aria-disabled="true"]')?.dataset.why;
+  mpop.style.setProperty('--h', h);
+  mpop.innerHTML = `<h4>${esc(title)}</h4><p>${esc(text)}</p>`+(pv?`<div class="pvbox">${pvSVG(MBY[pv])}</div><div class="note">Uso típico</div>`:'')+(why?`<div class="note">${esc(why)}</div>`:'');
+  mpop.hidden = false;
+  const r = anchor.getBoundingClientRect(), w = mpop.offsetWidth, hh = mpop.offsetHeight;
+  let x = r.left - w - 12, y = r.top - 8;
+  if(x < 12) x = Math.max(12, Math.min(r.left, innerWidth - w - 12)), y = r.bottom + 8;
+  y = Math.max(12, Math.min(y, innerHeight - hh - 12));
+  mpop.style.transform = `translate(${Math.round(x)}px,${Math.round(y)}px)`;
+}
+function hideMpop(){ mpop.hidden = true; }
+
+/* ---------- campos numéricos escribibles ---------- */
+let NUMF = [];
+function parseSI(t){
+  if(t===null||t===undefined) return null;
+  let s = String(t).trim().replace(/\s+/g,'').replace(/,/g,'.').replace(/−/g,'-').replace(/(Ω|ohm|ohmios|hz|v|a|f|bits?)$/i,'');
+  s = s.replace(/^(-?\d+)([pnuµmkKM])(\d+)$/, '$1.$3$2');
+  const m = s.match(/^([+-]?\d*\.?\d+(?:e[+-]?\d+)?)([pnuµmkKM]?)$/);
+  if(!m) return null;
+  return parseFloat(m[1]) * ({'':1,p:1e-12,n:1e-9,u:1e-6,'µ':1e-6,m:1e-3,k:1e3,K:1e3,M:1e6}[m[2]]);
+}
+const fmtRc = r => r>=1e6 ? sig3(r/1e6)+'M' : r>=1e3 ? sig3(r/1e3)+'k' : String(Math.round(r*100)/100).replace('.',',');
+const fmtHzc = f => f>=1e6 ? sig3(f/1e6)+'M' : f>=1e3 ? sig3(f/1e3)+'k' : sig3(f);
+function nrow(id,label,unit,min,max,step){
+  return `<div class="sl"><div class="sl-h"><span id="${id}-l">${label}</span><span class="nf"><input type="text" class="nin" id="${id}-n" inputmode="decimal" autocomplete="off" aria-labelledby="${id}-l">${unit?`<i>${unit}</i>`:''}</span></div><input type="range" id="${id}" min="${min}" max="${max}" step="${step}" aria-labelledby="${id}-l"></div>`;
+}
+function bindNum(id, o, keep){
+  const r = $(id), n = $(id+'-n'); if(!r || !n) return;
+  NUMF.push({r, n, o, keep});
+  r.addEventListener('input', ()=>{ o.set(o.fromR(+r.value)); render(); });
+  n.addEventListener('change', ()=>{ const v = o.parse(n.value); if(v===null || !isFinite(v)){ n.value = o.fmt(o.get()); return; } o.set(v); render(); n.value = o.fmt(o.get()); });
+  n.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); n.blur(); } if(e.key==='Escape'){ n.value = o.fmt(o.get()); n.blur(); e.stopPropagation(); } });
+}
+function syncNums(){
+  NUMF = NUMF.filter(x=>x.keep || x.r.isConnected);
+  NUMF.forEach(({r,n,o})=>{ const v = o.get(); r.value = o.toR(v); if(document.activeElement!==n) n.value = o.fmt(v); });
+}
+
+/* =================== circuito externo =================== */
+const presetEls = {};
+PRESETS.forEach(pr=>{
+  const b = document.createElement('button');
+  b.type='button'; b.className='preset'; b.textContent = pr.name;
+  b.addEventListener('click', ()=>{ applyPreset(pr.id); render(); });
+  $('presets').append(b); presetEls[pr.id]=b;
+});
+function applyPreset(id){
+  const pr = PRESETS.find(x=>x.id===id);
+  S.preset = id;
+  S.ext = Object.assign({type:'none', v:S.ext.v, r:S.ext.r, i:S.ext.i}, pr.ext);
+}
+document.querySelectorAll('#ext-type button').forEach(b=>b.addEventListener('click', ()=>{
+  S.ext = {...S.ext, type:b.dataset.t}; S.preset = null;
+  if((S.ext.type==='led'||S.ext.type==='ledup') && S.ext.r<100) S.ext.r = 330;
+  render();
+}));
+const nearestR = r => RVALS.reduce((bi,v,i)=>Math.abs(Math.log10(v+1)-Math.log10(r+1)) < Math.abs(Math.log10(RVALS[bi]+1)-Math.log10(r+1)) ? i : bi, 0);
+const idxToI = s => s===0 ? 0 : Math.sign(s)*10**((Math.abs(s)-1)/10 - 6);
+const iToIdx = i => i===0 ? 0 : Math.sign(i)*Math.max(1,Math.min(51,Math.round((Math.log10(Math.abs(i))+6)*10+1)));
+bindNum('in-v', {get:()=>S.ext.v, set:v=>{ S.ext={...S.ext, v:Math.max(-20,Math.min(30,v))}; S.preset=null; }, fmt:v=>fmtNum(v,2), parse:parseSI, toR:v=>v, fromR:v=>v}, true);
+bindNum('in-r', {get:()=>S.ext.r, set:v=>{ S.ext={...S.ext, r:Math.max(0,Math.min(1e7,v))}; S.preset=null; }, fmt:fmtRc, parse:parseSI, toR:nearestR, fromR:i=>RVALS[i]}, true);
+bindNum('in-i', {get:()=>S.ext.i, set:v=>{ S.ext={...S.ext, i:Math.max(-0.5,Math.min(0.5,v))}; S.preset=null; }, fmt:v=>sig3(v*1e3), parse:t=>{ const hasSuf=/[pnuµmkKM]\s*A?\s*$/.test(String(t).trim()); const v=parseSI(t); return v===null?null:(hasSuf?v:v*1e-3); }, toR:iToIdx, fromR:idxToI}, true);
+function setExtOpen(on){
+  $('extpop').hidden = !on;
+  $('ext-btn').setAttribute('aria-expanded', String(on));
+  if(S.p) render(true);
+}
+function placeMsgs(){
+  const g = 12, cvEl = $('cv'), open = !$('extpop').hidden;
+  const right = open ? g*3 + $('vcol').offsetWidth + $('extpop').offsetWidth : g*2 + $('vcol').offsetWidth;
+  const bottom = !fnwin.hidden ? g*2 + fnwin.offsetHeight : g;
+  cvEl.style.setProperty('--msgs-r', right+'px'); cvEl.style.setProperty('--msgs-b', bottom+'px');
+}
+$('ext-btn').addEventListener('click', ()=>setExtOpen($('extpop').hidden));
+
+PINS.filter(p=>p.gpio!==null).sort((a,b)=>a.gpio-b.gpio).forEach(p=>{
+  const o = document.createElement('option'); o.value = p.key; o.textContent = p.name; $('cv-pin').append(o);
+});
+$('cv-pin').addEventListener('change', e=>{ setPin(PINS.find(p=>p.key===e.target.value)); });
+
+/* barra vertical de tensión */
+const VMIN=-0.5, VMAX=5.5;
+const pct = v => Math.max(0, Math.min(100, (v-VMIN)/(VMAX-VMIN)*100));
+[[-0.5,-0.3,'badz',''],[-0.3,0,'warnz',''],[0,VIL,'lo','0'],[VIL,VIH,'mid','?'],[VIH,3.3,'hi','1'],[3.3,3.6,'warnz',''],[3.6,5.5,'badz','']].forEach(([a,b,c,t])=>{
+  const z = document.createElement('div'); z.className = 'vz '+c; z.style.bottom = pct(a)+'%'; z.style.height = (pct(b)-pct(a))+'%'; z.textContent = t; $('vbar').append(z);
+});
+[[0,'0 V'],[VIL,'0,83'],[VIH,'2,48'],[3.3,'3,3'],[5,'5 V']].forEach(([v,t])=>{
+  const s = document.createElement('span'); s.style.bottom = pct(v)+'%'; s.textContent = t; $('vticks').append(s);
+});
+
+/* paneles plegables */
+function bindFold(btnId, bodyId, host){
+  const b = $(btnId), body = $(bodyId);
+  b.addEventListener('click', ()=>{ const open = b.getAttribute('aria-expanded')!=='true'; b.setAttribute('aria-expanded', String(open)); body.hidden = !open; if(host) host.dataset.open = String(open); });
+}
+bindFold('hdr-tog','hdr-body');
+bindFold('lg-tog','lg-body',$('legend'));
+bindFold('sw-tog','sw-body',$('sw'));
+if(matchMedia('(max-width:760px)').matches){ $('sw-tog').click(); }
+const ro = new ResizeObserver(()=>{ $('cv').style.setProperty('--hdr-h', $('hdr').offsetHeight+'px'); });
+ro.observe($('hdr'));
+const ro2 = new ResizeObserver(()=>{ $('cv').style.setProperty('--vcol-h', $('vcol').offsetHeight+'px'); });
+ro2.observe($('vcol'));
+
+/* =================== funciones: ventana flotante =================== */
+const fnwin = $('fnwin');
+function setFn(t){
+  const was = S.tab;
+  S.tab = t;
+  if(t==='adc') applyPreset('pot');
+  if(t==='dac') applyPreset('none');
+  if(t==='boot') S.boot.phase = -1;
+  if(t==='flash') S.flash.crashed = false;
+  buildCfg(); render(); startAnim();
+  if(t==='digital'){ closeFnWin(); return; }
+  $('fn-title').textContent = TABS[t].name;
+  fnwin.style.setProperty('--h', TABS[t].h);
+  if(fnwin.hidden || was==='digital'){
+    fnwin.classList.remove('min'); $('fn-min').setAttribute('aria-expanded','true');
+    fnwin.hidden = false;
+    fnwin.getAnimations().forEach(a=>a.cancel());
+    fnwin.animate([{transform:'scale(.2)',opacity:0},{transform:'scale(1)',opacity:1}],{duration:reduced()?1:320,easing:'cubic-bezier(.16,.84,.3,1)'});
+  }
+}
+function closeFnWin(){
+  if(fnwin.hidden) return;
+  fnwin.getAnimations().forEach(a=>a.cancel());
+  fnwin.animate([{transform:'scale(1)',opacity:1},{transform:'scale(.2)',opacity:0}],{duration:reduced()?1:220,easing:'cubic-bezier(.5,0,.75,0)'})
+    .finished.then(()=>{ if(S.tab==='digital'){ fnwin.hidden = true; placeMsgs(); } }).catch(()=>{});
+}
+$('fn-close').addEventListener('click', ()=>setFn('digital'));
+$('fn-min').addEventListener('click', e=>{
+  const min = !fnwin.classList.contains('min');
+  fnwin.classList.toggle('min', min);
+  e.currentTarget.setAttribute('aria-expanded', String(!min));
+  e.currentTarget.setAttribute('aria-label', min ? 'Mostrar' : 'Minimizar');
+  placeMsgs();
+});
+new ResizeObserver(()=>{ if(S.p) placeMsgs(); }).observe(fnwin);
+
+function pinSummary(p){
+  const io=!inputOnly(p), A=pinAnalog(p), parts=['buffer de entrada Schmitt'];
+  if(io) parts.push('driver push-pull / open-drain','pull-up y pull-down de ~45 kΩ','matriz GPIO');
+  parts.push('diodos de protección');
+  if(A.rtc!==null) parts.push(`RTC_GPIO${A.rtc}`);
+  if(A.adc) parts.push(`ADC${A.adc.unit} canal ${A.adc.ch}`);
+  if(A.dac) parts.push(`DAC ${A.dac}`);
+  if(A.touch!==null) parts.push(`sensor táctil T${A.touch}`);
+  if(A.xtal) parts.push('entrada del oscilador de 32 kHz');
+  const bt = {boot:'botón BOOT y auto-programación', led2:'LED (solo en algunas placas)', uart1:'conversor USB-UART', uart3:'conversor USB-UART', flash:'memoria flash'}[boardKind(p)];
+  return `<b>Lo que tiene ${p.name}:</b> ${parts.join(' · ')}${bt?`. <b>Fuera del chip:</b> ${bt}`:''}.`+(io?'':' <b>No tiene driver de salida ni resistencias internas.</b>');
+}
+
+let sch = null;
+function setPin(p){
+  S.p = p;
+  if(inputOnly(p)){ S.io.oe = 0; S.io.od = 0; S.io.pull = 'none'; S.io.ie = 1; }
+  if(!pinFns(p).includes(S.tab)) S.tab = 'digital';
+  S.flash.crashed = false; S.boot.phase = -1;
+  $('cv-pin').value = p.key;
+  $('sch-host').innerHTML = schematic(p);
+  sch = $('sch');
+  const fr = sch.querySelector('.frame'); if(fr) fr.classList.add('frame-bg');
+  applyCam();
+  $('cv-sum').innerHTML = pinSummary(p);
+  try{ history.replaceState(null,'','#gpio'+p.gpio); }catch(e){}
+  buildSwitches(); buildCfg(); render(); startAnim();
+  if(S.tab==='digital'){ fnwin.hidden = true; }
+  else { $('fn-title').textContent = TABS[S.tab].name; fnwin.style.setProperty('--h', TABS[S.tab].h); fnwin.hidden = false; }
+}
+
+/* =================== render =================== */
+let floatTimer = null;
+const el = id => document.getElementById(id);
+const cls = (id,c,on)=>{ const e=el(id); if(e) e.classList.toggle(c,!!on); };
+const txt = (id,t)=>{ const e=el(id); if(e) e.textContent=t; };
+const vis = (id,on)=>{ const e=el(id); if(e) e.style.display = on?'':'none'; };
+
+function render(live=false){
+  const p = S.p; if(!p || !sch) return;
+  const c = cfg(), m = c.m, io = !inputOnly(p), tab = S.tab;
+  const r = solve(c), a = assess(r,c), rd = readVal(r), x = tabExtra(r,c,rd);
+  sch.style.setProperty('--fh', c.h);
+  const eq = eqMode();
+
+  if(!live){
+    txt('cv-name', p.name);
+    const pill = $('cv-pill'); pill.className = `pill st-${p.status}`; pill.textContent = STATUS[p.status];
+    const bn = $('cv-banner'); let bt=null, bc='info';
+    if(p.groups.has('flash')){ bt='En la placa real este pin es de la memoria flash. Aquí puedes experimentar, pero no lo conectes en el hardware.'; bc='bad'; }
+    else if(p.groups.has('uart0')){ bt='En la placa real este pin va al conversor USB (UART0). Su circuito aparece a la derecha del esquema y cuenta en la simulación.'; bc='bad'; }
+    else if(!io){ bt='GPIO34–39 solo tienen buffer de entrada: el driver de salida y las resistencias pull-up/pull-down no existen, así que no aparecen en el esquema.'; }
+    else if(p.groups.has('strapping')){ bt='Pin de arranque. '+(p.info.w||''); bc='warn'; }
+    bn.hidden = !bt; if(bt){ bn.className='banner '+bc; bn.textContent=bt; }
+  }
+
+  // interruptores
+  const padByFn = !['digital','rtc'].includes(tab);
+  const setSw = (act,on,dis,why)=>{ const b=$('sw-body').querySelector(`[data-act="${act}"]`); if(!b) return; if(b.getAttribute('role')==='switch') b.setAttribute('aria-checked',String(!!on)); else b.setAttribute('aria-pressed',String(!!on)); if(dis){ b.setAttribute('aria-disabled','true'); b.dataset.why=why; } else { b.removeAttribute('aria-disabled'); delete b.dataset.why; } };
+  const whyFn = padByFn ? `Ahora el pad lo controla «${TABS[tab].name}». Desactívala para usar el modo digital.` : '';
+  const whyIn = `${p.name} es de solo entrada: no tiene driver de salida ni resistencias internas.`;
+  setSw('ie', S.io.ie, padByFn, whyFn);
+  setSw('oe', S.io.oe, padByFn || !io, padByFn?whyFn:whyIn);
+  setSw('od', S.io.od, padByFn || !io || !S.io.oe, padByFn?whyFn:!io?whyIn:'Activa primero la salida.');
+  setSw('lv1', S.level===1, padByFn || !S.io.oe, padByFn?whyFn:'Activa primero la salida.');
+  setSw('lv0', S.level===0, padByFn || !S.io.oe, padByFn?whyFn:'Activa primero la salida.');
+  ['none','up','down'].forEach(k=>setSw('pull:'+k, S.io.pull===k, padByFn || (!io && k!=='none'), padByFn?whyFn:whyIn));
+  pinFns(p).filter(t=>t!=='digital').forEach(t=>setSw('fn:'+t, tab===t, false));
+  setSw('boot', S.board.boot, false);
+  const eqLine = $('eq-line');
+  if(eqLine){ eqLine.style.setProperty('--h', eq.h); eqLine.innerHTML = padByFn ? `El pad lo controla <code>${TABS[tab].name}</code>` : `Equivale a <code>${esc(eq.name)}</code>${eq.ard?'':` <span>(${eq.idf.replace('GPIO_MODE_','')})</span>`}`; }
+
+  // registros
+  const bits = {wpu:m.wpu, ie:m.ie, out:(tab==='digital'||tab==='rtc') ? S.level : (m.oe ? c.level : 0), oe:m.oe, od:m.od, wpd:m.wpd};
+  Object.entries(bits).forEach(([k,v])=>{ txt('bit-'+k, String(v?1:0)); cls('reg-'+k,'reg-on',v); cls('ctl-'+k,'on',v); });
+  txt('bit-in', rd.t); cls('reg-in','reg-on', rd.t==='1');
+  cls('ctl-out','on', c.mux==='gpio' && m.oe && c.level===1);
+  cls('ctl-mx','on', m.oe && c.level===1);
+  txt('mx-src', c.src);
+  const sel = el('mx-sel'); if(sel) sel.setAttribute('d', c.mux==='per' ? 'M305 234 L326 250' : 'M284 250 H326');
+  cls('mx-per','off', c.mux!=='per');
+  // componentes
+  [['g-pu',!m.wpu],['g-pd',!m.wpd],['g-ctl',!m.oe],['g-outw',!m.oe],['g-pmos',!r.pm],['g-nmos',!r.nm],['g-in',!m.ie]].forEach(([id,off])=>cls(id,'off',off));
+  cls('mpu','on-mos', m.wpu); cls('mpd','on-mos', m.wpd);
+  txt('gp-lbl', !m.oe ? '' : r.pm ? 'G=0 ON' : 'G=1 OFF');
+  txt('gn-lbl', !m.oe ? '' : r.nm ? 'G=1 ON' : 'G=0 OFF');
+  vis('zin', m.ie); vis('zout', m.oe);
+  ['pmos','nmos','d1','d2'].forEach(k=>{ cls('g-'+k,'burn', a.comp[k]==='bad'); cls('g-'+k,'hot', a.comp[k]==='warn'); });
+  cls('g-d1','diode-on', r.I.d1>1e-6 && a.comp.d1!=='bad');
+  cls('g-d2','diode-on', r.I.d2>1e-6 && a.comp.d2!=='bad');
+  const pad = el('padsq'); pad.classList.toggle('burn', a.comp.pad==='bad'); pad.classList.toggle('hot', a.comp.pad==='warn');
+  // dominio RTC
+  const lr = el('lev-rtc'); if(lr) lr.style.transform = `rotate(${c.rtcRoute?0:-32}deg)`;
+  const T = touchVals();
+  ['adc','dac','touch','xtal','rtc'].forEach(k=>{
+    const g = el('ab-'+k); if(!g) return;
+    const act = c.ana===k || (k==='rtc' && tab==='rtc' && S.rtc.state!=='active');
+    g.classList.toggle('act', act); g.classList.toggle('off', !act);
+    let v='';
+    if(k==='adc') v = act ? (pinAnalog(p).adc.unit===2&&S.adc.wifi ? 'ocupado por WiFi' : r.V===null ? '→ aleatorio' : `→ ${adcCode(r.V,S.adc.att)}`) : 'inactivo';
+    if(k==='dac') v = act ? `→ ${fmtV(c.dac)}` : 'inactivo';
+    if(k==='touch') v = act ? `touchRead = ${T.v}` : 'inactivo';
+    if(k==='xtal') v = 'no se usa';
+    if(k==='rtc') v = tab!=='rtc' ? 'en espera' : S.rtc.state==='active' ? 'chip despierto' : S.rtc.wake ? `vigila ${S.rtc.wl?'HIGH':'LOW'}` : 'dormido';
+    txt('abv-'+k, v);
+  });
+  // placa
+  const bb = el('bd-bar'); if(bb) bb.style.transform = `translateX(${S.board.boot?-12:0}px)`;
+  cls('g-board','burn', a.comp.board==='bad'); cls('g-board','hot', a.comp.board==='warn');
+  // exterior
+  const e = c.ext, t = e.type, isT = tab==='touch';
+  vis('g-ext', !isT); vis('g-tchx', isT);
+  vis('ext-none', t==='none'); vis('ext-conn', t!=='none');
+  vis('ext-r', t!=='isrc'); vis('ext-short', t==='isrc');
+  vis('ext-src', t==='src'); vis('ext-isrc', t==='isrc'); vis('ext-led', t==='led'); vis('ext-ledup', t==='ledup');
+  vis('ext-gnd', t!=='ledup'); vis('ext-vdd', t==='ledup');
+  txt('rext-l', fmtR(e.r||0).replace(' (directo)',''));
+  const ledI = (t==='led'||t==='ledup') ? Math.abs(r.I.ext) : 0;
+  ['glow-led','glow-ledup'].forEach(id=>{ const g=el(id); if(g) g.style.opacity = ledI<1e-4 ? 0 : Math.min(1, .25 + ledI/0.02); });
+  sch.querySelectorAll('#ext-led .ledfill, #ext-ledup .ledfill').forEach(n=>n.style.fill = ledI>1e-4 ? 'var(--led)' : '');
+  cls('ext-led','burn', t==='led' && a.comp.led==='bad'); cls('ext-ledup','burn', t==='ledup' && a.comp.led==='bad');
+  if(t==='src'){ txt('ext-l1', (e.v<0?'−':'+')+fmtNum(Math.abs(e.v),2)+' V'); txt('ext-l2', tab==='uart'&&p.gpio===16 ? 'TX del otro equipo' : 'fuente'); }
+  else if(t==='isrc'){ txt('ext-l1', fmtIsigned(e.i)); txt('ext-l2','fuente de corriente'); }
+  else if(t==='led'||t==='ledup'){ txt('ext-l1','LED rojo'); txt('ext-l2','Vf ≈ 2 V'); }
+  if(isT){
+    const f = el('finger'); if(f) f.style.transform = `translateY(${S.touch.finger?0:-46}px)`;
+    cls('ctouch','on', S.touch.finger);
+    txt('tv-ct', S.touch.ct+' pF'); txt('tv-ce', S.touch.ce+' pF');
+  }
+  // corrientes animadas
+  const showI = {pu:m.wpu, pmos:r.pm, nmos:r.nm, pd:m.wpd, d1:r.I.d1>1e-9, d2:r.I.d2>1e-9, ext:t!=='none'&&!isT};
+  const fI = {...r.I};
+  fI.a_adc = c.ana==='adc' && r.V!==null && r.V>0.02 ? -3e-6 : 0;
+  fI.a_dac = c.ana==='dac' ? r.I.ana : 0;
+  const tdir = S.touch.ph ? -1 : 1;
+  fI.a_touch = isT ? 4e-5*tdir : 0;
+  fI.tchx = isT ? 4e-5*tdir : 0;
+  if(isT) fI.ext = 0;
+  FKEYS.forEach(k=>{
+    const I = fI[k]||0, on = Math.abs(I) > 5e-7;
+    const lab = el('iv-'+k);
+    if(lab){
+      lab.textContent = showI[k] ? fmtI(I) : '';
+      lab.classList.toggle('bad', a.comp[k]==='bad' || (k==='ext' && a.comp.led==='bad'));
+      lab.classList.toggle('warn', a.comp[k]==='warn');
+    }
+    const fb = el('fb-'+k), fd = el('fd-'+k); if(!fb) return;
+    fb.classList.toggle('on', on); fd.classList.toggle('on', on);
+    fd.classList.toggle('rev', I<0);
+    const bad = a.comp[k]==='bad' || ((k==='ext'||k==='board') && a.level==='bad');
+    fb.classList.toggle('bad-flow', bad); fd.classList.toggle('bad-flow', bad);
+    if(on){ const kx = Math.log10(Math.abs(I)/1e-6); fd.style.setProperty('--dur', Math.max(0.3, 2.4 - 0.4*kx).toFixed(2)+'s'); }
+  });
+  txt('vpin-lbl', isT ? '0,5↔2,7 V' : r.V===null ? 'V = ? (flota)' : 'V = '+fmtV(r.V));
+  const sg = el('sig'); sg.classList.toggle('on', !!m.ie && !r.floating); sg.classList.toggle('flick', !!m.ie && r.floating);
+
+  // bocadillos de estado
+  const items = [...a.it, ...x];
+  const lvl = items.some(i=>i.lv==='bad') ? 'bad' : items.some(i=>i.lv==='warn') ? 'warn' : 'ok';
+  const title = lvl==='bad' ? (a.level==='bad' ? 'Esto dañaría el pin' : 'Así no funciona') : lvl==='warn' ? 'Cuidado' : 'Todo en rango';
+  const list = items.length ? items : [{lv:'ok', t: r.V===null ? 'Sin camino de corriente' : `Pin a ${fmtV(r.V)} · digitalRead() = ${rd.t}`}];
+  const extOpen = !$('extpop').hidden;
+  const shown = extOpen ? list : list.filter(i=>i.lv!=='ok');
+  $('msgs').hidden = !extOpen && lvl==='ok';
+  $('msgs').innerHTML = `<div class="bub head ${lvl}"><i></i>${title}</div>` + shown.map(i=>`<div class="bub ${i.lv}"><i></i>${esc(i.t)}</div>`).join('');
+  placeMsgs();
+  $('ext-dot').className = lvl==='ok' ? '' : lvl;
+  $('ext-btn').title = title;
+
+  // barra de tensión
+  clearInterval(floatTimer); floatTimer = null;
+  const mk = $('vmark');
+  if(isT){
+    mk.classList.add('float'); mk.style.bottom = pct(1.6)+'%';
+    $('v-big').textContent = '0,5↔2,7'; $('v-read').innerHTML = 'oscila (táctil)';
+  } else if(r.V===null){
+    mk.classList.add('float'); $('v-big').textContent = '? V';
+    const tick2 = ()=>{
+      const v = 0.4 + Math.random()*2.6; mk.style.bottom = pct(v)+'%';
+      if(m.ie){ const b = v>=VIH?'1':v<=VIL?'0':(Math.random()<.5?'0':'1'); $('v-read').innerHTML = `digitalRead() → <b>${b}</b><br>aleatorio`; txt('bit-in', b); }
+    };
+    tick2();
+    if(!reduced()) floatTimer = setInterval(tick2, 220);
+    if(!m.ie) $('v-read').innerHTML = `digitalRead() → <b>0</b><br>IE apagado`;
+  } else {
+    mk.classList.remove('float'); mk.style.bottom = pct(r.V)+'%';
+    $('v-big').textContent = fmtV(r.V);
+    const forced = tab==='digital' && !m.oe && ((m.wpu && r.V<=VIL) || (m.wpd && r.V>=VIH));
+    $('v-read').innerHTML = `digitalRead() → <b>${rd.t}</b>${rd.note?'<br>'+rd.note:forced?'<br>lo fija el exterior':''}`;
+  }
+
+  // código
+  const code = $('code'); code.style.setProperty('--h', c.h); code.innerHTML = codeFor(c,r,rd);
+
+  // panel exterior
+  const hideExt = ['touch','flash','uart'].includes(tab);
+  $('ext-btn').disabled = false;
+  document.querySelectorAll('#ext-type button').forEach(b=>{ b.setAttribute('aria-pressed', String(b.dataset.t===S.ext.type)); b.disabled = hideExt; });
+  Object.entries(presetEls).forEach(([id,b])=>{ b.setAttribute('aria-pressed', String(id===S.preset)); b.disabled = hideExt; });
+  const E = S.ext;
+  $('sl-v').hidden = E.type!=='src' || hideExt; $('sl-i').hidden = E.type!=='isrc' || hideExt; $('sl-r').hidden = E.type==='none'||E.type==='isrc' || hideExt;
+  txt('ext-hint', hideExt ? 'En esta función el circuito externo lo fija la propia función.' : E.type==='none' ? 'Nada conectado: el pin queda al aire y, sin pull-up ni pull-down, flota.' : E.type==='src' ? 'Una fuente fija la tensión del pin (a 0 V es como unirlo a GND). Para verlo flotar, elige «Nada».' : E.type==='isrc' ? 'Inyecta una corriente fija: positiva entra al pin, negativa sale.' : 'LED rojo (≈ 2 V) con su resistencia en serie.');
+  syncNums();
+
+  // tabla de corrientes
+  const rows = [], dirTxt = (I,pos,neg)=> I>=0?pos:neg;
+  if(c.ext.type!=='none') rows.push([tab==='uart'&&p.gpio===16?'Otro equipo (TX)':'Exterior', r.I.ext, dirTxt(r.I.ext,'entra al pin','sale del pin'), a.comp.led==='bad'?'bad':'']);
+  if(r.bd) rows.push([p.gpio===0?'Placa: botón BOOT':'Placa: TX del USB-UART', r.I.board, p.gpio===0?'del pin a GND':dirTxt(r.I.board,'entra al pin','sale del pin'), a.comp.board||'']);
+  if(c.dac!==null) rows.push(['DAC interno', r.I.ana, dirTxt(r.I.ana,'del DAC al pin','del pin al DAC'), '']);
+  if(m.wpu) rows.push(['Pull-up', r.I.pu, dirTxt(r.I.pu,'de VDD al pin','del pin a VDD'), '']);
+  if(m.wpd) rows.push(['Pull-down', r.I.pd, dirTxt(r.I.pd,'del pin a GND','de GND al pin'), '']);
+  if(r.pm) rows.push(['P-MOS', r.I.pmos, dirTxt(r.I.pmos,'de VDD al pin','del pin a VDD'), a.comp.pmos||'']);
+  if(r.nm) rows.push(['N-MOS', r.I.nmos, dirTxt(r.I.nmos,'del pin a GND','de GND al pin'), a.comp.nmos||'']);
+  if(r.I.d1>1e-9) rows.push(['Diodo D1', r.I.d1, 'del pin a VDD', a.comp.d1||'']);
+  if(r.I.d2>1e-9) rows.push(['Diodo D2', r.I.d2, 'de GND al pin', a.comp.d2||'']);
+  $('itab').innerHTML = rows.length
+    ? rows.map(([n,I,d,cc])=>`<tr class="${cc}"><td>${n}<span class="dir">${Math.abs(I)<1e-9?'sin corriente':d}</span></td><td>${fmtI(I)}</td></tr>`).join('')
+    : `<tr><td>Ninguna rama conduce.</td><td>0 A</td></tr>`;
+
+  // ventana de la función
+  syncCfg();
+  if(!live && tab!=='digital'){
+    const oc = $('out-card'); oc.style.setProperty('--h', c.h);
+    oc.innerHTML = tab==='pwm' ? outPWM() : tab==='adc' ? outADC(r) : tab==='dac' ? outDAC(r) : tab==='touch' ? outTouch() : tab==='rtc' ? outRTC() : tab==='boot' ? outBoot(r,rd) : tab==='uart' ? outUART() : tab==='flash' ? outFlash() : '';
+  }
+  if(tab==='uart' && scG){ const hl = el('u-hl'); if(hl){ const i = Math.max(0,S.uart.idx); hl.setAttribute('x', scG.X(i)); } }
+  rtcWakeCheck(rd);
+}
+
+/* =================== animación (cámara lenta) =================== */
+let raf = null, t0 = 0;
+function stopAnim(){ if(raf) cancelAnimationFrame(raf); raf = null; }
+function startAnim(){
+  stopAnim(); t0 = performance.now();
+  if(S.tab==='pwm'){ const P=pwmInfo(); S.pwm.lv = P.D>=0.5?1:0; }
+  if(S.tab==='uart'){ S.uart.lv=1; S.uart.idx=-1; }
+  if(S.tab==='touch') S.touch.ph=0;
+  if(['pwm','uart','touch'].includes(S.tab) && !reduced() && cvOpen) raf = requestAnimationFrame(tick);
+  render(true);
+}
+function tick(now){
+  if(!cvOpen){ raf=null; return; }
+  const elp = (now-t0)/1000;
+  if(S.tab==='pwm'){
+    const P = pwmInfo(), Tv = P.f<=1 ? 1/P.f : 1.6, n = P.n;
+    const ph3 = (elp%(n*Tv))/(n*Tv), frac = (ph3*n)%1;
+    const lv = !P.valid ? 0 : P.D>=1 ? 1 : P.D<=0 ? 0 : (frac<P.D?1:0);
+    const cur = el('sc-cur'); if(cur && scG){ const xx = scG.L+(scG.R-scG.L)*ph3; cur.setAttribute('x1',xx); cur.setAttribute('x2',xx); }
+    if(lv!==S.pwm.lv){ S.pwm.lv=lv; render(true); }
+  } else if(S.tab==='uart'){
+    const bits = uartBits(), bd = 0.34, n = bits.length, cyc = n*bd + 0.8, ph = elp%cyc;
+    const idx = ph>=n*bd ? n-1 : Math.floor(ph/bd);
+    const cur = el('sc-cur'); if(cur && scG){ const xx = scG.X(Math.min(n, ph/bd)); cur.setAttribute('x1',xx); cur.setAttribute('x2',xx); }
+    if(idx!==S.uart.idx){ S.uart.idx=idx; S.uart.lv=bits[idx]; render(true); }
+  } else if(S.tab==='touch'){
+    const half = S.touch.finger ? 0.8 : 0.4, ph = Math.floor(elp/half)%2;
+    if(ph!==S.touch.ph){ S.touch.ph=ph; render(true); }
+  } else { raf=null; return; }
+  raf = requestAnimationFrame(tick);
+}
+
+/* =================== lienzo: mover y acercar =================== */
+const VW = 1320, VH = 760;
+const vp = $('vp'), stg = $('stg');
+const cam = {x:0, y:0, s:1};
+function applyCam(){
+  stg.style.transform = `translate(${cam.x}px,${cam.y}px)`;
+  if(sch){ sch.style.width = (VW*cam.s)+'px'; sch.style.height = (VH*cam.s)+'px'; }
+  vp.style.backgroundSize = `${24*cam.s}px ${24*cam.s}px`;
+  vp.style.backgroundPosition = `${cam.x}px ${cam.y}px`;
+  txt('z-val', Math.round(cam.s*100)+' %');
+}
+function clampCam(){
+  const w = vp.clientWidth, h = vp.clientHeight, m = 140;
+  cam.x = Math.min(w - m, Math.max(m - VW*cam.s, cam.x));
+  cam.y = Math.min(h - m, Math.max(m - VH*cam.s, cam.y));
+}
+function zoomAt(f, px, py){
+  const s = Math.max(0.3, Math.min(3, cam.s*f)), k = s/cam.s;
+  cam.x = px - (px-cam.x)*k; cam.y = py - (py-cam.y)*k; cam.s = s;
+  clampCam(); applyCam();
+}
+function fitCam(){
+  const w = vp.clientWidth, h = vp.clientHeight, g = 12;
+  const top = $('hdr').offsetHeight + g*2;
+  const wide = w >= 1100;
+  const L = wide ? $('legend').offsetWidth + g*2 : g, R = wide ? w - $('sw').offsetWidth - g*2 : w - g;
+  const availW = Math.max(200, R - L), availH = Math.max(200, h - top - g);
+  const s = Math.max(0.3, Math.min(1.5, Math.min(availW/VW, availH/VH)));
+  cam.s = s; cam.x = L + (availW - VW*s)/2; cam.y = top + (availH - VH*s)/2;
+  clampCam(); applyCam();
+}
+const pts = new Map(); let pinchD = null;
+vp.addEventListener('pointerdown', e=>{
+  vp.setPointerCapture(e.pointerId); pts.set(e.pointerId, {x:e.clientX, y:e.clientY}); vp.classList.add('drag');
+  if(pts.size===2){ const [a,b] = [...pts.values()]; pinchD = Math.hypot(a.x-b.x, a.y-b.y); }
+});
+vp.addEventListener('pointermove', e=>{
+  if(!pts.has(e.pointerId)) return;
+  const prev = pts.get(e.pointerId), cur = {x:e.clientX, y:e.clientY};
+  pts.set(e.pointerId, cur);
+  if(pts.size===1){ cam.x += cur.x-prev.x; cam.y += cur.y-prev.y; clampCam(); applyCam(); }
+  else if(pts.size===2 && pinchD){
+    const [a,b] = [...pts.values()], d = Math.hypot(a.x-b.x, a.y-b.y), r = vp.getBoundingClientRect();
+    zoomAt(d/pinchD, (a.x+b.x)/2 - r.left, (a.y+b.y)/2 - r.top); pinchD = d;
+  }
+});
+const ptrUp = e=>{ pts.delete(e.pointerId); if(pts.size<2) pinchD = null; if(!pts.size) vp.classList.remove('drag'); };
+vp.addEventListener('pointerup', ptrUp); vp.addEventListener('pointercancel', ptrUp);
+vp.addEventListener('wheel', e=>{
+  e.preventDefault();
+  const r = vp.getBoundingClientRect();
+  if(!e.ctrlKey && Math.abs(e.deltaX) > Math.abs(e.deltaY)){ cam.x -= e.deltaX; clampCam(); applyCam(); return; }
+  zoomAt(Math.exp(-e.deltaY*(e.ctrlKey?0.01:0.0015)), e.clientX - r.left, e.clientY - r.top);
+}, {passive:false});
+vp.addEventListener('keydown', e=>{
+  const w = vp.clientWidth/2, h = vp.clientHeight/2;
+  if(e.key==='+'||e.key==='='){ zoomAt(1.2,w,h); e.preventDefault(); }
+  else if(e.key==='-'){ zoomAt(1/1.2,w,h); e.preventDefault(); }
+  else if(e.key==='0'){ fitCam(); e.preventDefault(); }
+  else if(e.key.startsWith('Arrow')){ const d=40; if(e.key==='ArrowLeft') cam.x+=d; if(e.key==='ArrowRight') cam.x-=d; if(e.key==='ArrowUp') cam.y+=d; if(e.key==='ArrowDown') cam.y-=d; clampCam(); applyCam(); e.preventDefault(); }
+});
+$('z-in').addEventListener('click', ()=>zoomAt(1.25, vp.clientWidth/2, vp.clientHeight/2));
+$('z-out').addEventListener('click', ()=>zoomAt(1/1.25, vp.clientWidth/2, vp.clientHeight/2));
+$('z-fit').addEventListener('click', fitCam);
+addEventListener('resize', ()=>{ if(cvOpen){ clampCam(); applyCam(); } });
+
+/* =================== transición zoom pinout ↔ circuito =================== */
+const pv = $('pv'), cv = $('cv');
+function reduced(){ return matchMedia('(prefers-reduced-motion: reduce)').matches; }
+function openFromRow(p){ const r = p.row.getBoundingClientRect(); openCircuit(p, r.left + r.width/2, r.top + r.height/2); }
+function openCircuit(p, x, y){
+  if(p.gpio===null){ toast(`${p.name} es un pin de alimentación: no tiene circuito de GPIO.`); return; }
+  if(cvOpen) return;
+  cvOpen = true; pinned = null; setHover(null); hideTip();
+  if(!S.p){ applyPreset('none'); }
+  S.tab = 'digital';
+  cv.hidden = false;
+  setPin(p);
+  setExtOpen(false);
+  requestAnimationFrame(fitCam);
+  const pr = pv.getBoundingClientRect();
+  pv.getAnimations().forEach(an=>an.cancel());
+  pv.style.transformOrigin = `${x - pr.left}px ${y - pr.top}px`;
+  cv.style.transformOrigin = `${x}px ${y}px`;
+  document.body.classList.add('locked');
+  const dOut = reduced()?1:420, dIn = reduced()?1:520;
+  pv.animate([{transform:'scale(1)',opacity:1,filter:'blur(0)'},{transform:'scale(1.7)',opacity:0,filter:'blur(3px)'}],{duration:dOut,easing:'cubic-bezier(.5,0,.75,0)',fill:'forwards'})
+    .finished.then(()=>{ pv.style.visibility='hidden'; pv.inert = true; }).catch(()=>{});
+  cv.getAnimations().forEach(an=>an.cancel());
+  cv.animate([{transform:'scale(.55)',opacity:0},{transform:'scale(1)',opacity:1}],{duration:dIn,delay:reduced()?0:200,easing:'cubic-bezier(.16,.84,.3,1)',fill:'both'})
+    .finished.then(()=>{ vp.focus({preventScroll:true}); fitCam(); }).catch(()=>{});
+  startAnim();
+}
+function closeCircuit(){
+  if(!cvOpen) return;
+  cvOpen = false; hideMpop(); clearInterval(floatTimer); stopAnim(); clearTimeout(wakeT); bootT.forEach(clearTimeout);
+  try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){}
+  const p = S.p;
+  pv.style.visibility=''; pv.inert = false;
+  document.body.classList.remove('locked');
+  p.row.scrollIntoView({block:'center', inline:'center'});
+  const rr = p.row.getBoundingClientRect(), pr = pv.getBoundingClientRect();
+  pv.style.transformOrigin = `${rr.left + rr.width/2 - pr.left}px ${rr.top + rr.height/2 - pr.top}px`;
+  cv.style.transformOrigin = `${rr.left + rr.width/2}px ${rr.top + rr.height/2}px`;
+  cv.getAnimations().forEach(an=>an.cancel());
+  pv.getAnimations().forEach(an=>an.cancel());
+  const dOut = reduced()?1:320, dIn = reduced()?1:480;
+  cv.animate([{transform:'scale(1)',opacity:1},{transform:'scale(.55)',opacity:0}],{duration:dOut,easing:'cubic-bezier(.5,0,.75,0)',fill:'forwards'})
+    .finished.then(()=>{ cv.hidden = true; cv.getAnimations().forEach(an=>an.cancel()); }).catch(()=>{});
+  pv.animate([{transform:'scale(1.7)',opacity:0,filter:'blur(3px)'},{transform:'scale(1)',opacity:1,filter:'blur(0)'}],{duration:dIn,delay:reduced()?0:140,easing:'cubic-bezier(.16,.84,.3,1)',fill:'backwards'})
+    .finished.then(()=>{ p.row.focus({preventScroll:true}); }).catch(()=>{});
+}
+$('cv-back').addEventListener('click', closeCircuit);
+
+try{
+  const mh = location.hash.match(/^#gpio(\d+)$/);
+  if(mh){ const p = PINS.find(x=>x.gpio===+mh[1]); if(p) requestAnimationFrame(()=>openFromRow(p)); }
+}catch(e){}
+
+})();
+</script>
+
+</body></html>
