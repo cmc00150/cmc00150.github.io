@@ -233,10 +233,7 @@ kbd{font:600 11.5px/1 var(--font-mono);border:1px solid var(--line);border-botto
 .fact p{margin:0;font-size:13.5px;color:var(--muted)}
 .fact code,.foot code{font:600 12px/1 var(--font-mono);color:var(--fg)}
 .foot{font-size:12.5px;color:var(--muted);margin:0;max-width:90ch}
-.author{margin:18px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
-.author strong{color:var(--fg);font-weight:600}
-.author a{color:inherit;text-decoration:underline;text-underline-offset:3px}
-.author a:hover{color:var(--fg)}
+
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);z-index:60;background:var(--fg);color:var(--bg);padding:10px 14px;border-radius:10px;font-size:13.5px;max-width:calc(100vw - 32px);box-shadow:var(--shadow)}
 
 /* ===================== vista de circuito ===================== */
@@ -673,8 +670,6 @@ kbd{font:600 11.5px/1 var(--font-mono);border:1px solid var(--line);border-botto
       <div class="fact"><h3>PWM con LEDC</h3><p><code>ledcAttach(pin, frecuencia, resolución)</code>. Con 8 bits el ciclo va de 0 a 255: <code>ledcWrite(pin, 128)</code> ≈ 50 %.</p></div>
     </div>
     <p class="foot">Los GPIO 20, 24 y 28–31 no existen en el chip, y el 37 y el 38 existen pero el módulo WROOM-32 no los saca. Casi todos los periféricos (I2C, SPI, UART, PWM) se pueden reasignar a otros pines gracias a la matriz de GPIO; los pines marcados son los que usa Arduino por defecto. Datos según tus apuntes y el datasheet de Espressif; algunas placas clónicas cambian el LED integrado o el conector USB.</p>
-    <p class="author">Hecho por <strong>César Moreno Cabello</strong> ·
-    <a href="https://github.com/cmc00150" target="_blank" rel="noopener">@cmc00150</a> en GitHub</p>
   </section>
 </div>
 </div>
@@ -1081,6 +1076,15 @@ tip.addEventListener('click', e=>{
 });
 document.addEventListener('click', e=>{ if(pinned && !tip.contains(e.target)){ pinned=null; setHover(null); hideTip(); } });
 document.addEventListener('keydown', e=>{
+  if(!cvOpen && !e.ctrlKey && !e.metaKey && !e.altKey){
+    const t = e.target, typing = t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable);
+    if(!typing && /^[0-9]$/.test(e.key)){
+      numQ = (numQ.length>=2 ? '' : numQ) + e.key;
+      applyFilter(); return;
+    }
+    if(!typing && e.key==='Backspace' && numQ){ numQ = numQ.slice(0,-1); applyFilter(); return; }
+    if(e.key==='Escape' && numQ){ numQ = ''; applyFilter(); return; }
+  }
   if(e.key!=='Escape') return;
   if(cvOpen){ if(!document.getElementById('extpop').hidden){ setExtOpen(false); return; } closeCircuit(); return; }
   pinned=null; setHover(null); hideTip();
@@ -1115,24 +1119,31 @@ $('m-any').addEventListener('click', ()=>{ fmode='any'; applyFilter(); });
 $('m-all').addEventListener('click', ()=>{ fmode='all'; applyFilter(); });
 $('clear').addEventListener('click', ()=>{ sel.length=0; applyFilter(); });
 
+/* búsqueda por número: escribir dígitos resalta los GPIO que empiezan así; Esc la borra */
+let numQ = '';
 function applyFilter(){
-  const filtering = sel.length>0;
+  const byNum = numQ!=='';
+  const filtering = byNum || sel.length>0;
   stage.classList.toggle('filtering', filtering);
   let count = 0;
   PINS.forEach(p=>{
     const m = sel.filter(g=>p.groups.has(g));
-    const hit = filtering && (fmode==='any' ? m.length>0 : m.length===sel.length);
+    const hit = byNum
+      ? (p.gpio!==null && String(p.gpio).startsWith(numQ))
+      : (filtering && (fmode==='any' ? m.length>0 : m.length===sel.length));
     p.row.classList.toggle('hit', hit);
     p.pad.classList.toggle('hit', hit);
-    if(hit){ const h = GBY[m[0]].h; p.row.style.setProperty('--gh',h); p.pad.style.setProperty('--gh',h); count++; }
-    p.chipEls.forEach(c=>c.el.classList.toggle('lit', hit && !!c.group && sel.includes(c.group)));
+    if(hit){ const h = byNum ? 200 : GBY[m[0]].h; p.row.style.setProperty('--gh',h); p.pad.style.setProperty('--gh',h); count++; }
+    p.chipEls.forEach(c=>c.el.classList.toggle('lit', !byNum && hit && !!c.group && sel.includes(c.group)));
   });
   GROUPS.forEach(g=>badgeEls[g.id].setAttribute('aria-pressed', String(sel.includes(g.id))));
   $('m-any').setAttribute('aria-pressed', String(fmode==='any'));
   $('m-all').setAttribute('aria-pressed', String(fmode==='all'));
   $('clear').disabled = !filtering;
-  $('count').textContent = filtering ? `${count} de ${PINS.length} pines resaltados` : `${PINS.length} pines`;
-  $('explain').innerHTML = filtering
+  $('count').textContent = byNum
+    ? (count ? `GPIO que empiezan por «${numQ}»: ${count} (Esc para salir)` : `Ningún GPIO empieza por «${numQ}» (Esc para salir)`)
+    : filtering ? `${count} de ${PINS.length} pines resaltados` : `${PINS.length} pines`;
+  $('explain').innerHTML = filtering && !byNum
     ? sel.map(id=>{ const g=GBY[id]; return `<li style="--h:${g.h}"><span class="dot"></span><span><b>${g.name}.</b> ${esc(g.desc)}</span></li>`; }).join('')
     : '<li style="--h:200"><span class="dot"></span><span>Sin selección: se muestran todos los pines. Prueba, por ejemplo, <b>Uso libre</b> + <b>ADC1</b> con «todos» para ver qué pines analógicos puedes usar sin miedo con WiFi.</span></li>';
 }
