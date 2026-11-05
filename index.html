@@ -233,7 +233,10 @@ kbd{font:600 11.5px/1 var(--font-mono);border:1px solid var(--line);border-botto
 .fact p{margin:0;font-size:13.5px;color:var(--muted)}
 .fact code,.foot code{font:600 12px/1 var(--font-mono);color:var(--fg)}
 .foot{font-size:12.5px;color:var(--muted);margin:0;max-width:90ch}
-
+.author{margin:18px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.author strong{color:var(--fg);font-weight:600}
+.author a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.author a:hover{color:var(--fg)}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);z-index:60;background:var(--fg);color:var(--bg);padding:10px 14px;border-radius:10px;font-size:13.5px;max-width:calc(100vw - 32px);box-shadow:var(--shadow)}
 
 /* ===================== vista de circuito ===================== */
@@ -670,6 +673,8 @@ kbd{font:600 11.5px/1 var(--font-mono);border:1px solid var(--line);border-botto
       <div class="fact"><h3>PWM con LEDC</h3><p><code>ledcAttach(pin, frecuencia, resolución)</code>. Con 8 bits el ciclo va de 0 a 255: <code>ledcWrite(pin, 128)</code> ≈ 50 %.</p></div>
     </div>
     <p class="foot">Los GPIO 20, 24 y 28–31 no existen en el chip, y el 37 y el 38 existen pero el módulo WROOM-32 no los saca. Casi todos los periféricos (I2C, SPI, UART, PWM) se pueden reasignar a otros pines gracias a la matriz de GPIO; los pines marcados son los que usa Arduino por defecto. Datos según tus apuntes y el datasheet de Espressif; algunas placas clónicas cambian el LED integrado o el conector USB.</p>
+    <p class="author">Hecho por <strong>César Moreno Cabello</strong> ·
+    <a href="https://github.com/cmc00150" target="_blank" rel="noopener">@cmc00150</a> en GitHub</p>
   </section>
 </div>
 </div>
